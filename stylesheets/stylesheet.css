@@ -12,6 +12,11 @@ body {
 
 .container {
   width: 90%;
+  max-width: 85%;
+  margin: 0 auto;
+}
+.container-super {
+  width: 90%;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -150,11 +155,11 @@ blockquote {
 }
 
 pre {
-  background: rgba(0, 0, 0, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgb(39, 40, 34);
+  border: 1px solid rgba(180, 230, 80, 0.25);
   padding: 10px;
   font-size: 14px;
-  color: #b5e853;
+  color: #FFF;
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;

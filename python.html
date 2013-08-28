@@ -1,44 +1,64 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/gments/monokai.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <title>Python: faster way by zokis</title>
-  </head>
+<head>
+	<title>Python: Faster Way</title>
+	<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
+	<style type="text/css">
+		body{
+			/* Old browsers */
+			background: #456791;
+			/* FF3.6+ */
+			background: -moz-linear-gradient(top,#456791 0%, #385880 30%, #224470 100%);
+			/* Chrome,Safari4+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#456791), color-stop(30%,#385880), color-stop(100%,#224470));
+			/* Chrome10+,Safari5.1+ */
+			background: -webkit-linear-gradient(top,#456791 0%,#385880 30%,#224470 100%);
+			/* Opera 11.10+ */
+			background: -o-linear-gradient(top,#456791 0%,#385880 30%,#224470 100%);
+			/* IE10+ */
+			background: -ms-linear-gradient(top,#456791 0%,#385880 30%,#224470 100%);
+			/* W3C */
+			background: linear-gradient(to bottom,#456791 0%,#385880 30%,#224470 100%);
+			/* IE6-9 */
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#456791',endColorstr='#224470',GradientType=0);
 
-  <body>
-    <header>
-      <div class="container-super">
-        <h1>Python: faster way</h1>
-        <h2>Tricks for your code run faster</h2>
-      </div>
-    </header>
-
-<div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12">
-        <pre class="python">
+			padding-top: 19px
+		}
+		pre{
+			background-color: #212120;
+			color: #DCDCDC
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12 well">
+				<center>
+					<h1>
+						Python: Faster Way
+					</h1>
+				</center>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<pre>
 >>> import sys
->>> import platform
->>> platform.system()
-'Linux'
->>> platform.release()
-'3.8.0-29-generic'
 >>> sys.version
 '2.7.4 (default, Apr 19 2013, 18:28:01) \n[GCC 4.7.3]'
 >>> from timeit import timeit as time_it
+>>> def timeit(f):
+...     return sum(time_it(f) for i in range(100))/100
+... 
 >>> from dis import dis
->>> 
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:280px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:280px">
 >>> def a(): 
 ...     d = {} 
 ...     return d 
@@ -52,10 +72,10 @@
 >>> 
 >>> timeit(a)
 0.09059309959411621
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:280px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:280px">
 >>> def a(): 
 ...     d = dict() 
 ...     return d 
@@ -70,12 +90,12 @@
 >>> 
 >>> timeit(a)
 0.21603679656982422
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span4">
-        <pre style="height:520px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<pre style="height:520px">
 >>> def a(): 
 ...     a = True 
 ...     if a: 
@@ -98,10 +118,10 @@
 >>> 
 >>> timeit(a)
 0.1288449764251709
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:520px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:520px">
 >>> def a(): 
 ...     a = True 
 ...     if a is True: 
@@ -126,10 +146,10 @@
 >>> 
 >>> timeit(a)
 0.15628480911254883
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:520px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:520px">
 >>> def a(): 
 ...     a = True 
 ...     if a == True: 
@@ -156,12 +176,12 @@
 >>> 
 >>> timeit(a)
 0.16727304458618164
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span4">
-        <pre style="height:500px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<pre style="height:500px">
 >>> def a(): 
 ...     a = 1 
 ...     if a is not 2: 
@@ -187,10 +207,10 @@
 >>> 
 >>> timeit(a)
 0.1171870231628418
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:500px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:500px">
 >>> def a(): 
 ...     a = 1 
 ...     if not a is 2: 
@@ -214,10 +234,10 @@
 >>> 
 >>> timeit(a)
 0.12001895904541016
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:500px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:500px">
 >>> def a(): 
 ...     a = 1 
 ...     if a != 2: 
@@ -241,12 +261,12 @@
 >>> 
 >>> timeit(a)
 0.17791104316711426
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span3">
-        <pre style="height:500px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span3">
+				<pre style="height:500px">
 >>> def a():
 ...     a = []
 ...     if a:
@@ -268,10 +288,10 @@
 >>> 
 >>> timeit(a)
 0.11919498443603516
-        </pre>
-      </div>
-      <div class="span3">
-        <pre style="height:500px">
+				</pre>
+			</div>
+			<div class="span3">
+				<pre style="height:500px">
 >>> def a():
 ...     a = []
 ...     if not a:
@@ -295,10 +315,10 @@
 >>> 
 >>> timeit(a)
 0.0989830493927002
-        </pre>
-      </div>
-      <div class="span3">
-        <pre style="height:500px">
+				</pre>
+			</div>
+			<div class="span3">
+				<pre style="height:500px">
 >>> def a():
 ...     a = []
 ...     if a == []:
@@ -322,10 +342,10 @@
 >>> 
 >>> timeit(a)
 0.152724027633667
-        </pre>
-      </div>
-      <div class="span3">
-        <pre style="height:500px">
+				</pre>
+			</div>
+			<div class="span3">
+				<pre style="height:500px">
 >>> def a():
 ...     a = []
 ...     if len(a) &lt;= 0:
@@ -351,12 +371,12 @@
 >>> 
 >>> timeit(a)
 0.18400812149047852
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span3">
-        <pre style="height:480px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span3">
+				<pre style="height:480px">
 >>> def a():
 ...     a = object()
 ...     if not a:
@@ -379,10 +399,10 @@
              22 RETURN_VALUE        
 >>> timeit(a)
 0.17762112617492676
-        </pre>
-      </div>
-      <div class="span3">
-        <pre style="height:480px">
+				</pre>
+			</div>
+			<div class="span3">
+				<pre style="height:480px">
 >>> def a():
 ...     a = object()
 ...     if a is None:
@@ -407,10 +427,10 @@
              28 RETURN_VALUE        
 >>> timeit(a)
 0.2032458782196045
-        </pre>
-      </div>
-      <div class="span3">
-        <pre style="height:480px">
+				</pre>
+			</div>
+			<div class="span3">
+				<pre style="height:480px">
 >>> def a():
 ...     a = object()
 ...     if a:
@@ -433,10 +453,10 @@
              22 RETURN_VALUE        
 >>> timeit(a)
 0.17735886573791504
-        </pre>
-      </div>
-      <div class="span3">
-        <pre style="height:480px">
+				</pre>
+			</div>
+			<div class="span3">
+				<pre style="height:480px">
 >>> def a():
 ...     a = object()
 ...     if a is not None:
@@ -461,12 +481,12 @@
              28 RETURN_VALUE        
 >>> timeit(a)
 0.19365406036376953
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:1000px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:1000px">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     s = 0
@@ -515,10 +535,10 @@
              79 RETURN_VALUE        
 >>> timeit(a)
 0.7968449592590332
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:1000px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:1000px">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     s = 0
@@ -569,12 +589,12 @@
              83 RETURN_VALUE        
 >>> timeit(a)
 0.8638288974761963
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:760px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:760px">
 >>> def a():
 ...     r = ''
 ...     for i in range(10):
@@ -609,10 +629,10 @@
              48 RETURN_VALUE        
 >>> timeit(a)
 1.964811086654663
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:760px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:760px">
 >>> def a():
 ...     r = []
 ...     for i in range(10):
@@ -651,12 +671,12 @@
              60 RETURN_VALUE        
 >>> timeit(a)
 2.6579368114471436
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span4">
-        <pre style="height:580px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<pre style="height:580px">
 >>> def a():
 ...     a = 5
 ...     b = 2
@@ -686,10 +706,10 @@
              33 RETURN_VALUE        
 >>> timeit(a)
 0.6534428596496582
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:580px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:580px">
 >>> def a():
 ...     a = 5
 ...     b = 2
@@ -719,10 +739,10 @@
              35 RETURN_VALUE        
 >>> timeit(a)
 0.27884984016418457
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:580px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:580px">
 >>> def a():
 ...     a = 5
 ...     b = 2
@@ -752,12 +772,12 @@
              33 RETURN_VALUE        
 >>> timeit(a)
 0.23713302612304688
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:380px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:380px">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     return a.__len__()
@@ -777,10 +797,10 @@
              30 RETURN_VALUE        
 >>> timeit(a)
 0.24736285209655762
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:380px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:380px">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     return len(a)
@@ -800,12 +820,12 @@
              30 RETURN_VALUE        
 >>> timeit(a)
 0.22818613052368164
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:720px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:720px">
 >>> def a():
 ...     a = 1
 ...     b = 2
@@ -842,10 +862,10 @@
              54 RETURN_VALUE        
 >>> timeit(a)
 0.4007859230041504
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:720px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:720px">
 >>> def a():
 ...     a = 1
 ...     b = 2
@@ -879,12 +899,12 @@
              39 RETURN_VALUE        
 >>> timeit(a)
 0.17691397666931152
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:820px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:820px">
 >>> class Z():
 ...     def __init__(self,v):
 ...         self.v = v
@@ -924,10 +944,10 @@
              47 RETURN_VALUE        
 >>> timeit(a)
 3.0483150482177734
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:820px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:820px">
 >>> class Z():
 ...     def __init__(self,v):
 ...         self.v = v
@@ -969,12 +989,12 @@
              57 RETURN_VALUE        
 >>> timeit(a)
 2.027787923812866
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:620px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:620px">
 >>> def a():
 ...     s = 0
 ...     for i in range(50000):
@@ -1006,10 +1026,10 @@
              42 RETURN_VALUE 
 >>> timeit(a, number=500)
 0.9544589519500732
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:620px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:620px">
 >>> def a():
 ...     return sum(i for i in range(50000))
 ...     
@@ -1029,12 +1049,12 @@
              25 RETURN_VALUE 
 >>> timeit(a, number=500)
 1.1507539749145508
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <pre style="height:600px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<pre style="height:600px">
 >>> def a():
 ...     l = []
 ...     for i in range(1000):
@@ -1065,10 +1085,10 @@
              45 RETURN_VALUE        
 >>> timeit(a)
 74.72631120681763
-        </pre>
-      </div>
-      <div class="span6">
-        <pre style="height:600px">
+				</pre>
+			</div>
+			<div class="span6">
+				<pre style="height:600px">
 >>> def a():
 ...     return [i for i in range(1000)]
 ... 
@@ -1086,12 +1106,12 @@
         >>   28 RETURN_VALUE        
 >>> timeit(a)
 31.74762511253357
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span4">
-        <pre style="height:740px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<pre style="height:740px">
 >>> def a():
 ...     d = {}
 ...     for i in range(100):
@@ -1129,10 +1149,10 @@
              62 RETURN_VALUE        
 >>> timeit(a)
 43.51503276824951
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:740px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:740px">
 >>> def a():
 ...     d = {}
 ...     for i in range(100):
@@ -1166,10 +1186,10 @@
              52 RETURN_VALUE        
 >>> timeit(a)
 22.53758192062378
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:740px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:740px">
 >>> def a():
 ...     return {str(i):i*2 for i in range(100)}
 ... 
@@ -1184,12 +1204,12 @@
              19 RETURN_VALUE        
 >>> timeit(a)
 21.24774694442749
-        </pre>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span4">
-        <pre style="height:860px">
+				</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<pre style="height:860px">
 >>> def a():
 ...     l = range(50,-20,-2)
 ...     d = {}
@@ -1233,10 +1253,10 @@
              76 RETURN_VALUE        
 >>> timeit(a)
 10.904900074005127
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:860px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:860px">
 >>> def a():
 ...     l = range(50,-20,-2)
 ...     d = {}
@@ -1276,10 +1296,10 @@
              66 RETURN_VALUE        
 >>> timeit(a)
 3.2161331176757812
-        </pre>
-      </div>
-      <div class="span4">
-        <pre style="height:860px">
+				</pre>
+			</div>
+			<div class="span4">
+				<pre style="height:860px">
 >>> def a():
 ...     l = range(50,-20,-2)
 ...     return {p:v for p,v in enumerate(l)}
@@ -1302,9 +1322,9 @@
              37 RETURN_VALUE        
 >>> timeit(a)
 3.210350933074951
-        </pre>
-      </div>
-    </div>
+				</pre>
+			</div>
+		</div>
         <div class="row-fluid">
           <div class="span2">
             <pre style="height:560px">
@@ -1669,17 +1689,6 @@
                 </pre>
             </div>
         </div>
-</div>
-
-<script src="javascripts/highlight.pack.js"></script>
-<script>
-    window.onload = function() {
-        var aCodes = document.getElementsByTagName('pre');
-        for (var i = 0; i < aCodes.length; i++) {
-            hljs.highlightBlock(aCodes[i]);
-        }
-    };
-</script>
-
-  </body>
+	</div>
+</body>
 </html>
