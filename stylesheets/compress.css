@@ -973,9 +973,9 @@ section{display:block;margin:0 0 20px}
 h1,h2,h3,h4,h5,h6{margin:0 0 20px}
 li{line-height:1.4}
 header{width:100%;margin:0 0 40px;padding:20px 0;background:rgba(0,0,0,.1);border-bottom:1px dashed #b5e853}
-header h1{margin:0 0 0 -40px;font-family:Monaco,"Bitstream Vera Sans Mono","Lucida Console",Terminal,monospace;font-size:30px;font-weight:700;color:#b5e853;letter-spacing:-1px;line-height:1.5;text-shadow:0 1px 1px rgba(0,0,0,.1),0 0 5px rgba(181,232,83,.1),0 0 10px rgba(181,232,83,.1);-webkit-font-smoothing:antialiased}
+header h1{text-align: center;font-weight: 300;margin:0 0 0 -40px;font-family:Monaco,"Bitstream Vera Sans Mono","Lucida Console",Terminal,monospace;font-size:30px;color:#b5e853;letter-spacing:-1px;line-height:1.5;text-shadow:0 1px 1px rgba(0,0,0,.1),0 0 5px rgba(181,232,83,.1),0 0 10px rgba(181,232,83,.1);-webkit-font-smoothing:antialiased}
 header h1:before{content:"./ ";font-size:24px}
-header h2{font-size:18px;font-weight:300;color:#666}
+header h2{text-align: center;font-size:18px;font-weight:300;color:#666}
 #downloads .btn{display:inline-block;margin:0;text-align:center}
 #main_content{width:100%;-webkit-font-smoothing:antialiased}
 section img{max-width:100%}
