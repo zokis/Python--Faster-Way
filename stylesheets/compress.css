@@ -990,7 +990,7 @@ dt{font-style:italic;font-weight:700}
 ul li{list-style:none}
 ul li:before{content:">>";margin-right:21px;margin-left:-37px;font-family:Monaco,"Bitstream Vera Sans Mono","Lucida Console",Terminal,monospace;font-size:13px;color:#b5e853;line-height:16px}
 blockquote{padding-left:10px;color:#aaa;border-left:1px dotted #666}
-pre{overflow:auto;overflow-y:scroll;padding:10px;background:#272822;font-size:14px;color:#FFF;text-wrap:normal;border:1px solid rgba(180,230,80,.25);border-radius:12px;-moz-border-radius:12px;-webkit-border-radius:12px}
+pre{overflow-y:hidden;padding:10px;background:#272822;font-size:14px;color:#FFF;text-wrap:normal;border:1px solid rgba(180,230,80,.25);border-radius:12px;-moz-border-radius:12px;-webkit-border-radius:12px}
 table{width:100%;margin:0 0 20px}
 th{padding:5px 10px;text-align:left;border-bottom:1px dashed #b5e853}
 td{padding:5px 10px}
