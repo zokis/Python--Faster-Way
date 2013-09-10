@@ -184,14 +184,14 @@
     <div class="row-fluid">
         <div class="span6"> <pre class="python">
 >>> def a():
-...     a, b, c, d, e, f = 25, 5, 52, 2, 225, 552
+...     a, b, c, d, e, f = 2, 5, 52, 25, 225, 552
 ...     if a < b < c < d < e < f:
 ...         return True
 ...     return False
 ...     
 ... 
 >>> dis(a)
-  3           0 LOAD_CONST               7 ((25, 5, 52, 2, 225, 552))
+  3           0 LOAD_CONST               7 ((2, 5, 52, 25, 225, 552))
               3 UNPACK_SEQUENCE          6
               6 STORE_FAST               0 (a)
               9 STORE_FAST               1 (b)
@@ -234,20 +234,20 @@
   6     >>   89 LOAD_GLOBAL              1 (False)
              92 RETURN_VALUE        
 >>> timeit(a)
-0.19644498825073242
+0.23741507530212402
         </pre>
 
         </div>
         <div class="span6"> <pre class="python">
 >>> def a():
-...     a, b, c, d, e, f = 25, 5, 52, 2, 225, 552
+...     a, b, c, d, e, f = 2, 5, 52, 25, 225, 552
 ...     if a < b and b < c and c < d and d < e and e < f:
 ...         return True
 ...     return False
 ...     
 ... 
 >>> dis(a)
-  3           0 LOAD_CONST               7 ((25, 5, 52, 2, 225, 552))
+  3           0 LOAD_CONST               7 ((2, 5, 52, 25, 225, 552))
               3 UNPACK_SEQUENCE          6
               6 STORE_FAST               0 (a)
               9 STORE_FAST               1 (b)
@@ -283,7 +283,7 @@
   6     >>   88 LOAD_GLOBAL              1 (False)
              91 RETURN_VALUE        
 >>> timeit(a)
-0.1738450527191162
+0.1962449550628662
         </pre>
 
         </div>
