@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-    
     <head>
         <meta charset='utf-8'>
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -10,25 +9,22 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/compress.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="stylesheets/gments/monokai.css" media="screen" />
         <title>Python: faster way by zokis</title>
-    </head>
-    
-    <body>
-        <header>
-            <div class="container-super">
-                 <h1>Python: faster way</h1>
-
-                 <h2>
+    </head>    
+<body>
+<header>
+    <div class="container-super">
+         <h1>Python: faster way</h1>
+         <h2>
           Tricks for your code run faster --
           <a href="https://github.com/zokis/Python--Faster-Way">
             <img src="images/blacktocat.png">
           </a>
-        </h2>
-
-            </div>
-        </header>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12"> <pre class="python">
+         </h2>
+    </div>
+</header>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12"> <pre class="python">
 >>> import sys
 >>> import platform
 >>> platform.system()
@@ -42,10 +38,10 @@
 >>> 
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a(): 
 ...     d = {} 
 ...     return d 
@@ -61,8 +57,8 @@
 0.09059309959411621
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a(): 
 ...     d = dict() 
 ...     return d 
@@ -79,10 +75,112 @@
 0.21603679656982422
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
+>>> def a():
+...     a, b, c, d, e, f, g, h, i, j = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+...     return j, i, h, g, f, e, d, c, b, a
+...     
+... 
+>>> dis(a)
+  3           0 LOAD_CONST              11 ((0, 1, 2, 3, 4, 5, 6, 7, 8, 9))
+              3 UNPACK_SEQUENCE         10
+              6 STORE_FAST               0 (a)
+              9 STORE_FAST               1 (b)
+             12 STORE_FAST               2 (c)
+             15 STORE_FAST               3 (d)
+             18 STORE_FAST               4 (e)
+             21 STORE_FAST               5 (f)
+             24 STORE_FAST               6 (g)
+             27 STORE_FAST               7 (h)
+             30 STORE_FAST               8 (i)
+             33 STORE_FAST               9 (j)
+
+  4          36 LOAD_FAST                9 (j)
+             39 LOAD_FAST                8 (i)
+             42 LOAD_FAST                7 (h)
+             45 LOAD_FAST                6 (g)
+             48 LOAD_FAST                5 (f)
+             51 LOAD_FAST                4 (e)
+             54 LOAD_FAST                3 (d)
+             57 LOAD_FAST                2 (c)
+             60 LOAD_FAST                1 (b)
+             63 LOAD_FAST                0 (a)
+             66 BUILD_TUPLE             10
+             69 RETURN_VALUE        
+>>> timeit(a)
+0.22710919380187988
+        </pre>
+
+        </div>
+        <div class="span6"> <pre class="python">
+>>> def a():
+...     a = 0
+...     b = 1
+...     c = 2
+...     d = 3
+...     e = 4 
+...     f = 5
+...     g = 6
+...     h = 7
+...     i = 8
+...     j = 9
+...     return j, i, h, g, f, e, d, c, b, a
+...     
+... 
+>>> dis(a)
+  3           0 LOAD_CONST               1 (0)
+              3 STORE_FAST               0 (a)
+
+  4           6 LOAD_CONST               2 (1)
+              9 STORE_FAST               1 (b)
+
+  5          12 LOAD_CONST               3 (2)
+             15 STORE_FAST               2 (c)
+
+  6          18 LOAD_CONST               4 (3)
+             21 STORE_FAST               3 (d)
+
+  7          24 LOAD_CONST               5 (4)
+             27 STORE_FAST               4 (e)
+
+  8          30 LOAD_CONST               6 (5)
+             33 STORE_FAST               5 (f)
+
+  9          36 LOAD_CONST               7 (6)
+             39 STORE_FAST               6 (g)
+
+ 10          42 LOAD_CONST               8 (7)
+             45 STORE_FAST               7 (h)
+
+ 11          48 LOAD_CONST               9 (8)
+             51 STORE_FAST               8 (i)
+
+ 12          54 LOAD_CONST              10 (9)
+             57 STORE_FAST               9 (j)
+
+ 13          60 LOAD_FAST                9 (j)
+             63 LOAD_FAST                8 (i)
+             66 LOAD_FAST                7 (h)
+             69 LOAD_FAST                6 (g)
+             72 LOAD_FAST                5 (f)
+             75 LOAD_FAST                4 (e)
+             78 LOAD_FAST                3 (d)
+             81 LOAD_FAST                2 (c)
+             84 LOAD_FAST                1 (b)
+             87 LOAD_FAST                0 (a)
+             90 BUILD_TUPLE             10
+             93 RETURN_VALUE        
+>>> timeit(a)
+0.2503318786621094
+        </pre>
+
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a, b, c, d, e, f = 25, 5, 52, 2, 225, 552
 ...     if a < b < c < d < e < f:
@@ -137,8 +235,8 @@
 0.19644498825073242
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a, b, c, d, e, f = 25, 5, 52, 2, 225, 552
 ...     if a < b and b < c and c < d and d < e and e < f:
@@ -186,10 +284,10 @@
 0.1738450527191162
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a(): 
 ...     a = True 
 ...     if a: 
@@ -214,8 +312,8 @@
 0.1288449764251709
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a(): 
 ...     a = True 
 ...     if a is True: 
@@ -242,8 +340,8 @@
 0.15628480911254883
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a(): 
 ...     a = True 
 ...     if a == True: 
@@ -272,10 +370,10 @@
 0.16727304458618164
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a(): 
 ...     a = 1 
 ...     if a is not 2: 
@@ -303,8 +401,8 @@
 0.1171870231628418
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a(): 
 ...     a = 1 
 ...     if not a is 2: 
@@ -330,8 +428,8 @@
 0.12001895904541016
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a(): 
 ...     a = 1 
 ...     if a != 2: 
@@ -357,10 +455,10 @@
 0.17791104316711426
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span3"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = []
 ...     if a:
@@ -384,8 +482,8 @@
 0.11919498443603516
         </pre>
 
-                </div>
-                <div class="span3"> <pre class="python">
+        </div>
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = []
 ...     if not a:
@@ -411,8 +509,8 @@
 0.0989830493927002
         </pre>
 
-                </div>
-                <div class="span3"> <pre class="python">
+        </div>
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = []
 ...     if a == []:
@@ -438,8 +536,8 @@
 0.152724027633667
         </pre>
 
-                </div>
-                <div class="span3"> <pre class="python">
+        </div>
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = []
 ...     if len(a) &lt;= 0:
@@ -467,10 +565,10 @@
 0.18400812149047852
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span3"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = object()
 ...     if not a:
@@ -495,8 +593,8 @@
 0.17762112617492676
         </pre>
 
-                </div>
-                <div class="span3"> <pre class="python">
+        </div>
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = object()
 ...     if a is None:
@@ -523,8 +621,8 @@
 0.2032458782196045
         </pre>
 
-                </div>
-                <div class="span3"> <pre class="python">
+        </div>
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = object()
 ...     if a:
@@ -549,8 +647,8 @@
 0.17735886573791504
         </pre>
 
-                </div>
-                <div class="span3"> <pre class="python">
+        </div>
+        <div class="span3"> <pre class="python">
 >>> def a():
 ...     a = object()
 ...     if a is not None:
@@ -577,10 +675,10 @@
 0.19365406036376953
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     s = 0
@@ -631,8 +729,8 @@
 0.7968449592590332
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     s = 0
@@ -685,10 +783,10 @@
 0.8638288974761963
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     r = ''
 ...     for i in range(10):
@@ -725,8 +823,8 @@
 1.964811086654663
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     r = []
 ...     for i in range(10):
@@ -767,10 +865,10 @@
 2.6579368114471436
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = 5
 ...     b = 2
@@ -802,8 +900,8 @@
 0.6534428596496582
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = 5
 ...     b = 2
@@ -835,8 +933,8 @@
 0.27884984016418457
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = 5
 ...     b = 2
@@ -868,10 +966,10 @@
 0.23713302612304688
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     return a.__len__()
@@ -893,8 +991,8 @@
 0.24736285209655762
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     return len(a)
@@ -916,10 +1014,10 @@
 0.22818613052368164
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     b = 2
@@ -958,8 +1056,8 @@
 0.4007859230041504
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     b = 2
@@ -995,10 +1093,10 @@
 0.17691397666931152
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> class Z():
 ...     def __init__(self,v):
 ...         self.v = v
@@ -1040,8 +1138,8 @@
 3.0483150482177734
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> class Z():
 ...     def __init__(self,v):
 ...         self.v = v
@@ -1085,10 +1183,10 @@
 2.027787923812866
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     s = 0
 ...     for i in range(50000):
@@ -1122,8 +1220,8 @@
 0.9544589519500732
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     return sum(i for i in range(50000))
 ...     
@@ -1145,10 +1243,10 @@
 1.1507539749145508
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     l = []
 ...     for i in range(1000):
@@ -1181,8 +1279,8 @@
 74.72631120681763
         </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     return [i for i in range(1000)]
 ... 
@@ -1202,10 +1300,10 @@
 31.74762511253357
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     d = {}
 ...     for i in range(100):
@@ -1245,8 +1343,8 @@
 43.51503276824951
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     d = {}
 ...     for i in range(100):
@@ -1282,8 +1380,8 @@
 22.53758192062378
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     return {str(i):i*2 for i in range(100)}
 ... 
@@ -1300,10 +1398,10 @@
 21.24774694442749
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     l = range(50,-20,-2)
 ...     d = {}
@@ -1349,8 +1447,8 @@
 10.904900074005127
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     l = range(50,-20,-2)
 ...     d = {}
@@ -1392,8 +1490,8 @@
 3.2161331176757812
         </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     l = range(50,-20,-2)
 ...     return {p:v for p,v in enumerate(l)}
@@ -1418,10 +1516,10 @@
 3.210350933074951
         </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span2"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2"> <pre class="python">
 >>> def a():
 ...     a = 0
 ...     return bool(a)
@@ -1438,8 +1536,8 @@
 0.21692705154418945
             </pre>
 
-                </div>
-                <div class="span2"> <pre class="python">
+        </div>
+        <div class="span2"> <pre class="python">
 >>> def a():
 ...     a = True
 ...     return bool(a)
@@ -1456,8 +1554,8 @@
 0.22511601448059082
             </pre>
 
-                </div>
-                <div class="span2"> <pre class="python">
+        </div>
+        <div class="span2"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     return bool(a)
@@ -1474,8 +1572,8 @@
 0.2140359878540039
             </pre>
 
-                </div>
-                <div class="span2"> <pre class="python">
+        </div>
+        <div class="span2"> <pre class="python">
 >>> def a():
 ...     a = []
 ...     return bool(a)
@@ -1492,8 +1590,8 @@
 0.23107004165649414
             </pre>
 
-                </div>
-                <div class="span2"> <pre class="python">
+        </div>
+        <div class="span2"> <pre class="python">
 >>> def a():
 ...     a = [1]
 ...     return bool(a)
@@ -1511,8 +1609,8 @@
 0.26291584968566895
             </pre>
 
-                </div>
-                <div class="span2"> <pre class="python">
+        </div>
+        <div class="span2"> <pre class="python">
 >>> def a():
 ...     a = [1,2,3,4]
 ...     return bool(a)
@@ -1533,10 +1631,10 @@
 0.2995791435241699
             </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     return True if a != 2 else False
@@ -1557,8 +1655,8 @@
 0.11238908767700195
                 </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     return a != 2
@@ -1575,8 +1673,8 @@
 0.0989840030670666
                 </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     return a != 2 and True or False
@@ -1597,10 +1695,10 @@
 0.12901902198791504
                 </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     return sum([p+v for p, v in enumerate(a)])
@@ -1637,8 +1735,8 @@
 0.8525490760803223
                 </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     return sum([p+v for p,v in enumerate([1,2,3,4,5])])
 ... 
@@ -1671,8 +1769,8 @@
 0.8301830291748047
                 </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     return sum([p+v for p,v in enumerate(xrange(1,6))])
 ... 
@@ -1703,10 +1801,10 @@
 0.9235079288482666
                 </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span6"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     if a == 1 or a == 2 or a == 3:
@@ -1740,8 +1838,8 @@
 0.1189959774017334
                </pre>
 
-                </div>
-                <div class="span6"> <pre class="python">
+        </div>
+        <div class="span6"> <pre class="python">
 >>> def a():
 ...     a = 1
 ...     if a in (1, 2, 3):
@@ -1767,10 +1865,10 @@
 0.11190297317504883
                </pre>
 
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span4"> <pre class="python">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     r = ''
 ...     for i in range(10):
@@ -1806,8 +1904,8 @@
 3.1673998832702637
                 </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     return ''.join(map(str, xrange(10)))
 ... 
@@ -1826,8 +1924,8 @@
 1.4769208431243896
                 </pre>
 
-                </div>
-                <div class="span4"> <pre class="python">
+        </div>
+        <div class="span4"> <pre class="python">
 >>> def a():
 ...     return ''.join(map(str, range(10)))
 ... 
@@ -1846,33 +1944,32 @@
 1.454106092453003
                 </pre>
 
-                </div>
-            </div>
         </div>
-        <script src="javascripts/highlight.pack.js"></script>
-        <script>
-            window.onload = function() {
-                var aCodes = document.getElementsByTagName('pre');
-                for (var i = 0; i < aCodes.length; i++) {
-                    hljs.highlightBlock(aCodes[i]);
-                }
-            };
-        </script>
-        <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-17236714-3']);
-            _gaq.push(['_setDomainName', 'uni.me']);
-            _gaq.push(['_trackPageview']);
+    </div>
+</div>
+<script src="javascripts/highlight.pack.js"></script>
+<script>
+    window.onload = function() {
+        var aCodes = document.getElementsByTagName('pre');
+        for (var i = 0; i < aCodes.length; i++) {
+            hljs.highlightBlock(aCodes[i]);
+        }
+    };
+</script>
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-17236714-3']);
+    _gaq.push(['_setDomainName', 'uni.me']);
+    _gaq.push(['_trackPageview']);
 
-            (function() {
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-    </body>
-
+    (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+</body>
 </html>
