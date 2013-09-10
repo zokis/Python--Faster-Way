@@ -682,7 +682,7 @@
     <div class="row-fluid">
         <div class="span6"> <pre class="python">
 >>> def a():
-...     a = [1,2,3,4,5]
+...     a = [1, 2, 3, 4, 5]
 ...     s = 0
 ...     for p, v in enumerate(a):
 ...         s += p
@@ -734,7 +734,7 @@
         </div>
         <div class="span6"> <pre class="python">
 >>> def a():
-...     a = [1,2,3,4,5]
+...     a = [1, 2, 3, 4, 5]
 ...     s = 0
 ...     for i in range(len(a)):
 ...         s += i
@@ -973,7 +973,7 @@
     <div class="row-fluid">
         <div class="span6"> <pre class="python">
 >>> def a():
-...     a = [1,2,3,4,5]
+...     a = [1, 2, 3, 4, 5]
 ...     return a.__len__()
 ... 
 >>> dis(a)
@@ -996,7 +996,7 @@
         </div>
         <div class="span6"> <pre class="python">
 >>> def a():
-...     a = [1,2,3,4,5]
+...     a = [1, 2, 3, 4, 5]
 ...     return len(a)
 ... 
 >>> dis(a)
@@ -1405,7 +1405,7 @@
     <div class="row-fluid">
         <div class="span4"> <pre class="python">
 >>> def a():
-...     l = range(50,-20,-2)
+...     l = range(50, -20, -2)
 ...     d = {}
 ...     for p, v in enumerate(l):
 ...         d.update({p:v})
@@ -1452,7 +1452,7 @@
         </div>
         <div class="span4"> <pre class="python">
 >>> def a():
-...     l = range(50,-20,-2)
+...     l = range(50, -20, -2)
 ...     d = {}
 ...     for p, v in enumerate(l):
 ...         d[p] = v
@@ -1495,8 +1495,8 @@
         </div>
         <div class="span4"> <pre class="python">
 >>> def a():
-...     l = range(50,-20,-2)
-...     return {p:v for p,v in enumerate(l)}
+...     l = range(50, -20, -2)
+...     return {p:v for p, v in enumerate(l)}
 ... 
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (range)
@@ -1614,7 +1614,7 @@
         </div>
         <div class="span2"> <pre class="python">
 >>> def a():
-...     a = [1,2,3,4]
+...     a = [1, 2, 3, 4]
 ...     return bool(a)
 ... 
 >>> dis(a)
@@ -1740,7 +1740,7 @@
         </div>
         <div class="span4"> <pre class="python">
 >>> def a():
-...     return sum([p+v for p,v in enumerate([1,2,3,4,5])])
+...     return sum([p+v for p, v in enumerate([1, 2, 3, 4, 5])])
 ... 
 >>> a()
 25
@@ -1774,7 +1774,7 @@
         </div>
         <div class="span4"> <pre class="python">
 >>> def a():
-...     return sum([p+v for p,v in enumerate(xrange(1,6))])
+...     return sum([p+v for p, v in enumerate(xrange(1, 6))])
 ... 
 >>> a()
 25
