@@ -2103,16 +2103,32 @@
 ...     b = dict((x,y) for w,x,y in a)
 ...     return b
 >>> dis(a)
-  3           0 LOAD_CONST               1 ('')
-              3 LOAD_ATTR                0 (join)
-              6 LOAD_GLOBAL              1 (map)
-              9 LOAD_GLOBAL              2 (str)
-             12 LOAD_GLOBAL              3 (xrange)
-             15 LOAD_CONST               2 (10)
-             18 CALL_FUNCTION            1
-             21 CALL_FUNCTION            2
-             24 CALL_FUNCTION            1
-             27 RETURN_VALUE        
+  3           0 LOAD_CONST               1 (1)
+              3 LOAD_CONST               2 (2)
+              6 LOAD_CONST               3 (3)
+              9 BUILD_LIST               3
+             12 LOAD_CONST               2 (2)
+             15 LOAD_CONST               3 (3)
+             18 LOAD_CONST               4 (4)
+             21 BUILD_LIST               3
+             24 LOAD_CONST               4 (4)
+             27 LOAD_CONST               5 (5)
+             30 LOAD_CONST               6 (6)
+             33 BUILD_LIST               3
+             36 BUILD_LIST               3
+             39 STORE_FAST               0 (a)
+
+  4          42 LOAD_GLOBAL              0 (dict)
+             45 LOAD_CONST               7 (&lt;code object &lt;genexpr&gt; at 0x218f130, file "&lt;input&gt;", line 4&gt;)
+             48 MAKE_FUNCTION            0
+             51 LOAD_FAST                0 (a)
+             54 GET_ITER            
+             55 CALL_FUNCTION            1
+             58 CALL_FUNCTION            1
+             61 STORE_FAST               1 (b)
+
+  5          64 LOAD_FAST                1 (b)
+             67 RETURN_VALUE        
 >>> timeit(a)
 1.6701810359954834
                 </pre>
