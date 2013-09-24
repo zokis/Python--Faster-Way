@@ -2170,6 +2170,98 @@
         </div>
     </div>
     </a>
+    <a href="#test25">
+    <div class="row-fluid" id="test25">
+        <div class="span3"> <pre class="python">
+>>> def a():
+...     n = 1
+...     return not n
+... 
+>>> dis(a)
+  3           0 LOAD_CONST               1 (1)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_FAST                0 (n)
+              9 UNARY_NOT           
+             10 RETURN_VALUE
+>>> timeit(a)
+0.11161303520202637
+               </pre>
+
+        </div>
+        <div class="span3"> <pre class="python">
+>>> def a():
+...     n = 0
+...     return not n
+... 
+>>> dis(a)
+  3           0 LOAD_CONST               1 (0)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_FAST                0 (n)
+              9 UNARY_NOT           
+             10 RETURN_VALUE
+>>> timeit(a)
+0.11124205589294434
+               </pre>
+
+        </div>
+        <div class="span3"> <pre class="python">
+>>> def a():
+...     n = 1
+...     if n:
+...         return False
+...     else:
+...         return True
+... 
+>>> dis(a)
+  3           0 LOAD_CONST               1 (1)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_FAST                0 (n)
+              9 POP_JUMP_IF_FALSE       16
+
+  5          12 LOAD_GLOBAL              0 (False)
+             15 RETURN_VALUE        
+
+  7     >>   16 LOAD_GLOBAL              1 (True)
+             19 RETURN_VALUE        
+             20 LOAD_CONST               0 (None)
+             23 RETURN_VALUE        
+>>> timeit(a)
+0.10635685920715332
+               </pre>
+
+        </div>
+        <div class="span3"> <pre class="python">
+>>> def a():
+...     n = 0
+...     if n:
+...         return False
+...     else:
+...         return True
+... 
+>>> dis(a)
+  3           0 LOAD_CONST               1 (0)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_FAST                0 (n)
+              9 POP_JUMP_IF_FALSE       16
+
+  5          12 LOAD_GLOBAL              0 (False)
+             15 RETURN_VALUE        
+
+  7     >>   16 LOAD_GLOBAL              1 (True)
+             19 RETURN_VALUE        
+             20 LOAD_CONST               0 (None)
+             23 RETURN_VALUE        
+>>> timeit(a)
+0.10210394859313965
+               </pre>
+
+        </div>
+    </div>
+    </a>
 </div>
 <script src="javascripts/highlight.pack.js"></script>
 <script>
