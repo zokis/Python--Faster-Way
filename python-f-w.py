@@ -1,53 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv="X-UA-Compatible" content="chrome=1">
-        <meta name="keywords" content="python programming language,python faster way,python,programming,language,python2,python27">
-        <meta name="description" content="python programming language faster way">
-        <meta name="author" content="Zokis">
-        <link rel="icon" href="images/python.org.16.ico" sizes="16x16">
-        <link rel="icon" href="images/python.org.ico">
-        <link rel="stylesheet" type="text/css" href="stylesheets/compress.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="stylesheets/gments/monokai.css" media="screen" />
-        <title>Python: faster way by zokis</title>
-    </head>    
-<body>
-<header>
-    <div class="container-super">
-         <h1>Python: faster way</h1>
-         <h2>
-          Tricks for your code run faster --
-          <a href="https://github.com/zokis/Python--Faster-Way">
-            <img src="images/blacktocat.png">
-          </a>
-         </h2>
-    </div>
-</header>
-<div class="container-fluid">
-    <a href="#plataform">
-    <div class="row-fluid" id="plataform">
-        <div class="span12"><pre class="python">
->>> import sys
->>> import platform
->>> platform.system()
-'Linux'
->>> platform.release()
-'3.8.0-29-generic'
->>> sys.version
-'2.7.4 (default, Apr 19 2013, 18:28:01) \n[GCC 4.7.3]'
->>> from timeit import timeit
->>> from dis import dis
->>> 
-        </pre></div>
-    </div>
-    </a>
-    
-    <a href="#test1">
-    <div class="row-fluid" id="test1">
-    	
-        <div class="span6"><pre class="python">
->>> def a(): 
+from jinja2 import Template
+
+template = Template(open('index-template.html', 'r').read())
+
+tests = (
+	(
+""">>> def a(): 
 ...     d = {} 
 ...     return d 
 ... 
@@ -60,11 +17,8 @@
 >>> 
 >>> timeit(a)
 0.09059309959411621
-
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
-
+""",
+"""
 >>> def a(): 
 ...     d = dict() 
 ...     return d 
@@ -78,17 +32,10 @@
              12 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.21603679656982422
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test2">
-    <div class="row-fluid" id="test2">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.21603679656982422"""
+	),
+	(
+""">>> def a():
 ...     l = [0,8,6,4,2,1,3,5,7,9]
 ...     l.sort()
 ...     return l
@@ -116,11 +63,8 @@
   5          46 LOAD_FAST                0 (l)
              49 RETURN_VALUE        
 >>> timeit(a)
-0.5776820182800293
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.5776820182800293""",
+""">>> def a():
 ...     l = [0,8,6,4,2,1,3,5,7,9]
 ...     return sorted(l)
 ...     
@@ -144,17 +88,10 @@
              42 CALL_FUNCTION            1
              45 RETURN_VALUE        
 >>> timeit(a)
-0.8237090110778809
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test3">
-    <div class="row-fluid" id="test3">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.8237090110778809"""
+	),
+	(
+""">>> def a():
 ...     a, b, c, d, e, f, g, h, i, j = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 ...     return j, i, h, g, f, e, d, c, b, a
 ...     
@@ -186,11 +123,8 @@
              66 BUILD_TUPLE             10
              69 RETURN_VALUE        
 >>> timeit(a)
-0.22710919380187988
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.22710919380187988""",
+""">>> def a():
 ...     a = 0
 ...     b = 1
 ...     c = 2
@@ -248,17 +182,10 @@
              90 BUILD_TUPLE             10
              93 RETURN_VALUE        
 >>> timeit(a)
-0.2503318786621094
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test4">
-    <div class="row-fluid" id="test4">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.2503318786621094"""
+	),
+	(
+""">>> def a():
 ...     a, b, c, d, e, f = 2, 5, 52, 25, 225, 552
 ...     if a < b < c < d < e < f:
 ...         return True
@@ -309,11 +236,8 @@
   6     >>   89 LOAD_GLOBAL              1 (False)
              92 RETURN_VALUE        
 >>> timeit(a)
-0.23741507530212402
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.23741507530212402""",
+""">>> def a():
 ...     a, b, c, d, e, f = 2, 5, 52, 25, 225, 552
 ...     if a < b and b < c and c < d and d < e and e < f:
 ...         return True
@@ -357,17 +281,10 @@
   6     >>   88 LOAD_GLOBAL              1 (False)
              91 RETURN_VALUE        
 >>> timeit(a)
-0.1962449550628662
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test5">
-    <div class="row-fluid" id="test5">
-    	
-        <div class="span4"><pre class="python">
->>> def a(): 
+0.1962449550628662"""
+	),
+	(
+""">>> def a(): 
 ...     a = True 
 ...     if a: 
 ...         return True 
@@ -388,11 +305,8 @@
              19 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.1288449764251709
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a(): 
+0.1288449764251709""",
+""">>> def a(): 
 ...     a = True 
 ...     if a is True: 
 ...         return True 
@@ -415,11 +329,8 @@
              25 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.15628480911254883
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a(): 
+0.15628480911254883""",
+""">>> def a(): 
 ...     a = True 
 ...     if a == True: 
 ...         return True 
@@ -444,17 +355,10 @@
              27 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.16727304458618164
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test6">
-    <div class="row-fluid" id="test6">
-    	
-        <div class="span4"><pre class="python">
->>> def a(): 
+0.16727304458618164"""
+	),
+	(
+""">>> def a(): 
 ...     a = 1 
 ...     if a is not 2: 
 ...         return True 
@@ -478,11 +382,8 @@
              27 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.1171870231628418
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a(): 
+0.1171870231628418""",
+""">>> def a(): 
 ...     a = 1 
 ...     if not a is 2: 
 ...         return True 
@@ -504,11 +405,8 @@
              25 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.12001895904541016
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a(): 
+0.12001895904541016""",
+""">>> def a(): 
 ...     a = 1 
 ...     if a != 2: 
 ...         return True 
@@ -530,17 +428,10 @@
              25 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.17791104316711426
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test7">
-    <div class="row-fluid" id="test7">
-    	
-        <div class="span3"><pre class="python">
->>> def a():
+0.17791104316711426"""
+	),
+	(
+""">>> def a():
 ...     a = []
 ...     if a:
 ...         return False
@@ -560,11 +451,8 @@
              19 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.11919498443603516
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.11919498443603516""",
+""">>> def a():
 ...     a = []
 ...     if not a:
 ...         return True
@@ -586,11 +474,8 @@
              21 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.0989830493927002
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.0989830493927002""",
+""">>> def a():
 ...     a = []
 ...     if a == []:
 ...         return True
@@ -612,11 +497,8 @@
              25 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.152724027633667
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.152724027633667""",
+""">>> def a():
 ...     a = []
 ...     if len(a) &lt;= 0:
 ...         return True
@@ -640,17 +522,10 @@
              31 RETURN_VALUE        
 >>> 
 >>> timeit(a)
-0.18400812149047852
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test8">
-    <div class="row-fluid" id="test8">
-    	
-        <div class="span3"><pre class="python">
->>> def a():
+0.18400812149047852""",
+	),
+	(
+""">>> def a():
 ...     a = object()
 ...     if not a:
 ...         return False
@@ -671,11 +546,8 @@
   6     >>   19 LOAD_GLOBAL              2 (True)
              22 RETURN_VALUE        
 >>> timeit(a)
-0.17762112617492676
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.17762112617492676""",
+""">>> def a():
 ...     a = object()
 ...     if a is None:
 ...         return False
@@ -698,11 +570,8 @@
   6     >>   25 LOAD_GLOBAL              3 (True)
              28 RETURN_VALUE        
 >>> timeit(a)
-0.2032458782196045
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.2032458782196045""",
+""">>> def a():
 ...     a = object()
 ...     if a:
 ...         return True
@@ -723,11 +592,8 @@
   6     >>   19 LOAD_GLOBAL              2 (False)
              22 RETURN_VALUE        
 >>> timeit(a)
-0.17735886573791504
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.17735886573791504""",
+""">>> def a():
 ...     a = object()
 ...     if a is not None:
 ...         return True
@@ -750,17 +616,10 @@
   6     >>   25 LOAD_GLOBAL              3 (False)
              28 RETURN_VALUE        
 >>> timeit(a)
-0.19365406036376953
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test9">
-    <div class="row-fluid" id="test9">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.19365406036376953""",
+	),
+	(
+""">>> def a():
 ...     a = [1, 2, 3, 4, 5]
 ...     s = 0
 ...     for p, v in enumerate(a):
@@ -807,11 +666,8 @@
   8     >>   76 LOAD_FAST                1 (s)
              79 RETURN_VALUE        
 >>> timeit(a)
-0.7968449592590332
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.7968449592590332""",
+""">>> def a():
 ...     a = [1, 2, 3, 4, 5]
 ...     s = 0
 ...     for i in range(len(a)):
@@ -860,17 +716,10 @@
   8     >>   80 LOAD_FAST                1 (s)
              83 RETURN_VALUE        
 >>> timeit(a)
-0.8638288974761963
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test10">
-    <div class="row-fluid" id="test10">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.8638288974761963""",
+	),
+	(
+""">>> def a():
 ...     r = ''
 ...     for i in range(10):
 ...         r += str(i)
@@ -903,11 +752,8 @@
   6     >>   45 LOAD_FAST                0 (r)
              48 RETURN_VALUE        
 >>> timeit(a)
-1.964811086654663
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+1.964811086654663""",
+""">>> def a():
 ...     r = []
 ...     for i in range(10):
 ...         r.append(str(i))
@@ -944,17 +790,10 @@
              57 CALL_FUNCTION            1
              60 RETURN_VALUE        
 >>> timeit(a)
-2.6579368114471436
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test11">
-    <div class="row-fluid" id="test11">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+2.6579368114471436""",
+	),
+	(
+""">>> def a():
 ...     a = 5
 ...     b = 2
 ...     c = 3
@@ -982,11 +821,8 @@
              32 BINARY_MODULO       
              33 RETURN_VALUE        
 >>> timeit(a)
-0.6534428596496582
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.6534428596496582""",
+""">>> def a():
 ...     a = 5
 ...     b = 2
 ...     c = 3
@@ -1014,11 +850,8 @@
              32 CALL_FUNCTION            1
              35 RETURN_VALUE        
 >>> timeit(a)
-0.27884984016418457
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.27884984016418457""",
+""">>> def a():
 ...     a = 5
 ...     b = 2
 ...     c = 3
@@ -1046,17 +879,10 @@
              32 BINARY_MODULO       
              33 RETURN_VALUE        
 >>> timeit(a)
-0.23713302612304688
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test12">
-    <div class="row-fluid" id="test12">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.23713302612304688"""
+	),
+	(
+""">>> def a():
 ...     a = [1, 2, 3, 4, 5]
 ...     return a.__len__()
 ... 
@@ -1074,11 +900,8 @@
              27 CALL_FUNCTION            0
              30 RETURN_VALUE        
 >>> timeit(a)
-0.24736285209655762
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.24736285209655762""",
+""">>> def a():
 ...     a = [1, 2, 3, 4, 5]
 ...     return len(a)
 ... 
@@ -1096,17 +919,10 @@
              27 CALL_FUNCTION            1
              30 RETURN_VALUE        
 >>> timeit(a)
-0.22818613052368164
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test13">
-    <div class="row-fluid" id="test13">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.22818613052368164"""
+	),
+	(
+""">>> def a():
 ...     a = 1
 ...     b = 2
 ...     c = 2
@@ -1141,11 +957,8 @@
              51 CALL_FUNCTION            1
              54 RETURN_VALUE        
 >>> timeit(a)
-0.4007859230041504
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.4007859230041504""",
+""">>> def a():
 ...     a = 1
 ...     b = 2
 ...     c = 2
@@ -1177,17 +990,10 @@
              38 BINARY_MULTIPLY     
              39 RETURN_VALUE        
 >>> timeit(a)
-0.17691397666931152
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test14">
-    <div class="row-fluid" id="test14">
-    	
-        <div class="span6"><pre class="python">
->>> class Z():
+0.17691397666931152""",
+	),
+	(
+""">>> class Z():
 ...     def __init__(self,v):
 ...         self.v = v
 ...     def __mul__(self, o):
@@ -1225,11 +1031,8 @@
              46 BINARY_MULTIPLY     
              47 RETURN_VALUE        
 >>> timeit(a)
-3.0483150482177734
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> class Z():
+3.0483150482177734""",
+""">>> class Z():
 ...     def __init__(self,v):
 ...         self.v = v
 ...     def __mul__(self, o):
@@ -1269,17 +1072,10 @@
              54 CALL_FUNCTION            1
              57 RETURN_VALUE        
 >>> timeit(a)
-2.027787923812866
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test15">
-    <div class="row-fluid" id="test15">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+2.027787923812866"""
+	),
+	(
+""">>> def a():
 ...     s = 0
 ...     for i in range(50000):
 ...         s += i
@@ -1309,11 +1105,8 @@
   6     >>   39 LOAD_FAST                0 (s)
              42 RETURN_VALUE 
 >>> timeit(a, number=500)
-0.9544589519500732
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.9544589519500732""",
+""">>> def a():
 ...     return sum(i for i in range(50000))
 ...     
 ... 
@@ -1331,17 +1124,10 @@
              22 CALL_FUNCTION            1
              25 RETURN_VALUE 
 >>> timeit(a, number=500)
-1.1507539749145508
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test16">
-    <div class="row-fluid" id="test16">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+1.1507539749145508""",
+	),
+	(
+""">>> def a():
 ...     l = []
 ...     for i in range(1000):
 ...         l.append(i)
@@ -1370,11 +1156,8 @@
   6     >>   42 LOAD_FAST                0 (l)
              45 RETURN_VALUE        
 >>> timeit(a)
-74.72631120681763
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+74.72631120681763""",
+""">>> def a():
 ...     return [i for i in range(1000)]
 ... 
 >>> dis(a)
@@ -1390,17 +1173,10 @@
              25 JUMP_ABSOLUTE           13
         >>   28 RETURN_VALUE        
 >>> timeit(a)
-31.74762511253357
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test17">
-    <div class="row-fluid" id="test17">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+31.74762511253357"""
+	),
+	(
+""">>> def a():
 ...     d = {}
 ...     for i in range(100):
 ...         d.update({str(i):i*2})
@@ -1436,11 +1212,8 @@
   6     >>   59 LOAD_FAST                0 (d)
              62 RETURN_VALUE        
 >>> timeit(a)
-43.51503276824951
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+43.51503276824951""",
+""">>> def a():
 ...     d = {}
 ...     for i in range(100):
 ...         d[str(i)] = i*2
@@ -1472,11 +1245,8 @@
   6     >>   49 LOAD_FAST                0 (d)
              52 RETURN_VALUE        
 >>> timeit(a)
-22.53758192062378
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+22.53758192062378""",
+""">>> def a():
 ...     return {str(i):i*2 for i in range(100)}
 ... 
 >>> dis(a)
@@ -1489,17 +1259,10 @@
              16 CALL_FUNCTION            1
              19 RETURN_VALUE        
 >>> timeit(a)
-21.24774694442749
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test18">
-    <div class="row-fluid" id="test18">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+21.24774694442749"""
+	),
+	(
+""">>> def a():
 ...     l = range(50, -20, -2)
 ...     d = {}
 ...     for p, v in enumerate(l):
@@ -1541,11 +1304,8 @@
   7     >>   73 LOAD_FAST                1 (d)
              76 RETURN_VALUE        
 >>> timeit(a)
-10.904900074005127
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+10.904900074005127""",
+""">>> def a():
 ...     l = range(50, -20, -2)
 ...     d = {}
 ...     for p, v in enumerate(l):
@@ -1583,11 +1343,8 @@
   7     >>   63 LOAD_FAST                1 (d)
              66 RETURN_VALUE        
 >>> timeit(a)
-3.2161331176757812
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+3.2161331176757812""",
+""">>> def a():
 ...     l = range(50, -20, -2)
 ...     return {p:v for p, v in enumerate(l)}
 ... 
@@ -1608,17 +1365,10 @@
              34 CALL_FUNCTION            1
              37 RETURN_VALUE        
 >>> timeit(a)
-3.210350933074951
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test19">
-    <div class="row-fluid" id="test19">
-    	
-        <div class="span2"><pre class="python">
->>> def a():
+3.210350933074951"""
+	),
+	(
+""">>> def a():
 ...     a = 0
 ...     return bool(a)
 ... 
@@ -1631,11 +1381,8 @@
              12 CALL_FUNCTION            1
              15 RETURN_VALUE        
 >>> timeit(a)
-0.21692705154418945
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
->>> def a():
+0.21692705154418945""",
+""">>> def a():
 ...     a = True
 ...     return bool(a)
 ... 
@@ -1648,11 +1395,8 @@
              12 CALL_FUNCTION            1
              15 RETURN_VALUE        
 >>> timeit(a)
-0.22511601448059082
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
->>> def a():
+0.22511601448059082""",
+""">>> def a():
 ...     a = 1
 ...     return bool(a)
 ... 
@@ -1665,11 +1409,8 @@
              12 CALL_FUNCTION            1
              15 RETURN_VALUE        
 >>> timeit(a)
-0.2140359878540039
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
->>> def a():
+0.2140359878540039""",
+""">>> def a():
 ...     a = []
 ...     return bool(a)
 ... 
@@ -1682,11 +1423,8 @@
              12 CALL_FUNCTION            1
              15 RETURN_VALUE        
 >>> timeit(a)
-0.23107004165649414
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
->>> def a():
+0.23107004165649414""",
+""">>> def a():
 ...     a = [1]
 ...     return bool(a)
 ... 
@@ -1700,11 +1438,8 @@
              15 CALL_FUNCTION            1
              18 RETURN_VALUE        
 >>> timeit(a)
-0.26291584968566895
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
->>> def a():
+0.26291584968566895""",
+""">>> def a():
 ...     a = [1, 2, 3, 4]
 ...     return bool(a)
 ... 
@@ -1721,17 +1456,10 @@
              24 CALL_FUNCTION            1
              27 RETURN_VALUE        
 >>> timeit(a)
-0.2995791435241699
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test20">
-    <div class="row-fluid" id="test20">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+0.2995791435241699""",
+	),
+	(
+""">>> def a():
 ...     a = 1
 ...     return True if a != 2 else False
 ... 
@@ -1748,11 +1476,8 @@
         >>   22 LOAD_GLOBAL              1 (False)
              25 RETURN_VALUE        
 >>> timeit(a)
-0.11238908767700195
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.11238908767700195""",
+""">>> def a():
 ...     a = 1
 ...     return a != 2
 ... 
@@ -1765,11 +1490,8 @@
              12 COMPARE_OP               3 (!=)
              15 RETURN_VALUE        
 >>> timeit(a)
-0.0989840030670666
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.0989840030670666""",
+""">>> def a():
 ...     a = 1
 ...     return a != 2 and True or False
 ... 
@@ -1786,17 +1508,10 @@
         >>   24 LOAD_GLOBAL              1 (False)
         >>   27 RETURN_VALUE        
 >>> timeit(a)
-0.12901902198791504
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test21">
-    <div class="row-fluid" id="test21">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+0.12901902198791504"""
+	),
+	(
+""">>> def a():
 ...     a = [1,2,3,4,5]
 ...     return sum([p+v for p, v in enumerate(a)])
 ... 
@@ -1829,11 +1544,8 @@
         >>   62 CALL_FUNCTION            1
              65 RETURN_VALUE        
 >>> timeit(a)
-0.8525490760803223
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.8525490760803223""",
+""">>> def a():
 ...     return sum([p+v for p, v in enumerate([1, 2, 3, 4, 5])])
 ... 
 >>> a()
@@ -1862,11 +1574,8 @@
         >>   56 CALL_FUNCTION            1
              59 RETURN_VALUE        
 >>> timeit(a)
-0.8301830291748047
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.8301830291748047""",
+""">>> def a():
 ...     return sum([p+v for p, v in enumerate(xrange(1, 6))])
 ... 
 >>> a()
@@ -1893,17 +1602,10 @@
         >>   50 CALL_FUNCTION            1
              53 RETURN_VALUE        
 >>> timeit(a)
-0.9235079288482666
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test22">
-    <div class="row-fluid" id="test22">
-    	
-        <div class="span6"><pre class="python">
->>> def a():
+0.9235079288482666""",
+	),
+	(
+""">>> def a():
 ...     a = 1
 ...     if a == 1 or a == 2 or a == 3:
 ...         return True
@@ -1933,11 +1635,8 @@
   6     >>   46 LOAD_GLOBAL              1 (False)
              49 RETURN_VALUE        
 >>> timeit(a)
-0.1189959774017334
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
->>> def a():
+0.1189959774017334""",
+""">>> def a():
 ...     a = 1
 ...     if a in (1, 2, 3):
 ...         return True
@@ -1959,17 +1658,10 @@
   6     >>   22 LOAD_GLOBAL              1 (False)
              25 RETURN_VALUE        
 >>> timeit(a)
-0.11190297317504883
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test23">
-    <div class="row-fluid" id="test23">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+0.11190297317504883"""
+	),
+	(
+""">>> def a():
 ...     r = ''
 ...     for i in range(10):
 ...         r = '%s%s' % (r, str(i))
@@ -2001,11 +1693,8 @@
   6     >>   51 LOAD_FAST                0 (r)
              54 RETURN_VALUE        
 >>> timeit(a)
-3.1673998832702637
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+3.1673998832702637""",
+""">>> def a():
 ...     return ''.join(map(str, xrange(10)))
 ... 
 >>> dis(a)
@@ -2020,11 +1709,8 @@
              24 CALL_FUNCTION            1
              27 RETURN_VALUE        
 >>> timeit(a)
-1.4769208431243896
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+1.4769208431243896""",
+""">>> def a():
 ...     return ''.join(map(str, range(10)))
 ... 
 >>> dis(a)
@@ -2039,17 +1725,10 @@
              24 CALL_FUNCTION            1
              27 RETURN_VALUE        
 >>> timeit(a)
-1.454106092453003
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test24">
-    <div class="row-fluid" id="test24">
-    	
-        <div class="span4"><pre class="python">
->>> def a():
+1.454106092453003"""
+	),
+	(
+""">>> def a():
 ...     a = [[1,2,3],[2,3,4],[4,5,6]]
 ...     b = {x[1]: x[2] for x in a}
 ...     return b
@@ -2079,11 +1758,8 @@
   5          58 LOAD_FAST                1 (b)
              61 RETURN_VALUE 
 >>> timeit(a)
-0.880389928817749
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+0.880389928817749""",
+""">>> def a():
 ...     a = [[1,2,3],[2,3,4],[4,5,6]]
 ...     b = dict((x,y) for w,x,y in a)
 ...     return b
@@ -2115,11 +1791,8 @@
   5          64 LOAD_FAST                1 (b)
              67 RETURN_VALUE        
 >>> timeit(a)
-1.6701810359954834
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
->>> def a():
+1.6701810359954834""",
+""">>> def a():
 ...     a = [[1,2,3],[2,3,4],[4,5,6]]
 ...     b = {k:v for x,k,v in a}
 ...     return b
@@ -2149,17 +1822,10 @@
   5          58 LOAD_FAST                1 (b)
              61 RETURN_VALUE
 >>> timeit(a)
-0.8081288146972656
-        </pre></div>
-        
-    </div>
-    </a>
-    
-    <a href="#test25">
-    <div class="row-fluid" id="test25">
-    	
-        <div class="span3"><pre class="python">
->>> def a():
+0.8081288146972656"""
+	),
+	(
+""">>> def a():
 ...     n = 1
 ...     return not n
 ... 
@@ -2171,11 +1837,8 @@
               9 UNARY_NOT           
              10 RETURN_VALUE
 >>> timeit(a)
-0.11161303520202637
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.11161303520202637""",
+""">>> def a():
 ...     n = 0
 ...     return not n
 ... 
@@ -2187,11 +1850,8 @@
               9 UNARY_NOT           
              10 RETURN_VALUE
 >>> timeit(a)
-0.11124205589294434
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.11124205589294434""",
+""">>> def a():
 ...     n = 1
 ...     if n:
 ...         return False
@@ -2213,11 +1873,8 @@
              20 LOAD_CONST               0 (None)
              23 RETURN_VALUE        
 >>> timeit(a)
-0.10635685920715332
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
->>> def a():
+0.10635685920715332""",
+""">>> def a():
 ...     n = 0
 ...     if n:
 ...         return False
@@ -2239,36 +1896,19 @@
              20 LOAD_CONST               0 (None)
              23 RETURN_VALUE        
 >>> timeit(a)
-0.10210394859313965
-        </pre></div>
-        
-    </div>
-    </a>
-    
-</div>
-<script src="javascripts/highlight.pack.js"></script>
-<script>
-    window.onload = function() {
-        var aCodes = document.getElementsByTagName('pre');
-        for (var i = 0; i < aCodes.length; i++) {
-            hljs.highlightBlock(aCodes[i]);
-        }
-    };
-</script>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-17236714-3']);
-    _gaq.push(['_setDomainName', 'uni.me']);
-    _gaq.push(['_trackPageview']);
+0.10210394859313965"""
+	)
+)
 
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-</body>
-</html>
+context_dict = {'tests': []}
+
+for k, v in enumerate(tests):
+	context_dict['tests'].append(
+		{
+			'n': k + 1,
+			'span': 12 / len(v),
+			'cases': v,
+		}
+	)
+
+print template.render(**context_dict)
