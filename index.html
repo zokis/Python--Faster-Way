@@ -49,7 +49,6 @@
 >>> def a():
 ...     d = {}
 ...     return d
-...
 >>> dis(a)
   3           0 BUILD_MAP                0
               3 STORE_FAST               0 (d)
@@ -66,7 +65,6 @@
 >>> def a():
 ...     d = dict()
 ...     return d
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (dict)
               3 CALL_FUNCTION            0
@@ -89,8 +87,6 @@
 ...     l = [0,8,6,4,2,1,3,5,7,9]
 ...     l.sort()
 ...     return l
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (0)
               3 LOAD_CONST               2 (8)
@@ -120,8 +116,6 @@
 >>> def a():
 ...     l = [0,8,6,4,2,1,3,5,7,9]
 ...     return sorted(l)
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (0)
               3 LOAD_CONST               2 (8)
@@ -153,8 +147,6 @@
 >>> def a():
 ...     a, b, c, d, e, f, g, h, i, j = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 ...     return j, i, h, g, f, e, d, c, b, a
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST              11 ((0, 1, 2, 3, 4, 5, 6, 7, 8, 9))
               3 UNPACK_SEQUENCE         10
@@ -198,8 +190,6 @@
 ...     i = 8
 ...     j = 9
 ...     return j, i, h, g, f, e, d, c, b, a
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (0)
               3 STORE_FAST               0 (a)
@@ -258,8 +248,6 @@
 ...     if a < b < c < d < e < f:
 ...         return True
 ...     return False
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               7 ((2, 5, 52, 25, 225, 552))
               3 UNPACK_SEQUENCE          6
@@ -313,8 +301,6 @@
 ...     if a < b and b < c and c < d and d < e and e < f:
 ...         return True
 ...     return False
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               7 ((2, 5, 52, 25, 225, 552))
               3 UNPACK_SEQUENCE          6
@@ -366,7 +352,6 @@
 ...     if a:
 ...         return True
 ...     return False
-...
 >>>
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
@@ -391,7 +376,6 @@
 ...     if a is True:
 ...         return True
 ...     return False
-...
 >>>
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
@@ -418,7 +402,6 @@
 ...     if a == True:
 ...         return True
 ...     return False
-...
 >>>
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
@@ -452,7 +435,6 @@
 ...     if a is not 2:
 ...         return True
 ...     return False
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -480,7 +462,6 @@
 ...     if not a is 2:
 ...         return True
 ...     return False
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -506,7 +487,6 @@
 ...     if a != 2:
 ...         return True
 ...     return False
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -537,7 +517,6 @@
 ...     if a:
 ...         return False
 ...     return True
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 STORE_FAST               0 (a)
@@ -561,7 +540,6 @@
 ...     if not a:
 ...         return True
 ...     return False
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 STORE_FAST               0 (a)
@@ -587,7 +565,6 @@
 ...     if a == []:
 ...         return True
 ...     return False
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 STORE_FAST               0 (a)
@@ -613,7 +590,6 @@
 ...     if len(a)&lt;= 0:
 ...         return True
 ...     return False
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 STORE_FAST               0 (a)
@@ -646,8 +622,6 @@
 ...     if not a:
 ...         return False
 ...     return True
-...
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (object)
               3 CALL_FUNCTION            0
@@ -671,8 +645,6 @@
 ...     if a is None:
 ...         return False
 ...     return True
-...
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (object)
               3 CALL_FUNCTION            0
@@ -698,8 +670,6 @@
 ...     if a:
 ...         return True
 ...     return False
-...
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (object)
               3 CALL_FUNCTION            0
@@ -723,8 +693,6 @@
 ...     if a is not None:
 ...         return True
 ...     return False
-...
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (object)
               3 CALL_FUNCTION            0
@@ -757,7 +725,6 @@
 ...         s += p
 ...         s += v
 ...     return s
-...
 >>> a()
 25
 >>> dis(a)
@@ -808,7 +775,6 @@
 ...         s += i
 ...         s += a[i]
 ...     return s
-...
 >>> a()
 25
 >>> dis(a)
@@ -864,8 +830,6 @@
 ...     for i in range(10):
 ...         r += str(i)
 ...     return r
-...
-...
 >>> a()
 '0123456789'
 >>> dis(a)
@@ -901,8 +865,6 @@
 ...     for i in range(10):
 ...         r.append(str(i))
 ...     return ''.join(r)
-..self.
-...
 >>> a()
 '0123456789'
 >>> dis(a)
@@ -947,8 +909,6 @@
 ...     b = 2
 ...     c = 3
 ...     return "%d" % (a*(b+c))
-...
-...
 >>> a()
 '25'
 >>> dis(a)
@@ -979,8 +939,6 @@
 ...     b = 2
 ...     c = 3
 ...     return str(a*(b+c))
-...
-...
 >>> a()
 '25'
 >>> dis(a)
@@ -1011,8 +969,6 @@
 ...     b = 2
 ...     c = 3
 ...     return "%s" % (a*(b+c))
-...
-...
 >>> a()
 '25'
 >>> dis(a)
@@ -1046,7 +1002,6 @@
 >>> def a():
 ...     a = [1, 2, 3, 4, 5]
 ...     return a.__len__()
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 LOAD_CONST               2 (2)
@@ -1068,7 +1023,6 @@
 >>> def a():
 ...     a = [1, 2, 3, 4, 5]
 ...     return len(a)
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 LOAD_CONST               2 (2)
@@ -1098,8 +1052,6 @@
 ...     c = 2
 ...     d = 5
 ...     return (a.__add__(b.__add__(c))).__mul__(d)
-...
-...
 >>> a()
 25
 >>> dis(a)
@@ -1137,8 +1089,6 @@
 ...     c = 2
 ...     d = 5
 ...     return (a+b+c)*d
-...
-...
 >>> a()
 25
 >>> dis(a)
@@ -1179,14 +1129,11 @@
 ...         return Z(self.v*o.v)
 ...     def __add__(self, o):
 ...         return Z(self.v+o.v)
-...
 >>> def a():
 ...     a = Z(5)
 ...     b = Z(2)
 ...     c = Z(3)
 ...     return (b+c)*a
-...
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (Z)
               3 LOAD_CONST               1 (5)
@@ -1221,14 +1168,11 @@
 ...         return Z(self.v*o.v)
 ...     def __add__(self, o):
 ...         return Z(self.v+o.v)
-...
 >>> def a():
 ...     a = Z(5)
 ...     b = Z(2)
 ...     c = Z(3)
 ...     return (b.__add__(c)).__mul__(a)
-...
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (Z)
               3 LOAD_CONST               1 (5)
@@ -1268,7 +1212,6 @@
 ...     for i in range(50000):
 ...         s += i
 ...     return s
-...
 >>> a()
 1249975000
 >>> dis(a)
@@ -1299,8 +1242,6 @@
         <div class="span6"><pre class="python">
 >>> def a():
 ...     return sum(i for i in range(50000))
-...
-...
 >>> a()
 1249975000
 >>> dis(a)
@@ -1329,7 +1270,6 @@
 ...     for i in range(1000):
 ...         l.append(i)
 ...     return l
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 STORE_FAST               0 (l)
@@ -1359,7 +1299,6 @@
         <div class="span6"><pre class="python">
 >>> def a():
 ...     return [i for i in range(1000)]
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 LOAD_GLOBAL              0 (range)
@@ -1387,7 +1326,6 @@
 ...     for i in range(100):
 ...         d.update({str(i):i*2})
 ...     return d
-...
 >>> dis(a)
   3           0 BUILD_MAP                0
               3 STORE_FAST               0 (d)
@@ -1427,7 +1365,6 @@
 ...     for i in range(100):
 ...         d[str(i)] = i*2
 ...     return d
-...
 >>> dis(a)
   3           0 BUILD_MAP                0
               3 STORE_FAST               0 (d)
@@ -1460,7 +1397,6 @@
         <div class="span4"><pre class="python">
 >>> def a():
 ...     return {str(i):i*2 for i in range(100)}
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (&lt;code object &lt;dictcomp&gt; at 0x2193ab0, file "&lt;input&gt;", line 3&gt;)
               3 MAKE_FUNCTION            0
@@ -1486,7 +1422,6 @@
 ...     for p, v in enumerate(l):
 ...         d.update({p:v})
 ...     return d
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (range)
               3 LOAD_CONST               1 (50)
@@ -1532,7 +1467,6 @@
 ...     for p, v in enumerate(l):
 ...         d[p] = v
 ...     return d
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (range)
               3 LOAD_CONST               1 (50)
@@ -1571,7 +1505,6 @@
 >>> def a():
 ...     l = range(50, -20, -2)
 ...     return {p:v for p, v in enumerate(l)}
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (range)
               3 LOAD_CONST               1 (50)
@@ -1601,7 +1534,6 @@
 >>> def a():
 ...     a = 0
 ...     return bool(a)
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (0)
               3 STORE_FAST               0 (a)
@@ -1618,7 +1550,6 @@
 >>> def a():
 ...     a = True
 ...     return bool(a)
-...
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
               3 STORE_FAST               0 (a)
@@ -1635,7 +1566,6 @@
 >>> def a():
 ...     a = 1
 ...     return bool(a)
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -1652,7 +1582,6 @@
 >>> def a():
 ...     a = []
 ...     return bool(a)
-...
 >>> dis(a)
   3           0 BUILD_LIST               0
               3 STORE_FAST               0 (a)
@@ -1669,7 +1598,6 @@
 >>> def a():
 ...     a = [1]
 ...     return bool(a)
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 BUILD_LIST               1
@@ -1687,7 +1615,6 @@
 >>> def a():
 ...     a = [1, 2, 3, 4]
 ...     return bool(a)
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 LOAD_CONST               2 (2)
@@ -1713,7 +1640,6 @@
 >>> def a():
 ...     a = 1
 ...     return Trueif a != 2 else False
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -1734,7 +1660,6 @@
 >>> def a():
 ...     a = 1
 ...     return a != 2
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -1751,7 +1676,6 @@
 >>> def a():
 ...     a = 1
 ...     return a != 2 and Trueor False
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -1777,7 +1701,6 @@
 >>> def a():
 ...     a = [1,2,3,4,5]
 ...     return sum([p+v for p, v in enumerate(a)])
-...
 >>> a()
 25
 >>> dis(a)
@@ -1813,7 +1736,6 @@
         <div class="span4"><pre class="python">
 >>> def a():
 ...     return sum([p+v for p, v in enumerate([1, 2, 3, 4, 5])])
-...
 >>> a()
 25
 >>> dis(a)
@@ -1846,7 +1768,6 @@
         <div class="span4"><pre class="python">
 >>> def a():
 ...     return sum([p+v for p, v in enumerate(xrange(1, 6))])
-...
 >>> a()
 25
 >>> dis(a)
@@ -1885,8 +1806,6 @@
 ...     if a == 1 or a == 2 or a == 3:
 ...         return True
 ...     return False
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -1919,8 +1838,6 @@
 ...     if a in (1, 2, 3):
 ...         return True
 ...     return False
-...
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (a)
@@ -1950,7 +1867,6 @@
 ...     for i in range(10):
 ...         r = '%s%s' % (r, str(i))
 ...     return r
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 ('')
               3 STORE_FAST               0 (r)
@@ -1983,7 +1899,6 @@
         <div class="span4"><pre class="python">
 >>> def a():
 ...     return ''.join(map(str, xrange(10)))
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 ('')
               3 LOAD_ATTR                0 (join)
@@ -2002,7 +1917,6 @@
         <div class="span4"><pre class="python">
 >>> def a():
 ...     return ''.join(map(str, range(10)))
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 ('')
               3 LOAD_ATTR                0 (join)
@@ -2136,7 +2050,6 @@
 >>> def a():
 ...     n = 1
 ...     return not n
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (n)
@@ -2152,7 +2065,6 @@
 >>> def a():
 ...     n = 0
 ...     return not n
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (0)
               3 STORE_FAST               0 (n)
@@ -2171,7 +2083,6 @@
 ...         return False
 ...     else:
 ...         return True
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (1)
               3 STORE_FAST               0 (n)
@@ -2197,7 +2108,6 @@
 ...         return False
 ...     else:
 ...         return True
-...
 >>> dis(a)
   3           0 LOAD_CONST               1 (0)
               3 STORE_FAST               0 (n)
