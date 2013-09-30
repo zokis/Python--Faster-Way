@@ -13,7 +13,6 @@ tests = (
 
   4           6 LOAD_FAST                0 (d)
               9 RETURN_VALUE
->>>
 >>> timeit(a)
 0.09059309959411621
 """,
@@ -27,7 +26,6 @@ tests = (
 
   4           9 LOAD_FAST                0 (d)
              12 RETURN_VALUE
->>>
 >>> timeit(a)
 0.21603679656982422"""
     ),
@@ -274,7 +272,6 @@ tests = (
 ...     if a:
 ...         return True
 ...     return False
->>>
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
               3 STORE_FAST               0 (a)
@@ -287,7 +284,6 @@ tests = (
 
   6     >>   16 LOAD_GLOBAL              1 (False)
              19 RETURN_VALUE
->>>
 >>> timeit(a)
 0.1288449764251709""",
         """>>> def a():
@@ -295,7 +291,6 @@ tests = (
 ...     if a is True:
 ...         return True
 ...     return False
->>>
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
               3 STORE_FAST               0 (a)
@@ -310,7 +305,6 @@ tests = (
 
   6     >>   22 LOAD_GLOBAL              1 (False)
              25 RETURN_VALUE
->>>
 >>> timeit(a)
 0.15628480911254883""",
         """>>> def a():
@@ -318,7 +312,6 @@ tests = (
 ...     if a == True:
 ...         return True
 ...     return False
->>>
 >>> dis(a)
   3           0 LOAD_GLOBAL              0 (True)
               3 STORE_FAST               0 (a)
@@ -335,7 +328,6 @@ tests = (
 
   6          24 LOAD_GLOBAL              1 (False)
              27 RETURN_VALUE
->>>
 >>> timeit(a)
 0.16727304458618164"""
     ),
@@ -361,7 +353,6 @@ tests = (
 
   6          24 LOAD_GLOBAL              1 (False)
              27 RETURN_VALUE
->>>
 >>> timeit(a)
 0.1171870231628418""",
         """>>> def a():
@@ -383,7 +374,6 @@ tests = (
 
   6     >>   22 LOAD_GLOBAL              1 (False)
              25 RETURN_VALUE
->>>
 >>> timeit(a)
 0.12001895904541016""",
         """>>> def a():
@@ -405,7 +395,6 @@ tests = (
 
   6     >>   22 LOAD_GLOBAL              1 (False)
              25 RETURN_VALUE
->>>
 >>> timeit(a)
 0.17791104316711426"""
     ),
@@ -427,7 +416,6 @@ tests = (
 
   6     >>   16 LOAD_GLOBAL              1 (True)
              19 RETURN_VALUE
->>>
 >>> timeit(a)
 0.11919498443603516""",
         """>>> def a():
@@ -449,7 +437,6 @@ tests = (
 
   6          18 LOAD_GLOBAL              1 (False)
              21 RETURN_VALUE
->>>
 >>> timeit(a)
 0.0989830493927002""",
         """>>> def a():
@@ -471,7 +458,6 @@ tests = (
 
   6     >>   22 LOAD_GLOBAL              1 (False)
              25 RETURN_VALUE
->>>
 >>> timeit(a)
 0.152724027633667""",
         """>>> def a():
@@ -495,7 +481,6 @@ tests = (
 
   6     >>   28 LOAD_GLOBAL              2 (False)
              31 RETURN_VALUE
->>>
 >>> timeit(a)
 0.18400812149047852""",
     ),
