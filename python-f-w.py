@@ -1794,15 +1794,15 @@ tests = (
     )
 )
 
-context_dict = {'tests': []}
-
-for k, v in enumerate(tests):
-    context_dict['tests'].append(
+context_dict = {
+    'tests': [
         {
             'n': k + 1,
             'span': 12 / len(v),
             'cases': v,
         }
-    )
+        for k, v in enumerate(tests)
+    ]
+}
 
 print template.render(**context_dict)
