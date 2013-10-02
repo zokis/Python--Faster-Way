@@ -1791,18 +1791,56 @@ tests = (
              23 RETURN_VALUE
 >>> timeit(a)
 0.10210394859313965"""
+    ),
+    (
+        """>>> def k(x=1,y=1,z=-1):
+...     return x*(y-2*z)
+>>> def a():
+...     d = {'x':5, 'y':3}
+...     return k(**d)
+>>> a()
+25
+>>> dis(a)
+  3           0 BUILD_MAP                2
+              3 LOAD_CONST               1 (5)
+              6 LOAD_CONST               2 ('x')
+              9 STORE_MAP
+             10 LOAD_CONST               3 (3)
+             13 LOAD_CONST               4 ('y')
+             16 STORE_MAP
+             17 STORE_FAST               0 (d)
+
+  4          20 LOAD_GLOBAL              0 (k)
+             23 LOAD_FAST                0 (d)
+             26 CALL_FUNCTION_KW         0
+             29 RETURN_VALUE
+>>> timeit(a)
+0.47187590599060059""",
+        """>>> def k(x=1,y=1,z=-1):
+...     return x*(y-2*z)
+>>> def a():
+...     return k(x=5,y=3)
+>>> a()
+25
+>>> dis(a)
+  3           0 LOAD_GLOBAL              0 (k)
+              3 LOAD_CONST               1 ('x')
+              6 LOAD_CONST               2 (5)
+              9 LOAD_CONST               3 ('y')
+             12 LOAD_CONST               4 (3)
+             15 CALL_FUNCTION          512
+             18 RETURN_VALUE
+>>> timeit(a)
+0.2616560459136963"""
     )
 )
 
-context_dict = {
-    'tests': [
-        {
-            'n': k + 1,
-            'span': 12 / len(v),
-            'cases': v,
-        }
-        for k, v in enumerate(tests)
+print template.render(tests=[
+    {
+        'n': k + 1,
+        'span': 12 / len(v),
+        'cases': v,
+    }
+    for k, v in enumerate(tests)
     ]
-}
-
-print template.render(**context_dict)
+)
