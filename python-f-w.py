@@ -1910,8 +1910,88 @@ tests = (
   8     >>   57 LOAD_FAST                1 (a)
              60 RETURN_VALUE
 >>> def a():
-...     return fib(25)>>> timeit(a)
+...     return fib(25)
+>>> timeit(a)
 2.2374579906463623""",
+    ),
+    (
+        """>>> def a():
+...     x=0
+...     y=0
+...     z=0
+...     w=0
+...     k=0
+...     return x,y,z,w,k
+>>> dis(a)
+  3           0 LOAD_CONST               1 (0)
+              3 STORE_FAST               0 (x)
+
+  4           6 LOAD_CONST               1 (0)
+              9 STORE_FAST               1 (y)
+
+  5          12 LOAD_CONST               1 (0)
+             15 STORE_FAST               2 (z)
+
+  6          18 LOAD_CONST               1 (0)
+             21 STORE_FAST               3 (w)
+
+  7          24 LOAD_CONST               1 (0)
+             27 STORE_FAST               4 (k)
+
+  8          30 LOAD_FAST                0 (x)
+             33 LOAD_FAST                1 (y)
+             36 LOAD_FAST                2 (z)
+             39 LOAD_FAST                3 (w)
+             42 LOAD_FAST                4 (k)
+             45 BUILD_TUPLE              5
+             48 RETURN_VALUE
+>>> timeit(a)
+0.22387209129333496""",
+        """>>> def a():
+...     x=y=z=w=k=0
+...     return x,y,z,w,k
+>>> dis(a)
+  3           0 LOAD_CONST               1 (0)
+              3 DUP_TOP
+              4 STORE_FAST               0 (x)
+              7 DUP_TOP
+              8 STORE_FAST               1 (y)
+             11 DUP_TOP
+             12 STORE_FAST               2 (z)
+             15 DUP_TOP
+             16 STORE_FAST               3 (w)
+             19 STORE_FAST               4 (k)
+
+  4          22 LOAD_FAST                0 (x)
+             25 LOAD_FAST                1 (y)
+             28 LOAD_FAST                2 (z)
+             31 LOAD_FAST                3 (w)
+             34 LOAD_FAST                4 (k)
+             37 BUILD_TUPLE              5
+             40 RETURN_VALUE
+>>> timeit(a)
+0.21921992301940918""",
+        """>>> def a():
+...     x,y,z,w,k=0,0,0,0,0
+...     return x,y,z,w,k
+>>> dis(a)
+  3           0 LOAD_CONST               2 ((0, 0, 0, 0, 0))
+              3 UNPACK_SEQUENCE          5
+              6 STORE_FAST               0 (x)
+              9 STORE_FAST               1 (y)
+             12 STORE_FAST               2 (z)
+             15 STORE_FAST               3 (w)
+             18 STORE_FAST               4 (k)
+
+  4          21 LOAD_FAST                0 (x)
+             24 LOAD_FAST                1 (y)
+             27 LOAD_FAST                2 (z)
+             30 LOAD_FAST                3 (w)
+             33 LOAD_FAST                4 (k)
+             36 BUILD_TUPLE              5
+             39 RETURN_VALUE
+>>> timeit(a)
+0.21370291709899902"""
     )
 )
 
