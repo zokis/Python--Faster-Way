@@ -1992,6 +1992,58 @@ tests = (
              39 RETURN_VALUE
 >>> timeit(a)
 0.21370291709899902"""
+    ),
+    (
+        """>>> def a():
+...     n = 123.123
+...     return int(n)
+...
+>>> a()
+123
+>>> dis(a)
+  3           0 LOAD_CONST               1 (123.123)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_GLOBAL              0 (int)
+              9 LOAD_FAST                0 (n)
+             12 CALL_FUNCTION            1
+             15 RETURN_VALUE
+>>> timeit(a)
+0.18375706672668457
+""",
+        """>>> def a():
+...     n = 123.123
+...     return round(n)
+...
+>>> a()
+123.0
+>>> dis(a)
+  3           0 LOAD_CONST               1 (123.123)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_GLOBAL              0 (round)
+              9 LOAD_FAST                0 (n)
+             12 CALL_FUNCTION            1
+             15 RETURN_VALUE
+>>> timeit(a)
+0.17005610466003418""",
+        """>>> def a():
+...     n = 123.123
+...     return n // 1
+...
+>>> a()
+123.0
+>>> dis(a)
+  3           0 LOAD_CONST               1 (123.123)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_FAST                0 (n)
+              9 LOAD_CONST               2 (1)
+             12 BINARY_FLOOR_DIVIDE
+             13 RETURN_VALUE
+>>> timeit(a)
+0.19820308685302734
+""",
     )
 )
 
