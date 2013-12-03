@@ -2013,7 +2013,7 @@ tests = (
 """,
         """>>> def a():
 ...     n = 123.123
-...     return round(n)
+...     return math.floor(n)
 ...
 >>> a()
 123.0
@@ -2021,12 +2021,32 @@ tests = (
   3           0 LOAD_CONST               1 (123.123)
               3 STORE_FAST               0 (n)
 
-  4           6 LOAD_GLOBAL              0 (round)
-              9 LOAD_FAST                0 (n)
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE
+  4           6 LOAD_GLOBAL              0 (math)
+              9 LOAD_ATTR                1 (floor)
+             12 LOAD_FAST                0 (n)
+             15 CALL_FUNCTION            1
+             18 RETURN_VALUE
 >>> timeit(a)
-0.17005610466003418""",
+0.17320585250854492
+""",
+        """>>> def a():
+...     n = 123.123
+...     return math.trunc(n)
+...
+>>> a()
+123
+>>> dis(a)
+  3           0 LOAD_CONST               1 (123.123)
+              3 STORE_FAST               0 (n)
+
+  4           6 LOAD_GLOBAL              0 (math)
+              9 LOAD_ATTR                1 (trunc)
+             12 LOAD_FAST                0 (n)
+             15 CALL_FUNCTION            1
+             18 RETURN_VALUE
+>>> timeit(a)
+0.2588181495666504
+""",
         """>>> def a():
 ...     n = 123.123
 ...     return n // 1
