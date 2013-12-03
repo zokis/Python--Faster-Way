@@ -1795,31 +1795,31 @@ tests = (
     (
         """>>> def k(x=1,y=1,z=-1):
 ...     return x*(y-2*z)
+...
 >>> def a():
-...     d = {'x':5, 'y':3}
-...     return k(**d)
+...     return k(**{'x':5, 'y':3})
+...
 >>> a()
 25
 >>> dis(a)
-  3           0 BUILD_MAP                2
-              3 LOAD_CONST               1 (5)
-              6 LOAD_CONST               2 ('x')
-              9 STORE_MAP
-             10 LOAD_CONST               3 (3)
-             13 LOAD_CONST               4 ('y')
-             16 STORE_MAP
-             17 STORE_FAST               0 (d)
-
-  4          20 LOAD_GLOBAL              0 (k)
-             23 LOAD_FAST                0 (d)
-             26 CALL_FUNCTION_KW         0
-             29 RETURN_VALUE
+  3           0 LOAD_GLOBAL              0 (k)
+              3 BUILD_MAP                2
+              6 LOAD_CONST               1 (5)
+              9 LOAD_CONST               2 ('x')
+             12 STORE_MAP
+             13 LOAD_CONST               3 (3)
+             16 LOAD_CONST               4 ('y')
+             19 STORE_MAP
+             20 CALL_FUNCTION_KW         0
+             23 RETURN_VALUE
 >>> timeit(a)
-0.47187590599060059""",
+0.34189581871032715""",
         """>>> def k(x=1,y=1,z=-1):
 ...     return x*(y-2*z)
+...
 >>> def a():
 ...     return k(x=5,y=3)
+...
 >>> a()
 25
 >>> dis(a)
@@ -1831,7 +1831,7 @@ tests = (
              15 CALL_FUNCTION          512
              18 RETURN_VALUE
 >>> timeit(a)
-0.2616560459136963"""
+0.25692105293273926"""
     ),
     (
         """>>> def fib(n):
@@ -2044,6 +2044,66 @@ tests = (
 >>> timeit(a)
 0.19820308685302734
 """,
+    ),
+    (
+        """>>> def a():
+...     f = lambda *args: args
+...     return f('a', 'b')
+...
+...
+>>> a()
+('a', 'b')
+>>> dis(a)
+  3           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x22bc5b0, file "&lt;input&gt;", line 3&gt;)
+              3 MAKE_FUNCTION            0
+              6 STORE_FAST               0 (f)
+
+  4           9 LOAD_FAST                0 (f)
+             12 LOAD_CONST               2 ('a')
+             15 LOAD_CONST               3 ('b')
+             18 CALL_FUNCTION            2
+             21 RETURN_VALUE
+>>> timeit(a)
+0.21721100807189941
+""",
+        """>>> def a():
+...     f = lambda *args: args
+...     return f(*('a', 'b'))
+...
+...
+>>> a()
+('a', 'b')
+>>> dis(a)
+  3           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x22bcab0, file "&lt;input&gt;", line 3&gt;)
+              3 MAKE_FUNCTION            0
+              6 STORE_FAST               0 (f)
+
+  4           9 LOAD_FAST                0 (f)
+             12 LOAD_CONST               4 (('a', 'b'))
+             15 CALL_FUNCTION_VAR        0
+             18 RETURN_VALUE
+>>> timeit(a)
+0.2249000072479248
+""",
+        """>>> def a():
+...     f = lambda *args: args
+...     return f(*'ab')
+...
+...
+>>> a()
+('a', 'b')
+>>> dis(a)
+  3           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x22bcb30, file "&lt;input&gt;", line 3&gt;)
+              3 MAKE_FUNCTION            0
+              6 STORE_FAST               0 (f)
+
+  4           9 LOAD_FAST                0 (f)
+             12 LOAD_CONST               2 ('ab')
+             15 CALL_FUNCTION_VAR        0
+             18 RETURN_VALUE
+>>> timeit(a)
+0.38970112800598145
+"""
     )
 )
 
