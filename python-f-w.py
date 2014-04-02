@@ -2124,6 +2124,60 @@ tests = (
 >>> timeit(a)
 0.38970112800598145
 """
+    ),
+    (
+        """>>> def a(int=int,str=str,range=range):
+...     for i in range(500):
+...         int(str(i))
+...
+>>> dis(a)
+  3           0 SETUP_LOOP              36 (to 39)
+              3 LOAD_FAST                2 (range)
+              6 LOAD_CONST               1 (500)
+              9 CALL_FUNCTION            1
+             12 GET_ITER
+        >>   13 FOR_ITER                22 (to 38)
+             16 STORE_FAST               3 (i)
+
+  4          19 LOAD_FAST                0 (int)
+             22 LOAD_FAST                1 (str)
+             25 LOAD_FAST                3 (i)
+             28 CALL_FUNCTION            1
+             31 CALL_FUNCTION            1
+             34 POP_TOP
+             35 JUMP_ABSOLUTE           13
+        >>   38 POP_BLOCK
+        >>   39 LOAD_CONST               0 (None)
+             42 RETURN_VALUE
+>>> timeit(a, number=100000)
+19.85649085044861
+""",
+        """>>> def a():
+...     for i in range(500):
+...         int(str(i))
+...
+>>> dis(a)
+  3           0 SETUP_LOOP              36 (to 39)
+              3 LOAD_GLOBAL              0 (range)
+              6 LOAD_CONST               1 (500)
+              9 CALL_FUNCTION            1
+             12 GET_ITER
+        >>   13 FOR_ITER                22 (to 38)
+             16 STORE_FAST               0 (i)
+
+  4          19 LOAD_GLOBAL              1 (int)
+             22 LOAD_GLOBAL              2 (str)
+             25 LOAD_FAST                0 (i)
+             28 CALL_FUNCTION            1
+             31 CALL_FUNCTION            1
+             34 POP_TOP
+             35 JUMP_ABSOLUTE           13
+        >>   38 POP_BLOCK
+        >>   39 LOAD_CONST               0 (None)
+             42 RETURN_VALUE
+>>> timeit(a, number=100000)
+21.894724073410034
+"""
     )
 )
 
