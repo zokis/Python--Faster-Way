@@ -51,6 +51,7 @@ def main():
                 'timeit': timeit(f['a'], number=number),
             }
             group.append(dic)
+        group.sort(key=lambda x: x['timeit'])
 
     context = {
         'plat_sys': platform.system(),
