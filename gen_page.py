@@ -46,7 +46,7 @@ def main():
             number = f['number'] or NUMBER
             dic = {
                 'dis': out,
-                'file_content': test_x_file.read_file(),
+                'file_content': file_content,
                 'number': number,
                 'timeit': timeit(f['a'], number=number),
             }
