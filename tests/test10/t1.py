@@ -1,5 +1,5 @@
 def a():
     r = ''
     for i in range(10):
-        r += str(i)
+        r='%s%d' %(r,i)
     return r
