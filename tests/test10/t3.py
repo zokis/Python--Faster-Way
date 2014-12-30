@@ -1,5 +1,5 @@
 def a():
-    r = []
+    r = ''
     for i in range(10):
-        r.append(str(i))
-    return ''.join(r)
+        r = '%s%d' % (r,i)
+    return r
