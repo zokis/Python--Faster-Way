@@ -36,7 +36,7 @@
 '{{ plat_rel }}'
 >>> sys.version
 '{{ sys_version}}'
->>> from timeit import timeit
+>>> import timeit
 >>> from dis import dis
 >>> 
         </pre></div>
@@ -48,8 +48,8 @@
         <div class="span{{ test.span }}"><pre class="python">
 {{ case.file_content }}
 >>> 
->>> timeit(a, number={{ case.number }})
-... {{ case.timeit }}
+>>> min(timeit.repeat(a, number={{ case.number }}))
+... {{ case.timeit_min }}
 >>> 
 >>> dis(a)
 {{ case.dis|e }}
