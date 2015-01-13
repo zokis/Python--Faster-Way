@@ -2,9 +2,9 @@ import os
 import platform
 import subprocess
 import sys
+import timeit
 
 from jinja2 import Template
-from timeit import timeit
 from unipath import Path, DIRS, FILES
 
 TESTS = []
@@ -48,10 +48,10 @@ def main():
                 'dis': out,
                 'file_content': file_content,
                 'number': number,
-                'timeit': timeit(f['a'], number=number),
+                'timeit_min': min(timeit.repeat(f['a'], number=number)),
             }
             group.append(dic)
-        group.sort(key=lambda x: x['timeit'])
+        group.sort(key=lambda x: x['timeit_min'])
 
     context = {
         'plat_sys': platform.system(),
