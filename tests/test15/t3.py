@@ -1,5 +1,5 @@
 def a():
-    return sum(range(50000))
+    return sum(range(10001))
 
 
 number = 100000
