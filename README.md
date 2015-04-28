@@ -19,6 +19,6 @@ Creating a new test:
 To generate the Page run:
 -------------------------
 ```
-python gen_page.py> index.html 
+python gen_page.py
 ```
 this process can take
