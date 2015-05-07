@@ -33,7 +33,7 @@
 >>> platform.system()
 'Linux'
 >>> platform.release()
-'3.13.0-49-generic'
+'3.13.0-52-generic'
 >>> sys.version
 '2.7.6 (default, Mar 22 2014, 22:59:56) 
 [GCC 4.8.2]'
@@ -3567,6 +3567,197 @@ def a():
 
   7          43 LOAD_FAST                0 (l)
              46 RETURN_VALUE        
+
+>>> 
+        </pre></div>
+        
+    </div>
+    
+    <a href="#test38"><h4>#Test 38</h4></a>
+    <div class="row-fluid" id="test2">
+        
+        <div class="span3"><pre class="python">
+class Spam():
+    def __init__(self):
+        self.eggs = 'eggs'
+
+
+def a():
+    spam = Spam()
+    try:
+        eggs = spam.eggs
+    except AttributeError:
+        eggs = None
+    return eggs
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.316148996353
+>>> 
+>>> dis(a)
+ 10           0 LOAD_GLOBAL              0 (Spam)
+              3 CALL_FUNCTION            0
+              6 STORE_FAST               0 (spam)
+
+ 11           9 SETUP_EXCEPT            13 (to 25)
+
+ 12          12 LOAD_FAST                0 (spam)
+             15 LOAD_ATTR                1 (eggs)
+             18 STORE_FAST               1 (eggs)
+             21 POP_BLOCK           
+             22 JUMP_FORWARD            23 (to 48)
+
+ 13     &gt;&gt;   25 DUP_TOP             
+             26 LOAD_GLOBAL              2 (AttributeError)
+             29 COMPARE_OP              10 (exception match)
+             32 POP_JUMP_IF_FALSE       47
+             35 POP_TOP             
+             36 POP_TOP             
+             37 POP_TOP             
+
+ 14          38 LOAD_CONST               0 (None)
+             41 STORE_FAST               1 (eggs)
+             44 JUMP_FORWARD             1 (to 48)
+        &gt;&gt;   47 END_FINALLY         
+
+ 15     &gt;&gt;   48 LOAD_FAST                1 (eggs)
+             51 RETURN_VALUE        
+
+>>> 
+        </pre></div>
+        
+        <div class="span3"><pre class="python">
+class Spam():
+    def __init__(self):
+        self.eggs = 'eggs'
+
+
+def a():
+    spam = Spam()
+    if hasattr(spam, 'eggs'):
+        eggs = spam.eggs
+    else:
+        eggs = None
+    return eggs
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.38082909584
+>>> 
+>>> dis(a)
+ 10           0 LOAD_GLOBAL              0 (Spam)
+              3 CALL_FUNCTION            0
+              6 STORE_FAST               0 (spam)
+
+ 11           9 LOAD_GLOBAL              1 (hasattr)
+             12 LOAD_FAST                0 (spam)
+             15 LOAD_CONST               1 (&#39;eggs&#39;)
+             18 CALL_FUNCTION            2
+             21 POP_JUMP_IF_FALSE       36
+
+ 12          24 LOAD_FAST                0 (spam)
+             27 LOAD_ATTR                2 (eggs)
+             30 STORE_FAST               1 (eggs)
+             33 JUMP_FORWARD             6 (to 42)
+
+ 14     &gt;&gt;   36 LOAD_CONST               0 (None)
+             39 STORE_FAST               1 (eggs)
+
+ 15     &gt;&gt;   42 LOAD_FAST                1 (eggs)
+             45 RETURN_VALUE        
+
+>>> 
+        </pre></div>
+        
+        <div class="span3"><pre class="python">
+class Spam():
+    def __init__(self):
+        self.not_eggs = 'eggs'
+
+
+def a():
+    spam = Spam()
+    if hasattr(spam, 'eggs'):
+        eggs = spam.eggs
+    else:
+        eggs = None
+    return eggs
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.75745010376
+>>> 
+>>> dis(a)
+ 10           0 LOAD_GLOBAL              0 (Spam)
+              3 CALL_FUNCTION            0
+              6 STORE_FAST               0 (spam)
+
+ 11           9 LOAD_GLOBAL              1 (hasattr)
+             12 LOAD_FAST                0 (spam)
+             15 LOAD_CONST               1 (&#39;eggs&#39;)
+             18 CALL_FUNCTION            2
+             21 POP_JUMP_IF_FALSE       36
+
+ 12          24 LOAD_FAST                0 (spam)
+             27 LOAD_ATTR                2 (eggs)
+             30 STORE_FAST               1 (eggs)
+             33 JUMP_FORWARD             6 (to 42)
+
+ 14     &gt;&gt;   36 LOAD_CONST               0 (None)
+             39 STORE_FAST               1 (eggs)
+
+ 15     &gt;&gt;   42 LOAD_FAST                1 (eggs)
+             45 RETURN_VALUE        
+
+>>> 
+        </pre></div>
+        
+        <div class="span3"><pre class="python">
+class Spam():
+    def __init__(self):
+        self.not_eggs = 'eggs'
+
+
+def a():
+    spam = Spam()
+    try:
+        eggs = spam.eggs
+    except AttributeError:
+        eggs = None
+    return eggs
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 1.55197000504
+>>> 
+>>> dis(a)
+ 10           0 LOAD_GLOBAL              0 (Spam)
+              3 CALL_FUNCTION            0
+              6 STORE_FAST               0 (spam)
+
+ 11           9 SETUP_EXCEPT            13 (to 25)
+
+ 12          12 LOAD_FAST                0 (spam)
+             15 LOAD_ATTR                1 (eggs)
+             18 STORE_FAST               1 (eggs)
+             21 POP_BLOCK           
+             22 JUMP_FORWARD            23 (to 48)
+
+ 13     &gt;&gt;   25 DUP_TOP             
+             26 LOAD_GLOBAL              2 (AttributeError)
+             29 COMPARE_OP              10 (exception match)
+             32 POP_JUMP_IF_FALSE       47
+             35 POP_TOP             
+             36 POP_TOP             
+             37 POP_TOP             
+
+ 14          38 LOAD_CONST               0 (None)
+             41 STORE_FAST               1 (eggs)
+             44 JUMP_FORWARD             1 (to 48)
+        &gt;&gt;   47 END_FINALLY         
+
+ 15     &gt;&gt;   48 LOAD_FAST                1 (eggs)
+             51 RETURN_VALUE        
 
 >>> 
         </pre></div>
