@@ -3,7 +3,7 @@ Python--Faster-Way
 
 Python: Faster Way
 
-http://pythonfasterway.uni.me
+http://pythonfasterway.cf/
 
 http://zokis.github.io/Python--Faster-Way/
 
