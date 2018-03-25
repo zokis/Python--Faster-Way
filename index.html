@@ -31,12 +31,12 @@
 >>> import sys
 >>> import platform
 >>> platform.system()
-'Linux'
+'Darwin'
 >>> platform.release()
-'3.13.0-52-generic'
+'17.4.0'
 >>> sys.version
-'2.7.6 (default, Mar 22 2014, 22:59:56) 
-[GCC 4.8.2]'
+'3.6.4 (default, Mar 22 2018, 13:54:22) 
+[GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2)]'
 >>> import timeit
 >>> from dis import dis
 >>> 
@@ -46,41 +46,41 @@
     <a href="#test1"><h4>#Test 1</h4></a>
     <div class="row-fluid" id="test1">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     d = {}
     return d
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.0831570625305
+... 0.11790114299219567
 >>> 
 >>> dis(a)
   5           0 BUILD_MAP                0
-              3 STORE_FAST               0 (d)
+              2 STORE_FAST               0 (d)
 
-  6           6 LOAD_FAST                0 (d)
-              9 RETURN_VALUE        
+  6           4 LOAD_FAST                0 (d)
+              6 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     d = dict()
     return d
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.137656927109
+... 0.2209911960089812
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (dict)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (d)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (d)
 
-  6           9 LOAD_FAST                0 (d)
-             12 RETURN_VALUE        
+  6           6 LOAD_FAST                0 (d)
+              8 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -90,7 +90,7 @@ def a():
     <a href="#test2"><h4>#Test 2</h4></a>
     <div class="row-fluid" id="test2">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     l = [0, 8, 6, 4, 2, 1, 3, 5, 7, 9]
     l.sort()
@@ -98,60 +98,60 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.544410943985
+... 0.6598396159970434
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 LOAD_CONST               2 (8)
-              6 LOAD_CONST               3 (6)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (2)
-             15 LOAD_CONST               6 (1)
-             18 LOAD_CONST               7 (3)
-             21 LOAD_CONST               8 (5)
-             24 LOAD_CONST               9 (7)
-             27 LOAD_CONST              10 (9)
-             30 BUILD_LIST              10
-             33 STORE_FAST               0 (l)
+              2 LOAD_CONST               2 (8)
+              4 LOAD_CONST               3 (6)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (2)
+             10 LOAD_CONST               6 (1)
+             12 LOAD_CONST               7 (3)
+             14 LOAD_CONST               8 (5)
+             16 LOAD_CONST               9 (7)
+             18 LOAD_CONST              10 (9)
+             20 BUILD_LIST              10
+             22 STORE_FAST               0 (l)
 
-  6          36 LOAD_FAST                0 (l)
-             39 LOAD_ATTR                0 (sort)
-             42 CALL_FUNCTION            0
-             45 POP_TOP             
+  6          24 LOAD_FAST                0 (l)
+             26 LOAD_ATTR                0 (sort)
+             28 CALL_FUNCTION            0
+             30 POP_TOP
 
-  7          46 LOAD_FAST                0 (l)
-             49 RETURN_VALUE        
+  7          32 LOAD_FAST                0 (l)
+             34 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     l = [0, 8, 6, 4, 2, 1, 3, 5, 7, 9]
     return sorted(l)
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.754332065582
+... 0.7926091150002321
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 LOAD_CONST               2 (8)
-              6 LOAD_CONST               3 (6)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (2)
-             15 LOAD_CONST               6 (1)
-             18 LOAD_CONST               7 (3)
-             21 LOAD_CONST               8 (5)
-             24 LOAD_CONST               9 (7)
-             27 LOAD_CONST              10 (9)
-             30 BUILD_LIST              10
-             33 STORE_FAST               0 (l)
+              2 LOAD_CONST               2 (8)
+              4 LOAD_CONST               3 (6)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (2)
+             10 LOAD_CONST               6 (1)
+             12 LOAD_CONST               7 (3)
+             14 LOAD_CONST               8 (5)
+             16 LOAD_CONST               9 (7)
+             18 LOAD_CONST              10 (9)
+             20 BUILD_LIST              10
+             22 STORE_FAST               0 (l)
 
-  6          36 LOAD_GLOBAL              0 (sorted)
-             39 LOAD_FAST                0 (l)
-             42 CALL_FUNCTION            1
-             45 RETURN_VALUE        
+  6          24 LOAD_GLOBAL              0 (sorted)
+             26 LOAD_FAST                0 (l)
+             28 CALL_FUNCTION            1
+             30 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -161,46 +161,7 @@ def a():
     <a href="#test3"><h4>#Test 3</h4></a>
     <div class="row-fluid" id="test3">
         
-        <div class="span6"><pre class="python">
-def a():
-    a, b, c, d, e, f, g, h, i, j = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-    return j, i, h, g, f, e, d, c, b, a
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.213264942169
->>> 
->>> dis(a)
-  5           0 LOAD_CONST              11 ((0, 1, 2, 3, 4, 5, 6, 7, 8, 9))
-              3 UNPACK_SEQUENCE         10
-              6 STORE_FAST               0 (a)
-              9 STORE_FAST               1 (b)
-             12 STORE_FAST               2 (c)
-             15 STORE_FAST               3 (d)
-             18 STORE_FAST               4 (e)
-             21 STORE_FAST               5 (f)
-             24 STORE_FAST               6 (g)
-             27 STORE_FAST               7 (h)
-             30 STORE_FAST               8 (i)
-             33 STORE_FAST               9 (j)
-
-  6          36 LOAD_FAST                9 (j)
-             39 LOAD_FAST                8 (i)
-             42 LOAD_FAST                7 (h)
-             45 LOAD_FAST                6 (g)
-             48 LOAD_FAST                5 (f)
-             51 LOAD_FAST                4 (e)
-             54 LOAD_FAST                3 (d)
-             57 LOAD_FAST                2 (c)
-             60 LOAD_FAST                1 (b)
-             63 LOAD_FAST                0 (a)
-             66 BUILD_TUPLE             10
-             69 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = 0
     b = 1
@@ -216,51 +177,90 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.24055981636
+... 0.19152451999252662
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_CONST               2 (1)
-              9 STORE_FAST               1 (b)
+  6           4 LOAD_CONST               2 (1)
+              6 STORE_FAST               1 (b)
 
-  7          12 LOAD_CONST               3 (2)
-             15 STORE_FAST               2 (c)
+  7           8 LOAD_CONST               3 (2)
+             10 STORE_FAST               2 (c)
 
-  8          18 LOAD_CONST               4 (3)
-             21 STORE_FAST               3 (d)
+  8          12 LOAD_CONST               4 (3)
+             14 STORE_FAST               3 (d)
 
-  9          24 LOAD_CONST               5 (4)
-             27 STORE_FAST               4 (e)
+  9          16 LOAD_CONST               5 (4)
+             18 STORE_FAST               4 (e)
 
- 10          30 LOAD_CONST               6 (5)
-             33 STORE_FAST               5 (f)
+ 10          20 LOAD_CONST               6 (5)
+             22 STORE_FAST               5 (f)
 
- 11          36 LOAD_CONST               7 (6)
-             39 STORE_FAST               6 (g)
+ 11          24 LOAD_CONST               7 (6)
+             26 STORE_FAST               6 (g)
 
- 12          42 LOAD_CONST               8 (7)
-             45 STORE_FAST               7 (h)
+ 12          28 LOAD_CONST               8 (7)
+             30 STORE_FAST               7 (h)
 
- 13          48 LOAD_CONST               9 (8)
-             51 STORE_FAST               8 (i)
+ 13          32 LOAD_CONST               9 (8)
+             34 STORE_FAST               8 (i)
 
- 14          54 LOAD_CONST              10 (9)
-             57 STORE_FAST               9 (j)
+ 14          36 LOAD_CONST              10 (9)
+             38 STORE_FAST               9 (j)
 
- 15          60 LOAD_FAST                9 (j)
-             63 LOAD_FAST                8 (i)
-             66 LOAD_FAST                7 (h)
-             69 LOAD_FAST                6 (g)
-             72 LOAD_FAST                5 (f)
-             75 LOAD_FAST                4 (e)
-             78 LOAD_FAST                3 (d)
-             81 LOAD_FAST                2 (c)
-             84 LOAD_FAST                1 (b)
-             87 LOAD_FAST                0 (a)
-             90 BUILD_TUPLE             10
-             93 RETURN_VALUE        
+ 15          40 LOAD_FAST                9 (j)
+             42 LOAD_FAST                8 (i)
+             44 LOAD_FAST                7 (h)
+             46 LOAD_FAST                6 (g)
+             48 LOAD_FAST                5 (f)
+             50 LOAD_FAST                4 (e)
+             52 LOAD_FAST                3 (d)
+             54 LOAD_FAST                2 (c)
+             56 LOAD_FAST                1 (b)
+             58 LOAD_FAST                0 (a)
+             60 BUILD_TUPLE             10
+             62 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span6.0"><pre class="python">
+def a():
+    a, b, c, d, e, f, g, h, i, j = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+    return j, i, h, g, f, e, d, c, b, a
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.19444148200273048
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST              11 ((0, 1, 2, 3, 4, 5, 6, 7, 8, 9))
+              2 UNPACK_SEQUENCE         10
+              4 STORE_FAST               0 (a)
+              6 STORE_FAST               1 (b)
+              8 STORE_FAST               2 (c)
+             10 STORE_FAST               3 (d)
+             12 STORE_FAST               4 (e)
+             14 STORE_FAST               5 (f)
+             16 STORE_FAST               6 (g)
+             18 STORE_FAST               7 (h)
+             20 STORE_FAST               8 (i)
+             22 STORE_FAST               9 (j)
+
+  6          24 LOAD_FAST                9 (j)
+             26 LOAD_FAST                8 (i)
+             28 LOAD_FAST                7 (h)
+             30 LOAD_FAST                6 (g)
+             32 LOAD_FAST                5 (f)
+             34 LOAD_FAST                4 (e)
+             36 LOAD_FAST                3 (d)
+             38 LOAD_FAST                2 (c)
+             40 LOAD_FAST                1 (b)
+             42 LOAD_FAST                0 (a)
+             44 BUILD_TUPLE             10
+             46 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -270,7 +270,7 @@ def a():
     <a href="#test4"><h4>#Test 4</h4></a>
     <div class="row-fluid" id="test4">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a, b, c, d, e, f = 2, 5, 52, 25, 225, 552
     if a < b and b < c and c < d and d < e and e < f:
@@ -279,49 +279,49 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.166114091873
+... 0.18059646400797646
 >>> 
 >>> dis(a)
-  5           0 LOAD_CONST               7 ((2, 5, 52, 25, 225, 552))
-              3 UNPACK_SEQUENCE          6
-              6 STORE_FAST               0 (a)
-              9 STORE_FAST               1 (b)
-             12 STORE_FAST               2 (c)
-             15 STORE_FAST               3 (d)
-             18 STORE_FAST               4 (e)
-             21 STORE_FAST               5 (f)
+  5           0 LOAD_CONST               9 ((2, 5, 52, 25, 225, 552))
+              2 UNPACK_SEQUENCE          6
+              4 STORE_FAST               0 (a)
+              6 STORE_FAST               1 (b)
+              8 STORE_FAST               2 (c)
+             10 STORE_FAST               3 (d)
+             12 STORE_FAST               4 (e)
+             14 STORE_FAST               5 (f)
 
-  6          24 LOAD_FAST                0 (a)
-             27 LOAD_FAST                1 (b)
-             30 COMPARE_OP               0 (&lt;)
-             33 POP_JUMP_IF_FALSE       88
-             36 LOAD_FAST                1 (b)
-             39 LOAD_FAST                2 (c)
-             42 COMPARE_OP               0 (&lt;)
-             45 POP_JUMP_IF_FALSE       88
-             48 LOAD_FAST                2 (c)
-             51 LOAD_FAST                3 (d)
-             54 COMPARE_OP               0 (&lt;)
-             57 POP_JUMP_IF_FALSE       88
-             60 LOAD_FAST                3 (d)
-             63 LOAD_FAST                4 (e)
-             66 COMPARE_OP               0 (&lt;)
-             69 POP_JUMP_IF_FALSE       88
-             72 LOAD_FAST                4 (e)
-             75 LOAD_FAST                5 (f)
-             78 COMPARE_OP               0 (&lt;)
-             81 POP_JUMP_IF_FALSE       88
+  6          16 LOAD_FAST                0 (a)
+             18 LOAD_FAST                1 (b)
+             20 COMPARE_OP               0 (&lt;)
+             22 POP_JUMP_IF_FALSE       60
+             24 LOAD_FAST                1 (b)
+             26 LOAD_FAST                2 (c)
+             28 COMPARE_OP               0 (&lt;)
+             30 POP_JUMP_IF_FALSE       60
+             32 LOAD_FAST                2 (c)
+             34 LOAD_FAST                3 (d)
+             36 COMPARE_OP               0 (&lt;)
+             38 POP_JUMP_IF_FALSE       60
+             40 LOAD_FAST                3 (d)
+             42 LOAD_FAST                4 (e)
+             44 COMPARE_OP               0 (&lt;)
+             46 POP_JUMP_IF_FALSE       60
+             48 LOAD_FAST                4 (e)
+             50 LOAD_FAST                5 (f)
+             52 COMPARE_OP               0 (&lt;)
+             54 POP_JUMP_IF_FALSE       60
 
-  7          84 LOAD_GLOBAL              0 (True)
-             87 RETURN_VALUE        
+  7          56 LOAD_CONST               7 (True)
+             58 RETURN_VALUE
 
-  8     &gt;&gt;   88 LOAD_GLOBAL              1 (False)
-             91 RETURN_VALUE        
+  8     &gt;&gt;   60 LOAD_CONST               8 (False)
+             62 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a, b, c, d, e, f = 2, 5, 52, 25, 225, 552
     if a < b < c < d < e < f:
@@ -330,51 +330,51 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.207404136658
+... 0.21707240700197872
 >>> 
 >>> dis(a)
-  5           0 LOAD_CONST               7 ((2, 5, 52, 25, 225, 552))
-              3 UNPACK_SEQUENCE          6
-              6 STORE_FAST               0 (a)
-              9 STORE_FAST               1 (b)
-             12 STORE_FAST               2 (c)
-             15 STORE_FAST               3 (d)
-             18 STORE_FAST               4 (e)
-             21 STORE_FAST               5 (f)
+  5           0 LOAD_CONST               9 ((2, 5, 52, 25, 225, 552))
+              2 UNPACK_SEQUENCE          6
+              4 STORE_FAST               0 (a)
+              6 STORE_FAST               1 (b)
+              8 STORE_FAST               2 (c)
+             10 STORE_FAST               3 (d)
+             12 STORE_FAST               4 (e)
+             14 STORE_FAST               5 (f)
 
-  6          24 LOAD_FAST                0 (a)
-             27 LOAD_FAST                1 (b)
-             30 DUP_TOP             
-             31 ROT_THREE           
-             32 COMPARE_OP               0 (&lt;)
-             35 JUMP_IF_FALSE_OR_POP    80
-             38 LOAD_FAST                2 (c)
-             41 DUP_TOP             
-             42 ROT_THREE           
-             43 COMPARE_OP               0 (&lt;)
-             46 JUMP_IF_FALSE_OR_POP    80
-             49 LOAD_FAST                3 (d)
-             52 DUP_TOP             
-             53 ROT_THREE           
+  6          16 LOAD_FAST                0 (a)
+             18 LOAD_FAST                1 (b)
+             20 DUP_TOP
+             22 ROT_THREE
+             24 COMPARE_OP               0 (&lt;)
+             26 JUMP_IF_FALSE_OR_POP    64
+             28 LOAD_FAST                2 (c)
+             30 DUP_TOP
+             32 ROT_THREE
+             34 COMPARE_OP               0 (&lt;)
+             36 JUMP_IF_FALSE_OR_POP    64
+             38 LOAD_FAST                3 (d)
+             40 DUP_TOP
+             42 ROT_THREE
+             44 COMPARE_OP               0 (&lt;)
+             46 JUMP_IF_FALSE_OR_POP    64
+             48 LOAD_FAST                4 (e)
+             50 DUP_TOP
+             52 ROT_THREE
              54 COMPARE_OP               0 (&lt;)
-             57 JUMP_IF_FALSE_OR_POP    80
-             60 LOAD_FAST                4 (e)
-             63 DUP_TOP             
-             64 ROT_THREE           
-             65 COMPARE_OP               0 (&lt;)
-             68 JUMP_IF_FALSE_OR_POP    80
-             71 LOAD_FAST                5 (f)
-             74 COMPARE_OP               0 (&lt;)
-             77 JUMP_FORWARD             2 (to 82)
-        &gt;&gt;   80 ROT_TWO             
-             81 POP_TOP             
-        &gt;&gt;   82 POP_JUMP_IF_FALSE       89
+             56 JUMP_IF_FALSE_OR_POP    64
+             58 LOAD_FAST                5 (f)
+             60 COMPARE_OP               0 (&lt;)
+             62 JUMP_FORWARD             4 (to 68)
+        &gt;&gt;   64 ROT_TWO
+             66 POP_TOP
+        &gt;&gt;   68 POP_JUMP_IF_FALSE       74
 
-  7          85 LOAD_GLOBAL              0 (True)
-             88 RETURN_VALUE        
+  7          70 LOAD_CONST               7 (True)
+             72 RETURN_VALUE
 
-  8     &gt;&gt;   89 LOAD_GLOBAL              1 (False)
-             92 RETURN_VALUE        
+  8     &gt;&gt;   74 LOAD_CONST               8 (False)
+             76 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -384,7 +384,7 @@ def a():
     <a href="#test5"><h4>#Test 5</h4></a>
     <div class="row-fluid" id="test5">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = True
     if a:
@@ -393,54 +393,25 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.0993790626526
+... 0.09209070599172264
 >>> 
 >>> dis(a)
-  5           0 LOAD_GLOBAL              0 (True)
-              3 STORE_FAST               0 (a)
+  5           0 LOAD_CONST               1 (True)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 POP_JUMP_IF_FALSE       16
+  6           4 LOAD_FAST                0 (a)
+              6 POP_JUMP_IF_FALSE       12
 
-  7          12 LOAD_GLOBAL              0 (True)
-             15 RETURN_VALUE        
+  7           8 LOAD_CONST               1 (True)
+             10 RETURN_VALUE
 
-  8     &gt;&gt;   16 LOAD_GLOBAL              1 (False)
-             19 RETURN_VALUE        
+  8     &gt;&gt;   12 LOAD_CONST               2 (False)
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
-def a():
-    a = True
-    if a == True:
-        return True
-    return False
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.134131908417
->>> 
->>> dis(a)
-  5           0 LOAD_GLOBAL              0 (True)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_GLOBAL              0 (True)
-             12 COMPARE_OP               2 (==)
-             15 POP_JUMP_IF_FALSE       22
-
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
-
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = True
     if a is True:
@@ -449,22 +420,51 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.141218900681
+... 0.1039222859981237
 >>> 
 >>> dis(a)
-  5           0 LOAD_GLOBAL              0 (True)
-              3 STORE_FAST               0 (a)
+  5           0 LOAD_CONST               1 (True)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_GLOBAL              0 (True)
-             12 COMPARE_OP               8 (is)
-             15 POP_JUMP_IF_FALSE       22
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               1 (True)
+              8 COMPARE_OP               8 (is)
+             10 POP_JUMP_IF_FALSE       16
 
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
+  7          12 LOAD_CONST               1 (True)
+             14 RETURN_VALUE
 
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
+  8     &gt;&gt;   16 LOAD_CONST               2 (False)
+             18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    a = True
+    if a == True:
+        return True
+    return False
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.11458483300521038
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (True)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               1 (True)
+              8 COMPARE_OP               2 (==)
+             10 POP_JUMP_IF_FALSE       16
+
+  7          12 LOAD_CONST               1 (True)
+             14 RETURN_VALUE
+
+  8     &gt;&gt;   16 LOAD_CONST               2 (False)
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -474,65 +474,7 @@ def a():
     <a href="#test6"><h4>#Test 6</h4></a>
     <div class="row-fluid" id="test6">
         
-        <div class="span4"><pre class="python">
-def a():
-    a = 1
-    if a is not 2:
-        return True
-    return False
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.108445882797
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               2 (2)
-             12 COMPARE_OP               9 (is not)
-             15 POP_JUMP_IF_FALSE       22
-
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
-
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
-def a():
-    a = 1
-    if a != 2:
-        return True
-    return False
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.110563993454
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               2 (2)
-             12 COMPARE_OP               3 (!=)
-             15 POP_JUMP_IF_FALSE       22
-
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
-
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = 1
     if not a is 2:
@@ -541,22 +483,80 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.110800027847
+... 0.1019199820002541
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               2 (2)
-             12 COMPARE_OP               9 (is not)
-             15 POP_JUMP_IF_FALSE       22
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               2 (2)
+              8 COMPARE_OP               9 (is not)
+             10 POP_JUMP_IF_FALSE       16
 
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
+  7          12 LOAD_CONST               3 (True)
+             14 RETURN_VALUE
 
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
+  8     &gt;&gt;   16 LOAD_CONST               4 (False)
+             18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    a = 1
+    if a is not 2:
+        return True
+    return False
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.1040120000106981
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               2 (2)
+              8 COMPARE_OP               9 (is not)
+             10 POP_JUMP_IF_FALSE       16
+
+  7          12 LOAD_CONST               3 (True)
+             14 RETURN_VALUE
+
+  8     &gt;&gt;   16 LOAD_CONST               4 (False)
+             18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    a = 1
+    if a != 2:
+        return True
+    return False
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.11882040399359539
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               2 (2)
+              8 COMPARE_OP               3 (!=)
+             10 POP_JUMP_IF_FALSE       16
+
+  7          12 LOAD_CONST               3 (True)
+             14 RETURN_VALUE
+
+  8     &gt;&gt;   16 LOAD_CONST               4 (False)
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -566,7 +566,7 @@ def a():
     <a href="#test7"><h4>#Test 7</h4></a>
     <div class="row-fluid" id="test7">
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = []
     if not a:
@@ -575,25 +575,25 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.106290817261
+... 0.11347348098934162
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 POP_JUMP_IF_TRUE        16
+  6           4 LOAD_FAST                0 (a)
+              6 POP_JUMP_IF_TRUE        12
 
-  7          12 LOAD_GLOBAL              0 (True)
-             15 RETURN_VALUE        
+  7           8 LOAD_CONST               1 (True)
+             10 RETURN_VALUE
 
-  8     &gt;&gt;   16 LOAD_GLOBAL              1 (False)
-             19 RETURN_VALUE        
+  8     &gt;&gt;   12 LOAD_CONST               2 (False)
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = []
     if a:
@@ -602,25 +602,25 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.107531070709
+... 0.12071009399369359
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 POP_JUMP_IF_FALSE       16
+  6           4 LOAD_FAST                0 (a)
+              6 POP_JUMP_IF_FALSE       12
 
-  7          12 LOAD_GLOBAL              0 (False)
-             15 RETURN_VALUE        
+  7           8 LOAD_CONST               1 (False)
+             10 RETURN_VALUE
 
-  8     &gt;&gt;   16 LOAD_GLOBAL              1 (True)
-             19 RETURN_VALUE        
+  8     &gt;&gt;   12 LOAD_CONST               2 (True)
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = []
     if a == []:
@@ -629,27 +629,27 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.130414009094
+... 0.13694997699349187
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 BUILD_LIST               0
-             12 COMPARE_OP               2 (==)
-             15 POP_JUMP_IF_FALSE       22
+  6           4 LOAD_FAST                0 (a)
+              6 BUILD_LIST               0
+              8 COMPARE_OP               2 (==)
+             10 POP_JUMP_IF_FALSE       16
 
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
+  7          12 LOAD_CONST               1 (True)
+             14 RETURN_VALUE
 
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
+  8     &gt;&gt;   16 LOAD_CONST               2 (False)
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = []
     if len(a) <= 0:
@@ -658,24 +658,24 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.139355182648
+... 0.17402722100086976
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_GLOBAL              0 (len)
-              9 LOAD_FAST                0 (a)
-             12 CALL_FUNCTION            1
-             15 LOAD_CONST               1 (0)
-             18 COMPARE_OP               1 (&lt;=)
-             21 POP_JUMP_IF_FALSE       28
+  6           4 LOAD_GLOBAL              0 (len)
+              6 LOAD_FAST                0 (a)
+              8 CALL_FUNCTION            1
+             10 LOAD_CONST               1 (0)
+             12 COMPARE_OP               1 (&lt;=)
+             14 POP_JUMP_IF_FALSE       20
 
-  7          24 LOAD_GLOBAL              1 (True)
-             27 RETURN_VALUE        
+  7          16 LOAD_CONST               2 (True)
+             18 RETURN_VALUE
 
-  8     &gt;&gt;   28 LOAD_GLOBAL              2 (False)
-             31 RETURN_VALUE        
+  8     &gt;&gt;   20 LOAD_CONST               3 (False)
+             22 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -685,7 +685,7 @@ def a():
     <a href="#test8"><h4>#Test 8</h4></a>
     <div class="row-fluid" id="test8">
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = object()
     if a:
@@ -694,26 +694,26 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.14155292511
+... 0.1842727180046495
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (object)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (a)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (a)
 
-  6           9 LOAD_FAST                0 (a)
-             12 POP_JUMP_IF_FALSE       19
+  6           6 LOAD_FAST                0 (a)
+              8 POP_JUMP_IF_FALSE       14
 
-  7          15 LOAD_GLOBAL              1 (True)
-             18 RETURN_VALUE        
+  7          10 LOAD_CONST               1 (True)
+             12 RETURN_VALUE
 
-  8     &gt;&gt;   19 LOAD_GLOBAL              2 (False)
-             22 RETURN_VALUE        
+  8     &gt;&gt;   14 LOAD_CONST               2 (False)
+             16 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = object()
     if a is None:
@@ -722,28 +722,28 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.146244049072
+... 0.19388355599949136
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (object)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (a)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (a)
 
-  6           9 LOAD_FAST                0 (a)
-             12 LOAD_CONST               0 (None)
-             15 COMPARE_OP               8 (is)
-             18 POP_JUMP_IF_FALSE       25
+  6           6 LOAD_FAST                0 (a)
+              8 LOAD_CONST               0 (None)
+             10 COMPARE_OP               8 (is)
+             12 POP_JUMP_IF_FALSE       18
 
-  7          21 LOAD_GLOBAL              2 (False)
-             24 RETURN_VALUE        
+  7          14 LOAD_CONST               1 (False)
+             16 RETURN_VALUE
 
-  8     &gt;&gt;   25 LOAD_GLOBAL              3 (True)
-             28 RETURN_VALUE        
+  8     &gt;&gt;   18 LOAD_CONST               2 (True)
+             20 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = object()
     if not a:
@@ -752,26 +752,26 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.147689819336
+... 0.1967413140082499
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (object)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (a)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (a)
 
-  6           9 LOAD_FAST                0 (a)
-             12 POP_JUMP_IF_TRUE        19
+  6           6 LOAD_FAST                0 (a)
+              8 POP_JUMP_IF_TRUE        14
 
-  7          15 LOAD_GLOBAL              1 (False)
-             18 RETURN_VALUE        
+  7          10 LOAD_CONST               1 (False)
+             12 RETURN_VALUE
 
-  8     &gt;&gt;   19 LOAD_GLOBAL              2 (True)
-             22 RETURN_VALUE        
+  8     &gt;&gt;   14 LOAD_CONST               2 (True)
+             16 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     a = object()
     if a is not None:
@@ -780,23 +780,23 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.148921966553
+... 0.19840506999753416
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (object)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (a)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (a)
 
-  6           9 LOAD_FAST                0 (a)
-             12 LOAD_CONST               0 (None)
-             15 COMPARE_OP               9 (is not)
-             18 POP_JUMP_IF_FALSE       25
+  6           6 LOAD_FAST                0 (a)
+              8 LOAD_CONST               0 (None)
+             10 COMPARE_OP               9 (is not)
+             12 POP_JUMP_IF_FALSE       18
 
-  7          21 LOAD_GLOBAL              2 (True)
-             24 RETURN_VALUE        
+  7          14 LOAD_CONST               1 (True)
+             16 RETURN_VALUE
 
-  8     &gt;&gt;   25 LOAD_GLOBAL              3 (False)
-             28 RETURN_VALUE        
+  8     &gt;&gt;   18 LOAD_CONST               2 (False)
+             20 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -806,7 +806,7 @@ def a():
     <a href="#test9"><h4>#Test 9</h4></a>
     <div class="row-fluid" id="test9">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = [1, 2, 3, 4, 5]
     s = 0
@@ -817,49 +817,49 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.749017896652
+... 0.7488207089918433
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 BUILD_LIST               5
-             18 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 BUILD_LIST               5
+             12 STORE_FAST               0 (a)
 
-  6          21 LOAD_CONST               6 (0)
-             24 STORE_FAST               1 (s)
+  6          14 LOAD_CONST               6 (0)
+             16 STORE_FAST               1 (s)
 
-  7          27 SETUP_LOOP              46 (to 76)
-             30 LOAD_GLOBAL              0 (enumerate)
-             33 LOAD_FAST                0 (a)
-             36 CALL_FUNCTION            1
-             39 GET_ITER            
-        &gt;&gt;   40 FOR_ITER                32 (to 75)
-             43 UNPACK_SEQUENCE          2
-             46 STORE_FAST               2 (p)
-             49 STORE_FAST               3 (v)
+  7          18 SETUP_LOOP              36 (to 56)
+             20 LOAD_GLOBAL              0 (enumerate)
+             22 LOAD_FAST                0 (a)
+             24 CALL_FUNCTION            1
+             26 GET_ITER
+        &gt;&gt;   28 FOR_ITER                24 (to 54)
+             30 UNPACK_SEQUENCE          2
+             32 STORE_FAST               2 (p)
+             34 STORE_FAST               3 (v)
 
-  8          52 LOAD_FAST                1 (s)
-             55 LOAD_FAST                2 (p)
-             58 INPLACE_ADD         
-             59 STORE_FAST               1 (s)
+  8          36 LOAD_FAST                1 (s)
+             38 LOAD_FAST                2 (p)
+             40 INPLACE_ADD
+             42 STORE_FAST               1 (s)
 
-  9          62 LOAD_FAST                1 (s)
-             65 LOAD_FAST                3 (v)
-             68 INPLACE_ADD         
-             69 STORE_FAST               1 (s)
-             72 JUMP_ABSOLUTE           40
-        &gt;&gt;   75 POP_BLOCK           
+  9          44 LOAD_FAST                1 (s)
+             46 LOAD_FAST                3 (v)
+             48 INPLACE_ADD
+             50 STORE_FAST               1 (s)
+             52 JUMP_ABSOLUTE           28
+        &gt;&gt;   54 POP_BLOCK
 
- 10     &gt;&gt;   76 LOAD_FAST                1 (s)
-             79 RETURN_VALUE        
+ 10     &gt;&gt;   56 LOAD_FAST                1 (s)
+             58 RETURN_VALUE
 
 >>> 
         </pre></div>
-
-        <div class="span6"><pre class="python">
+        
+        <div class="span6.0"><pre class="python">
 def a():
     a = [1, 2, 3, 4, 5]
     s = 0
@@ -870,46 +870,46 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.759560118185
+... 0.8938139969977783
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 BUILD_LIST               5
-             18 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 BUILD_LIST               5
+             12 STORE_FAST               0 (a)
 
-  6          21 LOAD_CONST               6 (0)
-             24 STORE_FAST               1 (s)
+  6          14 LOAD_CONST               6 (0)
+             16 STORE_FAST               1 (s)
 
-  7          27 SETUP_LOOP              50 (to 80)
-             30 LOAD_GLOBAL              0 (range)
-             33 LOAD_GLOBAL              1 (len)
-             36 LOAD_FAST                0 (a)
-             39 CALL_FUNCTION            1
-             42 CALL_FUNCTION            1
-             45 GET_ITER            
-        &gt;&gt;   46 FOR_ITER                30 (to 79)
-             49 STORE_FAST               2 (i)
+  7          18 SETUP_LOOP              40 (to 60)
+             20 LOAD_GLOBAL              0 (range)
+             22 LOAD_GLOBAL              1 (len)
+             24 LOAD_FAST                0 (a)
+             26 CALL_FUNCTION            1
+             28 CALL_FUNCTION            1
+             30 GET_ITER
+        &gt;&gt;   32 FOR_ITER                24 (to 58)
+             34 STORE_FAST               2 (i)
 
-  8          52 LOAD_FAST                1 (s)
-             55 LOAD_FAST                2 (i)
-             58 INPLACE_ADD         
-             59 STORE_FAST               1 (s)
+  8          36 LOAD_FAST                1 (s)
+             38 LOAD_FAST                2 (i)
+             40 INPLACE_ADD
+             42 STORE_FAST               1 (s)
 
-  9          62 LOAD_FAST                1 (s)
-             65 LOAD_FAST                0 (a)
-             68 LOAD_FAST                2 (i)
-             71 BINARY_SUBSCR       
-             72 INPLACE_ADD         
-             73 STORE_FAST               1 (s)
-             76 JUMP_ABSOLUTE           46
-        &gt;&gt;   79 POP_BLOCK           
+  9          44 LOAD_FAST                1 (s)
+             46 LOAD_FAST                0 (a)
+             48 LOAD_FAST                2 (i)
+             50 BINARY_SUBSCR
+             52 INPLACE_ADD
+             54 STORE_FAST               1 (s)
+             56 JUMP_ABSOLUTE           32
+        &gt;&gt;   58 POP_BLOCK
 
- 10     &gt;&gt;   80 LOAD_FAST                1 (s)
-             83 RETURN_VALUE        
+ 10     &gt;&gt;   60 LOAD_FAST                1 (s)
+             62 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -919,7 +919,7 @@ def a():
     <a href="#test10"><h4>#Test 10</h4></a>
     <div class="row-fluid" id="test10">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     r = ''
     for i in range(10):
@@ -928,36 +928,36 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.78748393059
+... 3.032726717006881
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (&#39;&#39;)
-              3 STORE_FAST               0 (r)
+              2 STORE_FAST               0 (r)
 
-  6           6 SETUP_LOOP              36 (to 45)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               2 (10)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                22 (to 44)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              28 (to 34)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               2 (10)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                16 (to 32)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_FAST                0 (r)
-             28 LOAD_GLOBAL              1 (str)
-             31 LOAD_FAST                1 (i)
-             34 CALL_FUNCTION            1
-             37 INPLACE_ADD         
-             38 STORE_FAST               0 (r)
-             41 JUMP_ABSOLUTE           19
-        &gt;&gt;   44 POP_BLOCK           
+  7          18 LOAD_FAST                0 (r)
+             20 LOAD_GLOBAL              1 (str)
+             22 LOAD_FAST                1 (i)
+             24 CALL_FUNCTION            1
+             26 INPLACE_ADD
+             28 STORE_FAST               0 (r)
+             30 JUMP_ABSOLUTE           14
+        &gt;&gt;   32 POP_BLOCK
 
-  8     &gt;&gt;   45 LOAD_FAST                0 (r)
-             48 RETURN_VALUE        
+  8     &gt;&gt;   34 LOAD_FAST                0 (r)
+             36 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     r = []
     for i in range(10):
@@ -966,35 +966,35 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 2.15004897118
+... 3.4630439189932076
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (r)
+              2 STORE_FAST               0 (r)
 
-  6           6 SETUP_LOOP              39 (to 48)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               1 (10)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                25 (to 47)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              30 (to 36)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (10)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                18 (to 34)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_FAST                0 (r)
-             28 LOAD_ATTR                1 (append)
-             31 LOAD_GLOBAL              2 (str)
-             34 LOAD_FAST                1 (i)
-             37 CALL_FUNCTION            1
-             40 CALL_FUNCTION            1
-             43 POP_TOP             
-             44 JUMP_ABSOLUTE           19
-        &gt;&gt;   47 POP_BLOCK           
+  7          18 LOAD_FAST                0 (r)
+             20 LOAD_ATTR                1 (append)
+             22 LOAD_GLOBAL              2 (str)
+             24 LOAD_FAST                1 (i)
+             26 CALL_FUNCTION            1
+             28 CALL_FUNCTION            1
+             30 POP_TOP
+             32 JUMP_ABSOLUTE           14
+        &gt;&gt;   34 POP_BLOCK
 
-  8     &gt;&gt;   48 LOAD_CONST               2 (&#39;&#39;)
-             51 LOAD_ATTR                3 (join)
-             54 LOAD_FAST                0 (r)
-             57 CALL_FUNCTION            1
-             60 RETURN_VALUE        
+  8     &gt;&gt;   36 LOAD_CONST               2 (&#39;&#39;)
+             38 LOAD_ATTR                3 (join)
+             40 LOAD_FAST                0 (r)
+             42 CALL_FUNCTION            1
+             44 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1004,73 +1004,7 @@ def a():
     <a href="#test11"><h4>#Test 11</h4></a>
     <div class="row-fluid" id="test11">
         
-        <div class="span4"><pre class="python">
-def a():
-    a = 5
-    b = 2
-    c = 3
-    return "%s" % (a*(b+c))
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.275773048401
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (5)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_CONST               2 (2)
-              9 STORE_FAST               1 (b)
-
-  7          12 LOAD_CONST               3 (3)
-             15 STORE_FAST               2 (c)
-
-  8          18 LOAD_CONST               4 (&#39;%s&#39;)
-             21 LOAD_FAST                0 (a)
-             24 LOAD_FAST                1 (b)
-             27 LOAD_FAST                2 (c)
-             30 BINARY_ADD          
-             31 BINARY_MULTIPLY     
-             32 BINARY_MODULO       
-             33 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
-def a():
-    a = 5
-    b = 2
-    c = 3
-    return str(a*(b+c))
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.315514087677
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (5)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_CONST               2 (2)
-              9 STORE_FAST               1 (b)
-
-  7          12 LOAD_CONST               3 (3)
-             15 STORE_FAST               2 (c)
-
-  8          18 LOAD_GLOBAL              0 (str)
-             21 LOAD_FAST                0 (a)
-             24 LOAD_FAST                1 (b)
-             27 LOAD_FAST                2 (c)
-             30 BINARY_ADD          
-             31 BINARY_MULTIPLY     
-             32 CALL_FUNCTION            1
-             35 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = 5
     b = 2
@@ -1079,26 +1013,92 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.617300033569
+... 0.2900318019965198
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (5)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_CONST               2 (2)
-              9 STORE_FAST               1 (b)
+  6           4 LOAD_CONST               2 (2)
+              6 STORE_FAST               1 (b)
 
-  7          12 LOAD_CONST               3 (3)
-             15 STORE_FAST               2 (c)
+  7           8 LOAD_CONST               3 (3)
+             10 STORE_FAST               2 (c)
 
-  8          18 LOAD_CONST               4 (&#39;%d&#39;)
-             21 LOAD_FAST                0 (a)
-             24 LOAD_FAST                1 (b)
-             27 LOAD_FAST                2 (c)
-             30 BINARY_ADD          
-             31 BINARY_MULTIPLY     
-             32 BINARY_MODULO       
-             33 RETURN_VALUE        
+  8          12 LOAD_CONST               4 (&#39;%d&#39;)
+             14 LOAD_FAST                0 (a)
+             16 LOAD_FAST                1 (b)
+             18 LOAD_FAST                2 (c)
+             20 BINARY_ADD
+             22 BINARY_MULTIPLY
+             24 BINARY_MODULO
+             26 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    a = 5
+    b = 2
+    c = 3
+    return "%s" % (a*(b+c))
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.30156870499195065
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (5)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_CONST               2 (2)
+              6 STORE_FAST               1 (b)
+
+  7           8 LOAD_CONST               3 (3)
+             10 STORE_FAST               2 (c)
+
+  8          12 LOAD_CONST               4 (&#39;%s&#39;)
+             14 LOAD_FAST                0 (a)
+             16 LOAD_FAST                1 (b)
+             18 LOAD_FAST                2 (c)
+             20 BINARY_ADD
+             22 BINARY_MULTIPLY
+             24 BINARY_MODULO
+             26 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    a = 5
+    b = 2
+    c = 3
+    return str(a*(b+c))
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.3542918369930703
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (5)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_CONST               2 (2)
+              6 STORE_FAST               1 (b)
+
+  7           8 LOAD_CONST               3 (3)
+             10 STORE_FAST               2 (c)
+
+  8          12 LOAD_GLOBAL              0 (str)
+             14 LOAD_FAST                0 (a)
+             16 LOAD_FAST                1 (b)
+             18 LOAD_FAST                2 (c)
+             20 BINARY_ADD
+             22 BINARY_MULTIPLY
+             24 CALL_FUNCTION            1
+             26 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1108,54 +1108,54 @@ def a():
     <a href="#test12"><h4>#Test 12</h4></a>
     <div class="row-fluid" id="test12">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = [1, 2, 3, 4, 5]
     return len(a)
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.187968969345
+... 0.2013101010088576
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 BUILD_LIST               5
-             18 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 BUILD_LIST               5
+             12 STORE_FAST               0 (a)
 
-  6          21 LOAD_GLOBAL              0 (len)
-             24 LOAD_FAST                0 (a)
-             27 CALL_FUNCTION            1
-             30 RETURN_VALUE        
+  6          14 LOAD_GLOBAL              0 (len)
+             16 LOAD_FAST                0 (a)
+             18 CALL_FUNCTION            1
+             20 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = [1, 2, 3, 4, 5]
     return a.__len__()
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.221897125244
+... 0.2561155389994383
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 BUILD_LIST               5
-             18 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 BUILD_LIST               5
+             12 STORE_FAST               0 (a)
 
-  6          21 LOAD_FAST                0 (a)
-             24 LOAD_ATTR                0 (__len__)
-             27 CALL_FUNCTION            0
-             30 RETURN_VALUE        
+  6          14 LOAD_FAST                0 (a)
+             16 LOAD_ATTR                0 (__len__)
+             18 CALL_FUNCTION            0
+             20 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1165,7 +1165,7 @@ def a():
     <a href="#test13"><h4>#Test 13</h4></a>
     <div class="row-fluid" id="test13">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = 1
     b = 2
@@ -1175,34 +1175,34 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.176941871643
+... 0.15741605899529532
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_CONST               2 (2)
-              9 STORE_FAST               1 (b)
+  6           4 LOAD_CONST               2 (2)
+              6 STORE_FAST               1 (b)
 
-  7          12 LOAD_CONST               2 (2)
-             15 STORE_FAST               2 (c)
+  7           8 LOAD_CONST               2 (2)
+             10 STORE_FAST               2 (c)
 
-  8          18 LOAD_CONST               3 (5)
-             21 STORE_FAST               3 (d)
+  8          12 LOAD_CONST               3 (5)
+             14 STORE_FAST               3 (d)
 
-  9          24 LOAD_FAST                0 (a)
-             27 LOAD_FAST                1 (b)
-             30 BINARY_ADD          
-             31 LOAD_FAST                2 (c)
-             34 BINARY_ADD          
-             35 LOAD_FAST                3 (d)
-             38 BINARY_MULTIPLY     
-             39 RETURN_VALUE        
+  9          16 LOAD_FAST                0 (a)
+             18 LOAD_FAST                1 (b)
+             20 BINARY_ADD
+             22 LOAD_FAST                2 (c)
+             24 BINARY_ADD
+             26 LOAD_FAST                3 (d)
+             28 BINARY_MULTIPLY
+             30 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = 1
     b = 2
@@ -1212,32 +1212,32 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.383534908295
+... 0.5066875560005428
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_CONST               2 (2)
-              9 STORE_FAST               1 (b)
+  6           4 LOAD_CONST               2 (2)
+              6 STORE_FAST               1 (b)
 
-  7          12 LOAD_CONST               2 (2)
-             15 STORE_FAST               2 (c)
+  7           8 LOAD_CONST               2 (2)
+             10 STORE_FAST               2 (c)
 
-  8          18 LOAD_CONST               3 (5)
-             21 STORE_FAST               3 (d)
+  8          12 LOAD_CONST               3 (5)
+             14 STORE_FAST               3 (d)
 
-  9          24 LOAD_FAST                0 (a)
-             27 LOAD_ATTR                0 (__add__)
-             30 LOAD_FAST                1 (b)
-             33 LOAD_ATTR                0 (__add__)
-             36 LOAD_FAST                2 (c)
-             39 CALL_FUNCTION            1
-             42 CALL_FUNCTION            1
-             45 LOAD_ATTR                1 (__mul__)
-             48 LOAD_FAST                3 (d)
-             51 CALL_FUNCTION            1
-             54 RETURN_VALUE        
+  9          16 LOAD_FAST                0 (a)
+             18 LOAD_ATTR                0 (__add__)
+             20 LOAD_FAST                1 (b)
+             22 LOAD_ATTR                0 (__add__)
+             24 LOAD_FAST                2 (c)
+             26 CALL_FUNCTION            1
+             28 CALL_FUNCTION            1
+             30 LOAD_ATTR                1 (__mul__)
+             32 LOAD_FAST                3 (d)
+             34 CALL_FUNCTION            1
+             36 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1247,7 +1247,7 @@ def a():
     <a href="#test14"><h4>#Test 14</h4></a>
     <div class="row-fluid" id="test14">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 class Z():
 
     def __init__(self, v):
@@ -1268,37 +1268,37 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.64181280136
+... 2.255334576999303
 >>> 
 >>> dis(a)
  17           0 LOAD_GLOBAL              0 (Z)
-              3 LOAD_CONST               1 (5)
-              6 CALL_FUNCTION            1
-              9 STORE_FAST               0 (a)
+              2 LOAD_CONST               1 (5)
+              4 CALL_FUNCTION            1
+              6 STORE_FAST               0 (a)
 
- 18          12 LOAD_GLOBAL              0 (Z)
-             15 LOAD_CONST               2 (2)
-             18 CALL_FUNCTION            1
-             21 STORE_FAST               1 (b)
+ 18           8 LOAD_GLOBAL              0 (Z)
+             10 LOAD_CONST               2 (2)
+             12 CALL_FUNCTION            1
+             14 STORE_FAST               1 (b)
 
- 19          24 LOAD_GLOBAL              0 (Z)
-             27 LOAD_CONST               3 (3)
+ 19          16 LOAD_GLOBAL              0 (Z)
+             18 LOAD_CONST               3 (3)
+             20 CALL_FUNCTION            1
+             22 STORE_FAST               2 (c)
+
+ 20          24 LOAD_FAST                1 (b)
+             26 LOAD_ATTR                1 (__add__)
+             28 LOAD_FAST                2 (c)
              30 CALL_FUNCTION            1
-             33 STORE_FAST               2 (c)
-
- 20          36 LOAD_FAST                1 (b)
-             39 LOAD_ATTR                1 (__add__)
-             42 LOAD_FAST                2 (c)
-             45 CALL_FUNCTION            1
-             48 LOAD_ATTR                2 (__mul__)
-             51 LOAD_FAST                0 (a)
-             54 CALL_FUNCTION            1
-             57 RETURN_VALUE        
+             32 LOAD_ATTR                2 (__mul__)
+             34 LOAD_FAST                0 (a)
+             36 CALL_FUNCTION            1
+             38 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 class Z():
 
     def __init__(self, v):
@@ -1319,30 +1319,30 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 2.59770393372
+... 2.485554468992632
 >>> 
 >>> dis(a)
  17           0 LOAD_GLOBAL              0 (Z)
-              3 LOAD_CONST               1 (5)
-              6 CALL_FUNCTION            1
-              9 STORE_FAST               0 (a)
+              2 LOAD_CONST               1 (5)
+              4 CALL_FUNCTION            1
+              6 STORE_FAST               0 (a)
 
- 18          12 LOAD_GLOBAL              0 (Z)
-             15 LOAD_CONST               2 (2)
-             18 CALL_FUNCTION            1
-             21 STORE_FAST               1 (b)
+ 18           8 LOAD_GLOBAL              0 (Z)
+             10 LOAD_CONST               2 (2)
+             12 CALL_FUNCTION            1
+             14 STORE_FAST               1 (b)
 
- 19          24 LOAD_GLOBAL              0 (Z)
-             27 LOAD_CONST               3 (3)
-             30 CALL_FUNCTION            1
-             33 STORE_FAST               2 (c)
+ 19          16 LOAD_GLOBAL              0 (Z)
+             18 LOAD_CONST               3 (3)
+             20 CALL_FUNCTION            1
+             22 STORE_FAST               2 (c)
 
- 20          36 LOAD_FAST                1 (b)
-             39 LOAD_FAST                2 (c)
-             42 BINARY_ADD          
-             43 LOAD_FAST                0 (a)
-             46 BINARY_MULTIPLY     
-             47 RETURN_VALUE        
+ 20          24 LOAD_FAST                1 (b)
+             26 LOAD_FAST                2 (c)
+             28 BINARY_ADD
+             30 LOAD_FAST                0 (a)
+             32 BINARY_MULTIPLY
+             34 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1352,7 +1352,7 @@ def a():
     <a href="#test15"><h4>#Test 15</h4></a>
     <div class="row-fluid" id="test15">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     return sum(range(10001))
 
@@ -1361,20 +1361,20 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 14.987650156
+... 20.120961503998842
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (sum)
-              3 LOAD_GLOBAL              1 (range)
-              6 LOAD_CONST               1 (10001)
-              9 CALL_FUNCTION            1
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE        
+              2 LOAD_GLOBAL              1 (range)
+              4 LOAD_CONST               1 (10001)
+              6 CALL_FUNCTION            1
+              8 CALL_FUNCTION            1
+             10 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     s = 0
     for i in range(10001):
@@ -1386,34 +1386,34 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 36.7540109158
+... 55.51742031000322
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 STORE_FAST               0 (s)
+              2 STORE_FAST               0 (s)
 
-  6           6 SETUP_LOOP              30 (to 39)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               2 (10001)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                16 (to 38)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              24 (to 30)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               2 (10001)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                12 (to 28)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_FAST                0 (s)
-             28 LOAD_FAST                1 (i)
-             31 INPLACE_ADD         
-             32 STORE_FAST               0 (s)
-             35 JUMP_ABSOLUTE           19
-        &gt;&gt;   38 POP_BLOCK           
+  7          18 LOAD_FAST                0 (s)
+             20 LOAD_FAST                1 (i)
+             22 INPLACE_ADD
+             24 STORE_FAST               0 (s)
+             26 JUMP_ABSOLUTE           14
+        &gt;&gt;   28 POP_BLOCK
 
-  8     &gt;&gt;   39 LOAD_FAST                0 (s)
-             42 RETURN_VALUE        
+  8     &gt;&gt;   30 LOAD_FAST                0 (s)
+             32 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     return sum(i for i in range(10001))
 
@@ -1422,19 +1422,20 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 45.2200968266
+... 64.59529128600843
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (sum)
-              3 LOAD_CONST               1 (&lt;code object &lt;genexpr&gt; at 0x7faaa7953330, file &#34;/tmp/__pfw_test15_t2.py&#34;, line 5&gt;)
+              2 LOAD_CONST               1 (&lt;code object &lt;genexpr&gt; at 0x100c788a0, file &#34;/tmp/__pfw_test15_t2.py&#34;, line 5&gt;)
+              4 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;genexpr&gt;&#39;)
               6 MAKE_FUNCTION            0
-              9 LOAD_GLOBAL              1 (range)
-             12 LOAD_CONST               2 (10001)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-             19 CALL_FUNCTION            1
-             22 CALL_FUNCTION            1
-             25 RETURN_VALUE        
+              8 LOAD_GLOBAL              1 (range)
+             10 LOAD_CONST               3 (10001)
+             12 CALL_FUNCTION            1
+             14 GET_ITER
+             16 CALL_FUNCTION            1
+             18 CALL_FUNCTION            1
+             20 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1444,7 +1445,7 @@ number = 100000
     <a href="#test16"><h4>#Test 16</h4></a>
     <div class="row-fluid" id="test16">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     return [i for i in range(1000)]
 
@@ -1453,25 +1454,23 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 3.1230340004
+... 3.3964731209998718
 >>> 
 >>> dis(a)
-  5           0 BUILD_LIST               0
-              3 LOAD_GLOBAL              0 (range)
-              6 LOAD_CONST               1 (1000)
-              9 CALL_FUNCTION            1
-             12 GET_ITER            
-        &gt;&gt;   13 FOR_ITER                12 (to 28)
-             16 STORE_FAST               0 (i)
-             19 LOAD_FAST                0 (i)
-             22 LIST_APPEND              2
-             25 JUMP_ABSOLUTE           13
-        &gt;&gt;   28 RETURN_VALUE        
+  5           0 LOAD_CONST               1 (&lt;code object &lt;listcomp&gt; at 0x10b79b8a0, file &#34;/tmp/__pfw_test16_t2.py&#34;, line 5&gt;)
+              2 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;listcomp&gt;&#39;)
+              4 MAKE_FUNCTION            0
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               3 (1000)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+             14 CALL_FUNCTION            1
+             16 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     l = []
     for i in range(1000):
@@ -1483,30 +1482,30 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 6.67973995209
+... 8.831338235002477
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (l)
+              2 STORE_FAST               0 (l)
 
-  6           6 SETUP_LOOP              33 (to 42)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               1 (1000)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                19 (to 41)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              26 (to 32)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (1000)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                14 (to 30)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_FAST                0 (l)
-             28 LOAD_ATTR                1 (append)
-             31 LOAD_FAST                1 (i)
-             34 CALL_FUNCTION            1
-             37 POP_TOP             
-             38 JUMP_ABSOLUTE           19
-        &gt;&gt;   41 POP_BLOCK           
+  7          18 LOAD_FAST                0 (l)
+             20 LOAD_ATTR                1 (append)
+             22 LOAD_FAST                1 (i)
+             24 CALL_FUNCTION            1
+             26 POP_TOP
+             28 JUMP_ABSOLUTE           14
+        &gt;&gt;   30 POP_BLOCK
 
-  8     &gt;&gt;   42 LOAD_FAST                0 (l)
-             45 RETURN_VALUE        
+  8     &gt;&gt;   32 LOAD_FAST                0 (l)
+             34 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1516,28 +1515,29 @@ number = 100000
     <a href="#test17"><h4>#Test 17</h4></a>
     <div class="row-fluid" id="test17">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     return {str(i): i*2 for i in range(100)}
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 18.1680169106
+... 31.7491314229992
 >>> 
 >>> dis(a)
-  5           0 LOAD_CONST               1 (&lt;code object &lt;dictcomp&gt; at 0x7fd53cefd330, file &#34;/tmp/__pfw_test17_t3.py&#34;, line 5&gt;)
-              3 MAKE_FUNCTION            0
+  5           0 LOAD_CONST               1 (&lt;code object &lt;dictcomp&gt; at 0x10a7ca8a0, file &#34;/tmp/__pfw_test17_t3.py&#34;, line 5&gt;)
+              2 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;dictcomp&gt;&#39;)
+              4 MAKE_FUNCTION            0
               6 LOAD_GLOBAL              0 (range)
-              9 LOAD_CONST               2 (100)
-             12 CALL_FUNCTION            1
-             15 GET_ITER            
-             16 CALL_FUNCTION            1
-             19 RETURN_VALUE        
+              8 LOAD_CONST               3 (100)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+             14 CALL_FUNCTION            1
+             16 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     d = {}
     for i in range(100):
@@ -1546,38 +1546,38 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 19.2419528961
+... 32.19378310299362
 >>> 
 >>> dis(a)
   5           0 BUILD_MAP                0
-              3 STORE_FAST               0 (d)
+              2 STORE_FAST               0 (d)
 
-  6           6 SETUP_LOOP              40 (to 49)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               1 (100)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                26 (to 48)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              32 (to 38)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (100)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                20 (to 36)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_FAST                1 (i)
-             28 LOAD_CONST               2 (2)
-             31 BINARY_MULTIPLY     
-             32 LOAD_FAST                0 (d)
-             35 LOAD_GLOBAL              1 (str)
-             38 LOAD_FAST                1 (i)
-             41 CALL_FUNCTION            1
-             44 STORE_SUBSCR        
-             45 JUMP_ABSOLUTE           19
-        &gt;&gt;   48 POP_BLOCK           
+  7          18 LOAD_FAST                1 (i)
+             20 LOAD_CONST               2 (2)
+             22 BINARY_MULTIPLY
+             24 LOAD_FAST                0 (d)
+             26 LOAD_GLOBAL              1 (str)
+             28 LOAD_FAST                1 (i)
+             30 CALL_FUNCTION            1
+             32 STORE_SUBSCR
+             34 JUMP_ABSOLUTE           14
+        &gt;&gt;   36 POP_BLOCK
 
-  8     &gt;&gt;   49 LOAD_FAST                0 (d)
-             52 RETURN_VALUE        
+  8     &gt;&gt;   38 LOAD_FAST                0 (d)
+             40 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     d = {}
     for i in range(100):
@@ -1586,37 +1586,36 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 39.4537580013
+... 50.21496508999553
 >>> 
 >>> dis(a)
   5           0 BUILD_MAP                0
-              3 STORE_FAST               0 (d)
+              2 STORE_FAST               0 (d)
 
-  6           6 SETUP_LOOP              50 (to 59)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               1 (100)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                36 (to 58)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              38 (to 44)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (100)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                26 (to 42)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_FAST                0 (d)
-             28 LOAD_ATTR                1 (update)
-             31 BUILD_MAP                1
-             34 LOAD_FAST                1 (i)
-             37 LOAD_CONST               2 (2)
-             40 BINARY_MULTIPLY     
-             41 LOAD_GLOBAL              2 (str)
-             44 LOAD_FAST                1 (i)
-             47 CALL_FUNCTION            1
-             50 STORE_MAP           
-             51 CALL_FUNCTION            1
-             54 POP_TOP             
-             55 JUMP_ABSOLUTE           19
-        &gt;&gt;   58 POP_BLOCK           
+  7          18 LOAD_FAST                0 (d)
+             20 LOAD_ATTR                1 (update)
+             22 LOAD_GLOBAL              2 (str)
+             24 LOAD_FAST                1 (i)
+             26 CALL_FUNCTION            1
+             28 LOAD_FAST                1 (i)
+             30 LOAD_CONST               2 (2)
+             32 BINARY_MULTIPLY
+             34 BUILD_MAP                1
+             36 CALL_FUNCTION            1
+             38 POP_TOP
+             40 JUMP_ABSOLUTE           14
+        &gt;&gt;   42 POP_BLOCK
 
-  8     &gt;&gt;   59 LOAD_FAST                0 (d)
-             62 RETURN_VALUE        
+  8     &gt;&gt;   44 LOAD_FAST                0 (d)
+             46 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1626,36 +1625,7 @@ def a():
     <a href="#test18"><h4>#Test 18</h4></a>
     <div class="row-fluid" id="test18">
         
-        <div class="span4"><pre class="python">
-def a():
-    l = range(50, -20, -2)
-    return {p: v for p, v in enumerate(l)}
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 2.91801404953
->>> 
->>> dis(a)
-  5           0 LOAD_GLOBAL              0 (range)
-              3 LOAD_CONST               1 (50)
-              6 LOAD_CONST               2 (-20)
-              9 LOAD_CONST               3 (-2)
-             12 CALL_FUNCTION            3
-             15 STORE_FAST               0 (l)
-
-  6          18 LOAD_CONST               4 (&lt;code object &lt;dictcomp&gt; at 0x7f9987e8e330, file &#34;/tmp/__pfw_test18_t3.py&#34;, line 6&gt;)
-             21 MAKE_FUNCTION            0
-             24 LOAD_GLOBAL              1 (enumerate)
-             27 LOAD_FAST                0 (l)
-             30 CALL_FUNCTION            1
-             33 GET_ITER            
-             34 CALL_FUNCTION            1
-             37 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     l = range(50, -20, -2)
     d = {}
@@ -1665,43 +1635,73 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 3.25340199471
+... 3.351994149008533
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (range)
-              3 LOAD_CONST               1 (50)
-              6 LOAD_CONST               2 (-20)
-              9 LOAD_CONST               3 (-2)
-             12 CALL_FUNCTION            3
-             15 STORE_FAST               0 (l)
+              2 LOAD_CONST               1 (50)
+              4 LOAD_CONST               4 (-20)
+              6 LOAD_CONST               5 (-2)
+              8 CALL_FUNCTION            3
+             10 STORE_FAST               0 (l)
 
-  6          18 BUILD_MAP                0
-             21 STORE_FAST               1 (d)
+  6          12 BUILD_MAP                0
+             14 STORE_FAST               1 (d)
 
-  7          24 SETUP_LOOP              36 (to 63)
-             27 LOAD_GLOBAL              1 (enumerate)
-             30 LOAD_FAST                0 (l)
-             33 CALL_FUNCTION            1
-             36 GET_ITER            
-        &gt;&gt;   37 FOR_ITER                22 (to 62)
-             40 UNPACK_SEQUENCE          2
-             43 STORE_FAST               2 (p)
-             46 STORE_FAST               3 (v)
+  7          16 SETUP_LOOP              28 (to 46)
+             18 LOAD_GLOBAL              1 (enumerate)
+             20 LOAD_FAST                0 (l)
+             22 CALL_FUNCTION            1
+             24 GET_ITER
+        &gt;&gt;   26 FOR_ITER                16 (to 44)
+             28 UNPACK_SEQUENCE          2
+             30 STORE_FAST               2 (p)
+             32 STORE_FAST               3 (v)
 
-  8          49 LOAD_FAST                3 (v)
-             52 LOAD_FAST                1 (d)
-             55 LOAD_FAST                2 (p)
-             58 STORE_SUBSCR        
-             59 JUMP_ABSOLUTE           37
-        &gt;&gt;   62 POP_BLOCK           
+  8          34 LOAD_FAST                3 (v)
+             36 LOAD_FAST                1 (d)
+             38 LOAD_FAST                2 (p)
+             40 STORE_SUBSCR
+             42 JUMP_ABSOLUTE           26
+        &gt;&gt;   44 POP_BLOCK
 
-  9     &gt;&gt;   63 LOAD_FAST                1 (d)
-             66 RETURN_VALUE        
+  9     &gt;&gt;   46 LOAD_FAST                1 (d)
+             48 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
+def a():
+    l = range(50, -20, -2)
+    return {p: v for p, v in enumerate(l)}
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 3.3990801259933505
+>>> 
+>>> dis(a)
+  5           0 LOAD_GLOBAL              0 (range)
+              2 LOAD_CONST               1 (50)
+              4 LOAD_CONST               6 (-20)
+              6 LOAD_CONST               7 (-2)
+              8 CALL_FUNCTION            3
+             10 STORE_FAST               0 (l)
+
+  6          12 LOAD_CONST               4 (&lt;code object &lt;dictcomp&gt; at 0x1009068a0, file &#34;/tmp/__pfw_test18_t3.py&#34;, line 6&gt;)
+             14 LOAD_CONST               5 (&#39;a.&lt;locals&gt;.&lt;dictcomp&gt;&#39;)
+             16 MAKE_FUNCTION            0
+             18 LOAD_GLOBAL              1 (enumerate)
+             20 LOAD_FAST                0 (l)
+             22 CALL_FUNCTION            1
+             24 GET_ITER
+             26 CALL_FUNCTION            1
+             28 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
 def a():
     l = range(50, -20, -2)
     d = {}
@@ -1711,42 +1711,41 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 10.272703886
+... 10.098747372001526
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (range)
-              3 LOAD_CONST               1 (50)
-              6 LOAD_CONST               2 (-20)
-              9 LOAD_CONST               3 (-2)
-             12 CALL_FUNCTION            3
-             15 STORE_FAST               0 (l)
+              2 LOAD_CONST               1 (50)
+              4 LOAD_CONST               4 (-20)
+              6 LOAD_CONST               5 (-2)
+              8 CALL_FUNCTION            3
+             10 STORE_FAST               0 (l)
 
-  6          18 BUILD_MAP                0
-             21 STORE_FAST               1 (d)
+  6          12 BUILD_MAP                0
+             14 STORE_FAST               1 (d)
 
-  7          24 SETUP_LOOP              46 (to 73)
-             27 LOAD_GLOBAL              1 (enumerate)
-             30 LOAD_FAST                0 (l)
-             33 CALL_FUNCTION            1
-             36 GET_ITER            
-        &gt;&gt;   37 FOR_ITER                32 (to 72)
-             40 UNPACK_SEQUENCE          2
-             43 STORE_FAST               2 (p)
-             46 STORE_FAST               3 (v)
+  7          16 SETUP_LOOP              34 (to 52)
+             18 LOAD_GLOBAL              1 (enumerate)
+             20 LOAD_FAST                0 (l)
+             22 CALL_FUNCTION            1
+             24 GET_ITER
+        &gt;&gt;   26 FOR_ITER                22 (to 50)
+             28 UNPACK_SEQUENCE          2
+             30 STORE_FAST               2 (p)
+             32 STORE_FAST               3 (v)
 
-  8          49 LOAD_FAST                1 (d)
-             52 LOAD_ATTR                2 (update)
-             55 BUILD_MAP                1
-             58 LOAD_FAST                3 (v)
-             61 LOAD_FAST                2 (p)
-             64 STORE_MAP           
-             65 CALL_FUNCTION            1
-             68 POP_TOP             
-             69 JUMP_ABSOLUTE           37
-        &gt;&gt;   72 POP_BLOCK           
+  8          34 LOAD_FAST                1 (d)
+             36 LOAD_ATTR                2 (update)
+             38 LOAD_FAST                2 (p)
+             40 LOAD_FAST                3 (v)
+             42 BUILD_MAP                1
+             44 CALL_FUNCTION            1
+             46 POP_TOP
+             48 JUMP_ABSOLUTE           26
+        &gt;&gt;   50 POP_BLOCK
 
-  9     &gt;&gt;   73 LOAD_FAST                1 (d)
-             76 RETURN_VALUE        
+  9     &gt;&gt;   52 LOAD_FAST                1 (d)
+             54 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1756,133 +1755,133 @@ def a():
     <a href="#test19"><h4>#Test 19</h4></a>
     <div class="row-fluid" id="test19">
         
-        <div class="span2"><pre class="python">
-def a():
-    a = []
-    return bool(a)
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.176470994949
->>> 
->>> dis(a)
-  5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_GLOBAL              0 (bool)
-              9 LOAD_FAST                0 (a)
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
-def a():
-    a = 1
-    return bool(a)
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.177570104599
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_GLOBAL              0 (bool)
-              9 LOAD_FAST                0 (a)
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
-def a():
-    a = 0
-    return bool(a)
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.179797172546
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (0)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_GLOBAL              0 (bool)
-              9 LOAD_FAST                0 (a)
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span2"><pre class="python">
+        <div class="span2.0"><pre class="python">
 def a():
     a = True
     return bool(a)
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.189181804657
+... 0.2188120880018687
 >>> 
 >>> dis(a)
-  5           0 LOAD_GLOBAL              0 (True)
-              3 STORE_FAST               0 (a)
+  5           0 LOAD_CONST               1 (True)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_GLOBAL              1 (bool)
-              9 LOAD_FAST                0 (a)
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE        
+  6           4 LOAD_GLOBAL              0 (bool)
+              6 LOAD_FAST                0 (a)
+              8 CALL_FUNCTION            1
+             10 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span2"><pre class="python">
+        <div class="span2.0"><pre class="python">
+def a():
+    a = 0
+    return bool(a)
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.21922839399485383
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (0)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_GLOBAL              0 (bool)
+              6 LOAD_FAST                0 (a)
+              8 CALL_FUNCTION            1
+             10 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span2.0"><pre class="python">
+def a():
+    a = 1
+    return bool(a)
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.22087562498927582
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_GLOBAL              0 (bool)
+              6 LOAD_FAST                0 (a)
+              8 CALL_FUNCTION            1
+             10 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span2.0"><pre class="python">
+def a():
+    a = []
+    return bool(a)
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.23574262000329327
+>>> 
+>>> dis(a)
+  5           0 BUILD_LIST               0
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_GLOBAL              0 (bool)
+              6 LOAD_FAST                0 (a)
+              8 CALL_FUNCTION            1
+             10 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span2.0"><pre class="python">
 def a():
     a = [1]
     return bool(a)
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.261267900467
+... 0.26354278200597037
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 BUILD_LIST               1
-              6 STORE_FAST               0 (a)
+              2 BUILD_LIST               1
+              4 STORE_FAST               0 (a)
 
-  6           9 LOAD_GLOBAL              0 (bool)
-             12 LOAD_FAST                0 (a)
-             15 CALL_FUNCTION            1
-             18 RETURN_VALUE        
+  6           6 LOAD_GLOBAL              0 (bool)
+              8 LOAD_FAST                0 (a)
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span2"><pre class="python">
+        <div class="span2.0"><pre class="python">
 def a():
     a = [1, 2, 3, 4]
     return bool(a)
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.266257047653
+... 0.2832531799940625
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 BUILD_LIST               4
-             15 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 BUILD_LIST               4
+             10 STORE_FAST               0 (a)
 
-  6          18 LOAD_GLOBAL              0 (bool)
-             21 LOAD_FAST                0 (a)
-             24 CALL_FUNCTION            1
-             27 RETURN_VALUE        
+  6          12 LOAD_GLOBAL              0 (bool)
+             14 LOAD_FAST                0 (a)
+             16 CALL_FUNCTION            1
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1892,73 +1891,73 @@ def a():
     <a href="#test20"><h4>#Test 20</h4></a>
     <div class="row-fluid" id="test20">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = 1
     return a != 2
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.0961241722107
+... 0.11380881899094675
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               2 (2)
-             12 COMPARE_OP               3 (!=)
-             15 RETURN_VALUE        
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               2 (2)
+              8 COMPARE_OP               3 (!=)
+             10 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
-def a():
-    a = 1
-    return True if a != 2 else False
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.112351894379
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               2 (2)
-             12 COMPARE_OP               3 (!=)
-             15 POP_JUMP_IF_FALSE       22
-             18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
-        &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = 1
     return a != 2 and True or False
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.113826036453
+... 0.11706077800772619
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               2 (2)
-             12 COMPARE_OP               3 (!=)
-             15 POP_JUMP_IF_FALSE       24
-             18 LOAD_GLOBAL              0 (True)
-             21 JUMP_IF_TRUE_OR_POP     27
-        &gt;&gt;   24 LOAD_GLOBAL              1 (False)
-        &gt;&gt;   27 RETURN_VALUE        
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               2 (2)
+              8 COMPARE_OP               3 (!=)
+             10 POP_JUMP_IF_FALSE       16
+             12 LOAD_CONST               3 (True)
+             14 JUMP_IF_TRUE_OR_POP     18
+        &gt;&gt;   16 LOAD_CONST               4 (False)
+        &gt;&gt;   18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    a = 1
+    return True if a != 2 else False
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.11872866300109308
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               2 (2)
+              8 COMPARE_OP               3 (!=)
+             10 POP_JUMP_IF_FALSE       16
+             12 LOAD_CONST               3 (True)
+             14 RETURN_VALUE
+        &gt;&gt;   16 LOAD_CONST               4 (False)
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -1968,109 +1967,91 @@ def a():
     <a href="#test21"><h4>#Test 21</h4></a>
     <div class="row-fluid" id="test21">
         
-        <div class="span4"><pre class="python">
-def a():
-    return sum([p+v for p, v in enumerate([1, 2, 3, 4, 5])])
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.828515052795
->>> 
->>> dis(a)
-  5           0 LOAD_GLOBAL              0 (sum)
-              3 BUILD_LIST               0
-              6 LOAD_GLOBAL              1 (enumerate)
-              9 LOAD_CONST               1 (1)
-             12 LOAD_CONST               2 (2)
-             15 LOAD_CONST               3 (3)
-             18 LOAD_CONST               4 (4)
-             21 LOAD_CONST               5 (5)
-             24 BUILD_LIST               5
-             27 CALL_FUNCTION            1
-             30 GET_ITER            
-        &gt;&gt;   31 FOR_ITER                22 (to 56)
-             34 UNPACK_SEQUENCE          2
-             37 STORE_FAST               0 (p)
-             40 STORE_FAST               1 (v)
-             43 LOAD_FAST                0 (p)
-             46 LOAD_FAST                1 (v)
-             49 BINARY_ADD          
-             50 LIST_APPEND              2
-             53 JUMP_ABSOLUTE           31
-        &gt;&gt;   56 CALL_FUNCTION            1
-             59 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = [1, 2, 3, 4, 5]
     return sum([p+v for p, v in enumerate(a)])
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.848294973373
+... 1.072898858008557
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 BUILD_LIST               5
-             18 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 BUILD_LIST               5
+             12 STORE_FAST               0 (a)
 
-  6          21 LOAD_GLOBAL              0 (sum)
-             24 BUILD_LIST               0
-             27 LOAD_GLOBAL              1 (enumerate)
-             30 LOAD_FAST                0 (a)
-             33 CALL_FUNCTION            1
-             36 GET_ITER            
-        &gt;&gt;   37 FOR_ITER                22 (to 62)
-             40 UNPACK_SEQUENCE          2
-             43 STORE_FAST               1 (p)
-             46 STORE_FAST               2 (v)
-             49 LOAD_FAST                1 (p)
-             52 LOAD_FAST                2 (v)
-             55 BINARY_ADD          
-             56 LIST_APPEND              2
-             59 JUMP_ABSOLUTE           37
-        &gt;&gt;   62 CALL_FUNCTION            1
-             65 RETURN_VALUE        
+  6          14 LOAD_GLOBAL              0 (sum)
+             16 LOAD_CONST               6 (&lt;code object &lt;listcomp&gt; at 0x10d6418a0, file &#34;/tmp/__pfw_test21_t1.py&#34;, line 6&gt;)
+             18 LOAD_CONST               7 (&#39;a.&lt;locals&gt;.&lt;listcomp&gt;&#39;)
+             20 MAKE_FUNCTION            0
+             22 LOAD_GLOBAL              1 (enumerate)
+             24 LOAD_FAST                0 (a)
+             26 CALL_FUNCTION            1
+             28 GET_ITER
+             30 CALL_FUNCTION            1
+             32 CALL_FUNCTION            1
+             34 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
-    return sum([p+v for p, v in enumerate(xrange(1, 6))])
+    return sum([p+v for p, v in enumerate([1, 2, 3, 4, 5])])
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.935786008835
+... 1.0784853310033213
 >>> 
 >>> dis(a)
   5           0 LOAD_GLOBAL              0 (sum)
-              3 BUILD_LIST               0
-              6 LOAD_GLOBAL              1 (enumerate)
-              9 LOAD_GLOBAL              2 (xrange)
-             12 LOAD_CONST               1 (1)
-             15 LOAD_CONST               2 (6)
-             18 CALL_FUNCTION            2
-             21 CALL_FUNCTION            1
-             24 GET_ITER            
-        &gt;&gt;   25 FOR_ITER                22 (to 50)
-             28 UNPACK_SEQUENCE          2
-             31 STORE_FAST               0 (p)
-             34 STORE_FAST               1 (v)
-             37 LOAD_FAST                0 (p)
-             40 LOAD_FAST                1 (v)
-             43 BINARY_ADD          
-             44 LIST_APPEND              2
-             47 JUMP_ABSOLUTE           25
-        &gt;&gt;   50 CALL_FUNCTION            1
-             53 RETURN_VALUE        
+              2 LOAD_CONST               1 (&lt;code object &lt;listcomp&gt; at 0x1083798a0, file &#34;/tmp/__pfw_test21_t2.py&#34;, line 5&gt;)
+              4 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;listcomp&gt;&#39;)
+              6 MAKE_FUNCTION            0
+              8 LOAD_GLOBAL              1 (enumerate)
+             10 LOAD_CONST               3 (1)
+             12 LOAD_CONST               4 (2)
+             14 LOAD_CONST               5 (3)
+             16 LOAD_CONST               6 (4)
+             18 LOAD_CONST               7 (5)
+             20 BUILD_LIST               5
+             22 CALL_FUNCTION            1
+             24 GET_ITER
+             26 CALL_FUNCTION            1
+             28 CALL_FUNCTION            1
+             30 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    return sum([p+v for p, v in enumerate(range(1, 6))])
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 1.2911875290010357
+>>> 
+>>> dis(a)
+  5           0 LOAD_GLOBAL              0 (sum)
+              2 LOAD_CONST               1 (&lt;code object &lt;listcomp&gt; at 0x1023118a0, file &#34;/tmp/__pfw_test21_t3.py&#34;, line 5&gt;)
+              4 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;listcomp&gt;&#39;)
+              6 MAKE_FUNCTION            0
+              8 LOAD_GLOBAL              1 (enumerate)
+             10 LOAD_GLOBAL              2 (range)
+             12 LOAD_CONST               3 (1)
+             14 LOAD_CONST               4 (6)
+             16 CALL_FUNCTION            2
+             18 CALL_FUNCTION            1
+             20 GET_ITER
+             22 CALL_FUNCTION            1
+             24 CALL_FUNCTION            1
+             26 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2080,44 +2061,7 @@ def a():
     <a href="#test22"><h4>#Test 22</h4></a>
     <div class="row-fluid" id="test22">
         
-        <div class="span6"><pre class="python">
-def a():
-    a = 1
-    if a == 1 or a == 2 or a == 3:
-        return True
-    return False
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.111121892929
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
-
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               1 (1)
-             12 COMPARE_OP               2 (==)
-             15 POP_JUMP_IF_TRUE        42
-             18 LOAD_FAST                0 (a)
-             21 LOAD_CONST               2 (2)
-             24 COMPARE_OP               2 (==)
-             27 POP_JUMP_IF_TRUE        42
-             30 LOAD_FAST                0 (a)
-             33 LOAD_CONST               3 (3)
-             36 COMPARE_OP               2 (==)
-             39 POP_JUMP_IF_FALSE       46
-
-  7     &gt;&gt;   42 LOAD_GLOBAL              0 (True)
-             45 RETURN_VALUE        
-
-  8     &gt;&gt;   46 LOAD_GLOBAL              1 (False)
-             49 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     a = 1
     if a in (1, 2, 3):
@@ -2126,22 +2070,59 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.112832069397
+... 0.11487253700033762
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (a)
+              2 STORE_FAST               0 (a)
 
-  6           6 LOAD_FAST                0 (a)
-              9 LOAD_CONST               4 ((1, 2, 3))
-             12 COMPARE_OP               6 (in)
-             15 POP_JUMP_IF_FALSE       22
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               6 ((1, 2, 3))
+              8 COMPARE_OP               6 (in)
+             10 POP_JUMP_IF_FALSE       16
 
-  7          18 LOAD_GLOBAL              0 (True)
-             21 RETURN_VALUE        
+  7          12 LOAD_CONST               4 (True)
+             14 RETURN_VALUE
 
-  8     &gt;&gt;   22 LOAD_GLOBAL              1 (False)
-             25 RETURN_VALUE        
+  8     &gt;&gt;   16 LOAD_CONST               5 (False)
+             18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span6.0"><pre class="python">
+def a():
+    a = 1
+    if a == 1 or a == 2 or a == 3:
+        return True
+    return False
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.11852340699988417
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 STORE_FAST               0 (a)
+
+  6           4 LOAD_FAST                0 (a)
+              6 LOAD_CONST               1 (1)
+              8 COMPARE_OP               2 (==)
+             10 POP_JUMP_IF_TRUE        28
+             12 LOAD_FAST                0 (a)
+             14 LOAD_CONST               2 (2)
+             16 COMPARE_OP               2 (==)
+             18 POP_JUMP_IF_TRUE        28
+             20 LOAD_FAST                0 (a)
+             22 LOAD_CONST               3 (3)
+             24 COMPARE_OP               2 (==)
+             26 POP_JUMP_IF_FALSE       32
+
+  7     &gt;&gt;   28 LOAD_CONST               4 (True)
+             30 RETURN_VALUE
+
+  8     &gt;&gt;   32 LOAD_CONST               5 (False)
+             34 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2151,53 +2132,53 @@ def a():
     <a href="#test23"><h4>#Test 23</h4></a>
     <div class="row-fluid" id="test23">
         
-        <div class="span4"><pre class="python">
-def a():
-    return ''.join(map(str, xrange(10)))
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 1.24570417404
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (&#39;&#39;)
-              3 LOAD_ATTR                0 (join)
-              6 LOAD_GLOBAL              1 (map)
-              9 LOAD_GLOBAL              2 (str)
-             12 LOAD_GLOBAL              3 (xrange)
-             15 LOAD_CONST               2 (10)
-             18 CALL_FUNCTION            1
-             21 CALL_FUNCTION            2
-             24 CALL_FUNCTION            1
-             27 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     return ''.join(map(str, range(10)))
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.37798786163
+... 2.5031725900043966
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (&#39;&#39;)
-              3 LOAD_ATTR                0 (join)
-              6 LOAD_GLOBAL              1 (map)
-              9 LOAD_GLOBAL              2 (str)
-             12 LOAD_GLOBAL              3 (range)
-             15 LOAD_CONST               2 (10)
-             18 CALL_FUNCTION            1
-             21 CALL_FUNCTION            2
-             24 CALL_FUNCTION            1
-             27 RETURN_VALUE        
+              2 LOAD_ATTR                0 (join)
+              4 LOAD_GLOBAL              1 (map)
+              6 LOAD_GLOBAL              2 (str)
+              8 LOAD_GLOBAL              3 (range)
+             10 LOAD_CONST               2 (10)
+             12 CALL_FUNCTION            1
+             14 CALL_FUNCTION            2
+             16 CALL_FUNCTION            1
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
+def a():
+    return ''.join(map(str, range(10)))
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 2.5120345479954267
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (&#39;&#39;)
+              2 LOAD_ATTR                0 (join)
+              4 LOAD_GLOBAL              1 (map)
+              6 LOAD_GLOBAL              2 (str)
+              8 LOAD_GLOBAL              3 (range)
+             10 LOAD_CONST               2 (10)
+             12 CALL_FUNCTION            1
+             14 CALL_FUNCTION            2
+             16 CALL_FUNCTION            1
+             18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
 def a():
     r = ''
     for i in range(10):
@@ -2206,33 +2187,33 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 2.73531007767
+... 4.376688610005658
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (&#39;&#39;)
-              3 STORE_FAST               0 (r)
+              2 STORE_FAST               0 (r)
 
-  6           6 SETUP_LOOP              42 (to 51)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               2 (10)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                28 (to 50)
-             22 STORE_FAST               1 (i)
+  6           4 SETUP_LOOP              32 (to 38)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               2 (10)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                20 (to 36)
+             16 STORE_FAST               1 (i)
 
-  7          25 LOAD_CONST               3 (&#39;%s%s&#39;)
-             28 LOAD_FAST                0 (r)
-             31 LOAD_GLOBAL              1 (str)
-             34 LOAD_FAST                1 (i)
-             37 CALL_FUNCTION            1
-             40 BUILD_TUPLE              2
-             43 BINARY_MODULO       
-             44 STORE_FAST               0 (r)
-             47 JUMP_ABSOLUTE           19
-        &gt;&gt;   50 POP_BLOCK           
+  7          18 LOAD_CONST               3 (&#39;%s%s&#39;)
+             20 LOAD_FAST                0 (r)
+             22 LOAD_GLOBAL              1 (str)
+             24 LOAD_FAST                1 (i)
+             26 CALL_FUNCTION            1
+             28 BUILD_TUPLE              2
+             30 BINARY_MODULO
+             32 STORE_FAST               0 (r)
+             34 JUMP_ABSOLUTE           14
+        &gt;&gt;   36 POP_BLOCK
 
-  8     &gt;&gt;   51 LOAD_FAST                0 (r)
-             54 RETURN_VALUE        
+  8     &gt;&gt;   38 LOAD_FAST                0 (r)
+             40 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2242,7 +2223,7 @@ def a():
     <a href="#test24"><h4>#Test 24</h4></a>
     <div class="row-fluid" id="test24">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = [[1, 2, 3], [2, 3, 4], [4, 5, 6]]
     b = {k: v for x, k, v in a}
@@ -2250,38 +2231,39 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.727919816971
+... 0.6874658669985365
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 BUILD_LIST               3
-             12 LOAD_CONST               2 (2)
-             15 LOAD_CONST               3 (3)
-             18 LOAD_CONST               4 (4)
-             21 BUILD_LIST               3
-             24 LOAD_CONST               4 (4)
-             27 LOAD_CONST               5 (5)
-             30 LOAD_CONST               6 (6)
-             33 BUILD_LIST               3
-             36 BUILD_LIST               3
-             39 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 BUILD_LIST               3
+              8 LOAD_CONST               2 (2)
+             10 LOAD_CONST               3 (3)
+             12 LOAD_CONST               4 (4)
+             14 BUILD_LIST               3
+             16 LOAD_CONST               4 (4)
+             18 LOAD_CONST               5 (5)
+             20 LOAD_CONST               6 (6)
+             22 BUILD_LIST               3
+             24 BUILD_LIST               3
+             26 STORE_FAST               0 (a)
 
-  6          42 LOAD_CONST               7 (&lt;code object &lt;dictcomp&gt; at 0x7ffa880d6330, file &#34;/tmp/__pfw_test24_t3.py&#34;, line 6&gt;)
-             45 MAKE_FUNCTION            0
-             48 LOAD_FAST                0 (a)
-             51 GET_ITER            
-             52 CALL_FUNCTION            1
-             55 STORE_FAST               1 (b)
+  6          28 LOAD_CONST               7 (&lt;code object &lt;dictcomp&gt; at 0x103b7d8a0, file &#34;/tmp/__pfw_test24_t3.py&#34;, line 6&gt;)
+             30 LOAD_CONST               8 (&#39;a.&lt;locals&gt;.&lt;dictcomp&gt;&#39;)
+             32 MAKE_FUNCTION            0
+             34 LOAD_FAST                0 (a)
+             36 GET_ITER
+             38 CALL_FUNCTION            1
+             40 STORE_FAST               1 (b)
 
-  7          58 LOAD_FAST                1 (b)
-             61 RETURN_VALUE        
+  7          42 LOAD_FAST                1 (b)
+             44 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = [[1, 2, 3], [2, 3, 4], [4, 5, 6]]
     b = {x[1]: x[2] for x in a}
@@ -2289,38 +2271,39 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.73792719841
+... 0.7762329230026808
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 BUILD_LIST               3
-             12 LOAD_CONST               2 (2)
-             15 LOAD_CONST               3 (3)
-             18 LOAD_CONST               4 (4)
-             21 BUILD_LIST               3
-             24 LOAD_CONST               4 (4)
-             27 LOAD_CONST               5 (5)
-             30 LOAD_CONST               6 (6)
-             33 BUILD_LIST               3
-             36 BUILD_LIST               3
-             39 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 BUILD_LIST               3
+              8 LOAD_CONST               2 (2)
+             10 LOAD_CONST               3 (3)
+             12 LOAD_CONST               4 (4)
+             14 BUILD_LIST               3
+             16 LOAD_CONST               4 (4)
+             18 LOAD_CONST               5 (5)
+             20 LOAD_CONST               6 (6)
+             22 BUILD_LIST               3
+             24 BUILD_LIST               3
+             26 STORE_FAST               0 (a)
 
-  6          42 LOAD_CONST               7 (&lt;code object &lt;dictcomp&gt; at 0x7f75f42ef330, file &#34;/tmp/__pfw_test24_t1.py&#34;, line 6&gt;)
-             45 MAKE_FUNCTION            0
-             48 LOAD_FAST                0 (a)
-             51 GET_ITER            
-             52 CALL_FUNCTION            1
-             55 STORE_FAST               1 (b)
+  6          28 LOAD_CONST               7 (&lt;code object &lt;dictcomp&gt; at 0x10526e8a0, file &#34;/tmp/__pfw_test24_t1.py&#34;, line 6&gt;)
+             30 LOAD_CONST               8 (&#39;a.&lt;locals&gt;.&lt;dictcomp&gt;&#39;)
+             32 MAKE_FUNCTION            0
+             34 LOAD_FAST                0 (a)
+             36 GET_ITER
+             38 CALL_FUNCTION            1
+             40 STORE_FAST               1 (b)
 
-  7          58 LOAD_FAST                1 (b)
-             61 RETURN_VALUE        
+  7          42 LOAD_FAST                1 (b)
+             44 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     a = [[1, 2, 3], [2, 3, 4], [4, 5, 6]]
     b = dict((x, y)for w, x, y in a)
@@ -2328,35 +2311,36 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.28367710114
+... 1.4769104010047158
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 BUILD_LIST               3
-             12 LOAD_CONST               2 (2)
-             15 LOAD_CONST               3 (3)
-             18 LOAD_CONST               4 (4)
-             21 BUILD_LIST               3
-             24 LOAD_CONST               4 (4)
-             27 LOAD_CONST               5 (5)
-             30 LOAD_CONST               6 (6)
-             33 BUILD_LIST               3
-             36 BUILD_LIST               3
-             39 STORE_FAST               0 (a)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 BUILD_LIST               3
+              8 LOAD_CONST               2 (2)
+             10 LOAD_CONST               3 (3)
+             12 LOAD_CONST               4 (4)
+             14 BUILD_LIST               3
+             16 LOAD_CONST               4 (4)
+             18 LOAD_CONST               5 (5)
+             20 LOAD_CONST               6 (6)
+             22 BUILD_LIST               3
+             24 BUILD_LIST               3
+             26 STORE_FAST               0 (a)
 
-  6          42 LOAD_GLOBAL              0 (dict)
-             45 LOAD_CONST               7 (&lt;code object &lt;genexpr&gt; at 0x7fbf54a0e330, file &#34;/tmp/__pfw_test24_t2.py&#34;, line 6&gt;)
-             48 MAKE_FUNCTION            0
-             51 LOAD_FAST                0 (a)
-             54 GET_ITER            
-             55 CALL_FUNCTION            1
-             58 CALL_FUNCTION            1
-             61 STORE_FAST               1 (b)
+  6          28 LOAD_GLOBAL              0 (dict)
+             30 LOAD_CONST               7 (&lt;code object &lt;genexpr&gt; at 0x10bc218a0, file &#34;/tmp/__pfw_test24_t2.py&#34;, line 6&gt;)
+             32 LOAD_CONST               8 (&#39;a.&lt;locals&gt;.&lt;genexpr&gt;&#39;)
+             34 MAKE_FUNCTION            0
+             36 LOAD_FAST                0 (a)
+             38 GET_ITER
+             40 CALL_FUNCTION            1
+             42 CALL_FUNCTION            1
+             44 STORE_FAST               1 (b)
 
-  7          64 LOAD_FAST                1 (b)
-             67 RETURN_VALUE        
+  7          46 LOAD_FAST                1 (b)
+             48 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2366,77 +2350,47 @@ def a():
     <a href="#test25"><h4>#Test 25</h4></a>
     <div class="row-fluid" id="test25">
         
-        <div class="span3"><pre class="python">
-def a():
-    n = 0
-    return not n
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.0918810367584
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (0)
-              3 STORE_FAST               0 (n)
-
-  6           6 LOAD_FAST                0 (n)
-              9 UNARY_NOT           
-             10 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     n = 1
     return not n
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.0955920219421
+... 0.0968363860010868
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (n)
+              2 STORE_FAST               0 (n)
 
-  6           6 LOAD_FAST                0 (n)
-              9 UNARY_NOT           
-             10 RETURN_VALUE        
+  6           4 LOAD_FAST                0 (n)
+              6 UNARY_NOT
+              8 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     n = 0
-    if n:
-        return False
-    else:
-        return True
+    return not n
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.105731964111
+... 0.09997637399646919
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 STORE_FAST               0 (n)
+              2 STORE_FAST               0 (n)
 
-  6           6 LOAD_FAST                0 (n)
-              9 POP_JUMP_IF_FALSE       16
-
-  7          12 LOAD_GLOBAL              0 (False)
-             15 RETURN_VALUE        
-
-  9     &gt;&gt;   16 LOAD_GLOBAL              1 (True)
-             19 RETURN_VALUE        
-             20 LOAD_CONST               0 (None)
-             23 RETURN_VALUE        
+  6           4 LOAD_FAST                0 (n)
+              6 UNARY_NOT
+              8 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 def a():
     n = 1
     if n:
@@ -2446,22 +2400,52 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.106405973434
+... 0.0999933279963443
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 STORE_FAST               0 (n)
+              2 STORE_FAST               0 (n)
 
-  6           6 LOAD_FAST                0 (n)
-              9 POP_JUMP_IF_FALSE       16
+  6           4 LOAD_FAST                0 (n)
+              6 POP_JUMP_IF_FALSE       12
 
-  7          12 LOAD_GLOBAL              0 (False)
-             15 RETURN_VALUE        
+  7           8 LOAD_CONST               2 (False)
+             10 RETURN_VALUE
 
-  9     &gt;&gt;   16 LOAD_GLOBAL              1 (True)
-             19 RETURN_VALUE        
-             20 LOAD_CONST               0 (None)
-             23 RETURN_VALUE        
+  9     &gt;&gt;   12 LOAD_CONST               3 (True)
+             14 RETURN_VALUE
+             16 LOAD_CONST               0 (None)
+             18 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span3.0"><pre class="python">
+def a():
+    n = 0
+    if n:
+        return False
+    else:
+        return True
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.1010471059998963
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (0)
+              2 STORE_FAST               0 (n)
+
+  6           4 LOAD_FAST                0 (n)
+              6 POP_JUMP_IF_FALSE       12
+
+  7           8 LOAD_CONST               2 (False)
+             10 RETURN_VALUE
+
+  9     &gt;&gt;   12 LOAD_CONST               3 (True)
+             14 RETURN_VALUE
+             16 LOAD_CONST               0 (None)
+             18 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2471,7 +2455,7 @@ def a():
     <a href="#test26"><h4>#Test 26</h4></a>
     <div class="row-fluid" id="test26">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def k(x=1, y=1, z=-1):
     return x * (y - 2 * z)
 
@@ -2481,21 +2465,20 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.23966217041
+... 0.2644511200051056
 >>> 
 >>> dis(a)
   9           0 LOAD_GLOBAL              0 (k)
-              3 LOAD_CONST               1 (&#39;x&#39;)
-              6 LOAD_CONST               2 (5)
-              9 LOAD_CONST               3 (&#39;y&#39;)
-             12 LOAD_CONST               4 (3)
-             15 CALL_FUNCTION          512
-             18 RETURN_VALUE        
+              2 LOAD_CONST               1 (5)
+              4 LOAD_CONST               2 (3)
+              6 LOAD_CONST               3 ((&#39;x&#39;, &#39;y&#39;))
+              8 CALL_FUNCTION_KW         2
+             10 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def k(x=1, y=1, z=-1):
     return x * (y - 2 * z)
 
@@ -2505,19 +2488,17 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.354785919189
+... 0.4069336899992777
 >>> 
 >>> dis(a)
   9           0 LOAD_GLOBAL              0 (k)
-              3 BUILD_MAP                2
-              6 LOAD_CONST               1 (5)
-              9 LOAD_CONST               2 (&#39;x&#39;)
-             12 STORE_MAP           
-             13 LOAD_CONST               3 (3)
-             16 LOAD_CONST               4 (&#39;y&#39;)
-             19 STORE_MAP           
-             20 CALL_FUNCTION_KW         0
-             23 RETURN_VALUE        
+              2 BUILD_TUPLE              0
+              4 LOAD_CONST               1 (5)
+              6 LOAD_CONST               2 (3)
+              8 LOAD_CONST               3 ((&#39;x&#39;, &#39;y&#39;))
+             10 BUILD_CONST_KEY_MAP      2
+             12 CALL_FUNCTION_EX         1
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2527,7 +2508,48 @@ def a():
     <a href="#test27"><h4>#Test 27</h4></a>
     <div class="row-fluid" id="test27">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
+def a(n=25):
+    a, b = 0, 1
+    for i in range(n):
+        a, b = b, a + b
+    return a
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 1.533982264008955
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               3 ((0, 1))
+              2 UNPACK_SEQUENCE          2
+              4 STORE_FAST               1 (a)
+              6 STORE_FAST               2 (b)
+
+  6           8 SETUP_LOOP              30 (to 40)
+             10 LOAD_GLOBAL              0 (range)
+             12 LOAD_FAST                0 (n)
+             14 CALL_FUNCTION            1
+             16 GET_ITER
+        &gt;&gt;   18 FOR_ITER                18 (to 38)
+             20 STORE_FAST               3 (i)
+
+  7          22 LOAD_FAST                2 (b)
+             24 LOAD_FAST                1 (a)
+             26 LOAD_FAST                2 (b)
+             28 BINARY_ADD
+             30 ROT_TWO
+             32 STORE_FAST               1 (a)
+             34 STORE_FAST               2 (b)
+             36 JUMP_ABSOLUTE           18
+        &gt;&gt;   38 POP_BLOCK
+
+  8     &gt;&gt;   40 LOAD_FAST                1 (a)
+             42 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span6.0"><pre class="python">
 def a(n=25):
     a, b = 0, 1
     for i in range(n):
@@ -2538,78 +2560,37 @@ def a(n=25):
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.54317808151
+... 1.6432666660111863
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               3 ((0, 1))
-              3 UNPACK_SEQUENCE          2
-              6 STORE_FAST               1 (a)
-              9 STORE_FAST               2 (b)
+              2 UNPACK_SEQUENCE          2
+              4 STORE_FAST               1 (a)
+              6 STORE_FAST               2 (b)
 
-  6          12 SETUP_LOOP              42 (to 57)
-             15 LOAD_GLOBAL              0 (range)
-             18 LOAD_FAST                0 (n)
-             21 CALL_FUNCTION            1
-             24 GET_ITER            
-        &gt;&gt;   25 FOR_ITER                28 (to 56)
-             28 STORE_FAST               3 (i)
+  6           8 SETUP_LOOP              32 (to 42)
+             10 LOAD_GLOBAL              0 (range)
+             12 LOAD_FAST                0 (n)
+             14 CALL_FUNCTION            1
+             16 GET_ITER
+        &gt;&gt;   18 FOR_ITER                20 (to 40)
+             20 STORE_FAST               3 (i)
 
-  7          31 LOAD_FAST                1 (a)
-             34 LOAD_FAST                2 (b)
-             37 BINARY_ADD          
-             38 STORE_FAST               4 (x)
+  7          22 LOAD_FAST                1 (a)
+             24 LOAD_FAST                2 (b)
+             26 BINARY_ADD
+             28 STORE_FAST               4 (x)
 
-  8          41 LOAD_FAST                2 (b)
-             44 STORE_FAST               1 (a)
+  8          30 LOAD_FAST                2 (b)
+             32 STORE_FAST               1 (a)
 
-  9          47 LOAD_FAST                4 (x)
-             50 STORE_FAST               2 (b)
-             53 JUMP_ABSOLUTE           25
-        &gt;&gt;   56 POP_BLOCK           
+  9          34 LOAD_FAST                4 (x)
+             36 STORE_FAST               2 (b)
+             38 JUMP_ABSOLUTE           18
+        &gt;&gt;   40 POP_BLOCK
 
- 10     &gt;&gt;   57 LOAD_FAST                1 (a)
-             60 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span6"><pre class="python">
-def a(n=25):
-    a, b = 0, 1
-    for i in range(n):
-        a, b = b, a + b
-    return a
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 1.61066484451
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               3 ((0, 1))
-              3 UNPACK_SEQUENCE          2
-              6 STORE_FAST               1 (a)
-              9 STORE_FAST               2 (b)
-
-  6          12 SETUP_LOOP              37 (to 52)
-             15 LOAD_GLOBAL              0 (range)
-             18 LOAD_FAST                0 (n)
-             21 CALL_FUNCTION            1
-             24 GET_ITER            
-        &gt;&gt;   25 FOR_ITER                23 (to 51)
-             28 STORE_FAST               3 (i)
-
-  7          31 LOAD_FAST                2 (b)
-             34 LOAD_FAST                1 (a)
-             37 LOAD_FAST                2 (b)
-             40 BINARY_ADD          
-             41 ROT_TWO             
-             42 STORE_FAST               1 (a)
-             45 STORE_FAST               2 (b)
-             48 JUMP_ABSOLUTE           25
-        &gt;&gt;   51 POP_BLOCK           
-
-  8     &gt;&gt;   52 LOAD_FAST                1 (a)
-             55 RETURN_VALUE        
+ 10     &gt;&gt;   42 LOAD_FAST                1 (a)
+             44 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2619,68 +2600,39 @@ def a(n=25):
     <a href="#test28"><h4>#Test 28</h4></a>
     <div class="row-fluid" id="test28">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     x = y = z = w = k = 0
     return x, y, z, w, k
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.160265922546
+... 0.1520484659995418
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 DUP_TOP             
+              2 DUP_TOP
               4 STORE_FAST               0 (x)
-              7 DUP_TOP             
+              6 DUP_TOP
               8 STORE_FAST               1 (y)
-             11 DUP_TOP             
+             10 DUP_TOP
              12 STORE_FAST               2 (z)
-             15 DUP_TOP             
+             14 DUP_TOP
              16 STORE_FAST               3 (w)
-             19 STORE_FAST               4 (k)
-
-  6          22 LOAD_FAST                0 (x)
-             25 LOAD_FAST                1 (y)
-             28 LOAD_FAST                2 (z)
-             31 LOAD_FAST                3 (w)
-             34 LOAD_FAST                4 (k)
-             37 BUILD_TUPLE              5
-             40 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
-def a():
-    x, y, z, w, k = 0, 0, 0, 0, 0
-    return x, y, z, w, k
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.16819691658
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               2 ((0, 0, 0, 0, 0))
-              3 UNPACK_SEQUENCE          5
-              6 STORE_FAST               0 (x)
-              9 STORE_FAST               1 (y)
-             12 STORE_FAST               2 (z)
-             15 STORE_FAST               3 (w)
              18 STORE_FAST               4 (k)
 
-  6          21 LOAD_FAST                0 (x)
-             24 LOAD_FAST                1 (y)
-             27 LOAD_FAST                2 (z)
-             30 LOAD_FAST                3 (w)
-             33 LOAD_FAST                4 (k)
-             36 BUILD_TUPLE              5
-             39 RETURN_VALUE        
+  6          20 LOAD_FAST                0 (x)
+             22 LOAD_FAST                1 (y)
+             24 LOAD_FAST                2 (z)
+             26 LOAD_FAST                3 (w)
+             28 LOAD_FAST                4 (k)
+             30 BUILD_TUPLE              5
+             32 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     x = 0
     y = 0
@@ -2691,31 +2643,60 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.189131975174
+... 0.1544661369989626
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (0)
-              3 STORE_FAST               0 (x)
+              2 STORE_FAST               0 (x)
 
-  6           6 LOAD_CONST               1 (0)
-              9 STORE_FAST               1 (y)
+  6           4 LOAD_CONST               1 (0)
+              6 STORE_FAST               1 (y)
 
-  7          12 LOAD_CONST               1 (0)
-             15 STORE_FAST               2 (z)
+  7           8 LOAD_CONST               1 (0)
+             10 STORE_FAST               2 (z)
 
-  8          18 LOAD_CONST               1 (0)
-             21 STORE_FAST               3 (w)
+  8          12 LOAD_CONST               1 (0)
+             14 STORE_FAST               3 (w)
 
-  9          24 LOAD_CONST               1 (0)
-             27 STORE_FAST               4 (k)
+  9          16 LOAD_CONST               1 (0)
+             18 STORE_FAST               4 (k)
 
- 10          30 LOAD_FAST                0 (x)
-             33 LOAD_FAST                1 (y)
-             36 LOAD_FAST                2 (z)
-             39 LOAD_FAST                3 (w)
-             42 LOAD_FAST                4 (k)
-             45 BUILD_TUPLE              5
-             48 RETURN_VALUE        
+ 10          20 LOAD_FAST                0 (x)
+             22 LOAD_FAST                1 (y)
+             24 LOAD_FAST                2 (z)
+             26 LOAD_FAST                3 (w)
+             28 LOAD_FAST                4 (k)
+             30 BUILD_TUPLE              5
+             32 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    x, y, z, w, k = 0, 0, 0, 0, 0
+    return x, y, z, w, k
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.15460798400454223
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               2 ((0, 0, 0, 0, 0))
+              2 UNPACK_SEQUENCE          5
+              4 STORE_FAST               0 (x)
+              6 STORE_FAST               1 (y)
+              8 STORE_FAST               2 (z)
+             10 STORE_FAST               3 (w)
+             12 STORE_FAST               4 (k)
+
+  6          14 LOAD_FAST                0 (x)
+             16 LOAD_FAST                1 (y)
+             18 LOAD_FAST                2 (z)
+             20 LOAD_FAST                3 (w)
+             22 LOAD_FAST                4 (k)
+             24 BUILD_TUPLE              5
+             26 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2725,7 +2706,7 @@ def a():
     <a href="#test29"><h4>#Test 29</h4></a>
     <div class="row-fluid" id="test29">
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 import math
 
 
@@ -2735,64 +2716,22 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.153033971786
+... 0.22351981900283135
 >>> 
 >>> dis(a)
   8           0 LOAD_CONST               1 (123.123)
-              3 STORE_FAST               0 (n)
+              2 STORE_FAST               0 (n)
 
-  9           6 LOAD_GLOBAL              0 (math)
-              9 LOAD_ATTR                1 (floor)
-             12 LOAD_FAST                0 (n)
-             15 CALL_FUNCTION            1
-             18 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
-def a():
-    n = 123.123
-    return int(n)
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.1943359375
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (123.123)
-              3 STORE_FAST               0 (n)
-
-  6           6 LOAD_GLOBAL              0 (int)
-              9 LOAD_FAST                0 (n)
-             12 CALL_FUNCTION            1
-             15 RETURN_VALUE        
+  9           4 LOAD_GLOBAL              0 (math)
+              6 LOAD_ATTR                1 (floor)
+              8 LOAD_FAST                0 (n)
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
-def a():
-    n = 123.123
-    return n // 1
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.209105968475
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (123.123)
-              3 STORE_FAST               0 (n)
-
-  6           6 LOAD_FAST                0 (n)
-              9 LOAD_CONST               2 (1)
-             12 BINARY_FLOOR_DIVIDE 
-             13 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 import math
 
 
@@ -2802,17 +2741,59 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.23853302002
+... 0.23444377399573568
 >>> 
 >>> dis(a)
   8           0 LOAD_CONST               1 (123.123)
-              3 STORE_FAST               0 (n)
+              2 STORE_FAST               0 (n)
 
-  9           6 LOAD_GLOBAL              0 (math)
-              9 LOAD_ATTR                1 (trunc)
-             12 LOAD_FAST                0 (n)
-             15 CALL_FUNCTION            1
-             18 RETURN_VALUE        
+  9           4 LOAD_GLOBAL              0 (math)
+              6 LOAD_ATTR                1 (trunc)
+              8 LOAD_FAST                0 (n)
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span3.0"><pre class="python">
+def a():
+    n = 123.123
+    return int(n)
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.2392410030006431
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (123.123)
+              2 STORE_FAST               0 (n)
+
+  6           4 LOAD_GLOBAL              0 (int)
+              6 LOAD_FAST                0 (n)
+              8 CALL_FUNCTION            1
+             10 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span3.0"><pre class="python">
+def a():
+    n = 123.123
+    return n // 1
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.25878745700174477
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (123.123)
+              2 STORE_FAST               0 (n)
+
+  6           4 LOAD_FAST                0 (n)
+              6 LOAD_CONST               2 (1)
+              8 BINARY_FLOOR_DIVIDE
+             10 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2822,69 +2803,72 @@ def a():
     <a href="#test30"><h4>#Test 30</h4></a>
     <div class="row-fluid" id="test30">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     f = lambda *args: args
     return f('a', 'b')
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.204028129578
+... 0.2630226670007687
 >>> 
 >>> dis(a)
-  5           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x7f7f5967d330, file &#34;/tmp/__pfw_test30_t1.py&#34;, line 5&gt;)
-              3 MAKE_FUNCTION            0
+  5           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x10f2d28a0, file &#34;/tmp/__pfw_test30_t1.py&#34;, line 5&gt;)
+              2 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;lambda&gt;&#39;)
+              4 MAKE_FUNCTION            0
               6 STORE_FAST               0 (f)
 
-  6           9 LOAD_FAST                0 (f)
-             12 LOAD_CONST               2 (&#39;a&#39;)
-             15 LOAD_CONST               3 (&#39;b&#39;)
-             18 CALL_FUNCTION            2
-             21 RETURN_VALUE        
+  6           8 LOAD_FAST                0 (f)
+             10 LOAD_CONST               3 (&#39;a&#39;)
+             12 LOAD_CONST               4 (&#39;b&#39;)
+             14 CALL_FUNCTION            2
+             16 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     f = lambda *args: args
     return f(*('a', 'b'))
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.230839014053
+... 0.27037132398982067
 >>> 
 >>> dis(a)
-  5           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x7fe441a94330, file &#34;/tmp/__pfw_test30_t2.py&#34;, line 5&gt;)
-              3 MAKE_FUNCTION            0
+  5           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x1049dd8a0, file &#34;/tmp/__pfw_test30_t2.py&#34;, line 5&gt;)
+              2 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;lambda&gt;&#39;)
+              4 MAKE_FUNCTION            0
               6 STORE_FAST               0 (f)
 
-  6           9 LOAD_FAST                0 (f)
-             12 LOAD_CONST               4 ((&#39;a&#39;, &#39;b&#39;))
-             15 CALL_FUNCTION_VAR        0
-             18 RETURN_VALUE        
+  6           8 LOAD_FAST                0 (f)
+             10 LOAD_CONST               5 ((&#39;a&#39;, &#39;b&#39;))
+             12 CALL_FUNCTION_EX         0
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     f = lambda *args: args
     return f(*'ab')
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.43368601799
+... 0.3673307730059605
 >>> 
 >>> dis(a)
-  5           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x7fb8e8faa330, file &#34;/tmp/__pfw_test30_t3.py&#34;, line 5&gt;)
-              3 MAKE_FUNCTION            0
+  5           0 LOAD_CONST               1 (&lt;code object &lt;lambda&gt; at 0x101e988a0, file &#34;/tmp/__pfw_test30_t3.py&#34;, line 5&gt;)
+              2 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;lambda&gt;&#39;)
+              4 MAKE_FUNCTION            0
               6 STORE_FAST               0 (f)
 
-  6           9 LOAD_FAST                0 (f)
-             12 LOAD_CONST               2 (&#39;ab&#39;)
-             15 CALL_FUNCTION_VAR        0
-             18 RETURN_VALUE        
+  6           8 LOAD_FAST                0 (f)
+             10 LOAD_CONST               3 (&#39;ab&#39;)
+             12 CALL_FUNCTION_EX         0
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2894,7 +2878,7 @@ def a():
     <a href="#test31"><h4>#Test 31</h4></a>
     <div class="row-fluid" id="test31">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a(int=int, str=str, range=range):
     for i in range(500):
         int(str(i))
@@ -2904,32 +2888,32 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 20.3024001122
+... 18.917214254004648
 >>> 
 >>> dis(a)
-  5           0 SETUP_LOOP              36 (to 39)
-              3 LOAD_FAST                2 (range)
-              6 LOAD_CONST               1 (500)
-              9 CALL_FUNCTION            1
-             12 GET_ITER            
-        &gt;&gt;   13 FOR_ITER                22 (to 38)
-             16 STORE_FAST               3 (i)
+  5           0 SETUP_LOOP              28 (to 30)
+              2 LOAD_FAST                2 (range)
+              4 LOAD_CONST               1 (500)
+              6 CALL_FUNCTION            1
+              8 GET_ITER
+        &gt;&gt;   10 FOR_ITER                16 (to 28)
+             12 STORE_FAST               3 (i)
 
-  6          19 LOAD_FAST                0 (int)
-             22 LOAD_FAST                1 (str)
-             25 LOAD_FAST                3 (i)
-             28 CALL_FUNCTION            1
-             31 CALL_FUNCTION            1
-             34 POP_TOP             
-             35 JUMP_ABSOLUTE           13
-        &gt;&gt;   38 POP_BLOCK           
-        &gt;&gt;   39 LOAD_CONST               0 (None)
-             42 RETURN_VALUE        
+  6          14 LOAD_FAST                0 (int)
+             16 LOAD_FAST                1 (str)
+             18 LOAD_FAST                3 (i)
+             20 CALL_FUNCTION            1
+             22 CALL_FUNCTION            1
+             24 POP_TOP
+             26 JUMP_ABSOLUTE           10
+        &gt;&gt;   28 POP_BLOCK
+        &gt;&gt;   30 LOAD_CONST               0 (None)
+             32 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     for i in range(500):
         int(str(i))
@@ -2939,27 +2923,27 @@ number = 100000
 
 >>> 
 >>> min(timeit.repeat(a, number=100000))
-... 21.5475878716
+... 20.669363666995196
 >>> 
 >>> dis(a)
-  5           0 SETUP_LOOP              36 (to 39)
-              3 LOAD_GLOBAL              0 (range)
-              6 LOAD_CONST               1 (500)
-              9 CALL_FUNCTION            1
-             12 GET_ITER            
-        &gt;&gt;   13 FOR_ITER                22 (to 38)
-             16 STORE_FAST               0 (i)
+  5           0 SETUP_LOOP              28 (to 30)
+              2 LOAD_GLOBAL              0 (range)
+              4 LOAD_CONST               1 (500)
+              6 CALL_FUNCTION            1
+              8 GET_ITER
+        &gt;&gt;   10 FOR_ITER                16 (to 28)
+             12 STORE_FAST               0 (i)
 
-  6          19 LOAD_GLOBAL              1 (int)
-             22 LOAD_GLOBAL              2 (str)
-             25 LOAD_FAST                0 (i)
-             28 CALL_FUNCTION            1
-             31 CALL_FUNCTION            1
-             34 POP_TOP             
-             35 JUMP_ABSOLUTE           13
-        &gt;&gt;   38 POP_BLOCK           
-        &gt;&gt;   39 LOAD_CONST               0 (None)
-             42 RETURN_VALUE        
+  6          14 LOAD_GLOBAL              1 (int)
+             16 LOAD_GLOBAL              2 (str)
+             18 LOAD_FAST                0 (i)
+             20 CALL_FUNCTION            1
+             22 CALL_FUNCTION            1
+             24 POP_TOP
+             26 JUMP_ABSOLUTE           10
+        &gt;&gt;   28 POP_BLOCK
+        &gt;&gt;   30 LOAD_CONST               0 (None)
+             32 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -2969,83 +2953,83 @@ number = 100000
     <a href="#test32"><h4>#Test 32</h4></a>
     <div class="row-fluid" id="test32">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     D = {}
-    for k in xrange(0, 200):
+    for k in range(0, 200):
         D[k] if k in D else None
     return D
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 7.53259706497
+... 7.3815375179983675
 >>> 
 >>> dis(a)
   5           0 BUILD_MAP                0
-              3 STORE_FAST               0 (D)
+              2 STORE_FAST               0 (D)
 
-  6           6 SETUP_LOOP              49 (to 58)
-              9 LOAD_GLOBAL              0 (xrange)
-             12 LOAD_CONST               1 (0)
-             15 LOAD_CONST               2 (200)
-             18 CALL_FUNCTION            2
-             21 GET_ITER            
-        &gt;&gt;   22 FOR_ITER                32 (to 57)
-             25 STORE_FAST               1 (k)
+  6           4 SETUP_LOOP              38 (to 44)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (0)
+             10 LOAD_CONST               2 (200)
+             12 CALL_FUNCTION            2
+             14 GET_ITER
+        &gt;&gt;   16 FOR_ITER                24 (to 42)
+             18 STORE_FAST               1 (k)
 
-  7          28 LOAD_FAST                1 (k)
-             31 LOAD_FAST                0 (D)
-             34 COMPARE_OP               6 (in)
-             37 POP_JUMP_IF_FALSE       50
-             40 LOAD_FAST                0 (D)
-             43 LOAD_FAST                1 (k)
-             46 BINARY_SUBSCR       
-             47 JUMP_FORWARD             3 (to 53)
-        &gt;&gt;   50 LOAD_CONST               0 (None)
-        &gt;&gt;   53 POP_TOP             
-             54 JUMP_ABSOLUTE           22
-        &gt;&gt;   57 POP_BLOCK           
+  7          20 LOAD_FAST                1 (k)
+             22 LOAD_FAST                0 (D)
+             24 COMPARE_OP               6 (in)
+             26 POP_JUMP_IF_FALSE       36
+             28 LOAD_FAST                0 (D)
+             30 LOAD_FAST                1 (k)
+             32 BINARY_SUBSCR
+             34 JUMP_FORWARD             2 (to 38)
+        &gt;&gt;   36 LOAD_CONST               0 (None)
+        &gt;&gt;   38 POP_TOP
+             40 JUMP_ABSOLUTE           16
+        &gt;&gt;   42 POP_BLOCK
 
-  8     &gt;&gt;   58 LOAD_FAST                0 (D)
-             61 RETURN_VALUE        
+  8     &gt;&gt;   44 LOAD_FAST                0 (D)
+             46 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     D = {}
-    for k in xrange(0, 200):
+    for k in range(0, 200):
         D.get(k)
     return D
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 16.6229388714
+... 21.4218234650034
 >>> 
 >>> dis(a)
   5           0 BUILD_MAP                0
-              3 STORE_FAST               0 (D)
+              2 STORE_FAST               0 (D)
 
-  6           6 SETUP_LOOP              36 (to 45)
-              9 LOAD_GLOBAL              0 (xrange)
-             12 LOAD_CONST               1 (0)
-             15 LOAD_CONST               2 (200)
-             18 CALL_FUNCTION            2
-             21 GET_ITER            
-        &gt;&gt;   22 FOR_ITER                19 (to 44)
-             25 STORE_FAST               1 (k)
+  6           4 SETUP_LOOP              28 (to 34)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (0)
+             10 LOAD_CONST               2 (200)
+             12 CALL_FUNCTION            2
+             14 GET_ITER
+        &gt;&gt;   16 FOR_ITER                14 (to 32)
+             18 STORE_FAST               1 (k)
 
-  7          28 LOAD_FAST                0 (D)
-             31 LOAD_ATTR                1 (get)
-             34 LOAD_FAST                1 (k)
-             37 CALL_FUNCTION            1
-             40 POP_TOP             
-             41 JUMP_ABSOLUTE           22
-        &gt;&gt;   44 POP_BLOCK           
+  7          20 LOAD_FAST                0 (D)
+             22 LOAD_ATTR                1 (get)
+             24 LOAD_FAST                1 (k)
+             26 CALL_FUNCTION            1
+             28 POP_TOP
+             30 JUMP_ABSOLUTE           16
+        &gt;&gt;   32 POP_BLOCK
 
-  8     &gt;&gt;   45 LOAD_FAST                0 (D)
-             48 RETURN_VALUE        
+  8     &gt;&gt;   34 LOAD_FAST                0 (D)
+             36 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -3055,68 +3039,68 @@ def a():
     <a href="#test33"><h4>#Test 33</h4></a>
     <div class="row-fluid" id="test33">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     s = "World"
     return "Hello, " + s + "!"
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.145075798035
+... 0.19959808699786663
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (&#39;World&#39;)
-              3 STORE_FAST               0 (s)
+              2 STORE_FAST               0 (s)
 
-  6           6 LOAD_CONST               2 (&#39;Hello, &#39;)
-              9 LOAD_FAST                0 (s)
-             12 BINARY_ADD          
-             13 LOAD_CONST               3 (&#39;!&#39;)
-             16 BINARY_ADD          
-             17 RETURN_VALUE        
+  6           4 LOAD_CONST               2 (&#39;Hello, &#39;)
+              6 LOAD_FAST                0 (s)
+              8 BINARY_ADD
+             10 LOAD_CONST               3 (&#39;!&#39;)
+             12 BINARY_ADD
+             14 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     s = "World"
     return "Hello, %s!" % s
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.162266016006
+... 0.26177430800453294
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (&#39;World&#39;)
-              3 STORE_FAST               0 (s)
+              2 STORE_FAST               0 (s)
 
-  6           6 LOAD_CONST               2 (&#39;Hello, %s!&#39;)
-              9 LOAD_FAST                0 (s)
-             12 BINARY_MODULO       
-             13 RETURN_VALUE        
+  6           4 LOAD_CONST               2 (&#39;Hello, %s!&#39;)
+              6 LOAD_FAST                0 (s)
+              8 BINARY_MODULO
+             10 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     s = "World"
     return "Hello, {0}!".format(s)
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.243277072906
+... 0.3800886530079879
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (&#39;World&#39;)
-              3 STORE_FAST               0 (s)
+              2 STORE_FAST               0 (s)
 
-  6           6 LOAD_CONST               2 (&#39;Hello, {0}!&#39;)
-              9 LOAD_ATTR                0 (format)
-             12 LOAD_FAST                0 (s)
-             15 CALL_FUNCTION            1
-             18 RETURN_VALUE        
+  6           4 LOAD_CONST               2 (&#39;Hello, {0}!&#39;)
+              6 LOAD_ATTR                0 (format)
+              8 LOAD_FAST                0 (s)
+             10 CALL_FUNCTION            1
+             12 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -3126,7 +3110,7 @@ def a():
     <a href="#test34"><h4>#Test 34</h4></a>
     <div class="row-fluid" id="test34">
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     my_set = {1, 2, 3, 5, 12, 11, 16, 14}
     for i in range(20):
@@ -3136,44 +3120,43 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.53836607933
+... 1.3009740390116349
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (5)
-             12 LOAD_CONST               5 (12)
-             15 LOAD_CONST               6 (11)
-             18 LOAD_CONST               7 (16)
-             21 LOAD_CONST               8 (14)
-             24 BUILD_SET                8
-             27 STORE_FAST               0 (my_set)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (5)
+              8 LOAD_CONST               5 (12)
+             10 LOAD_CONST               6 (11)
+             12 LOAD_CONST               7 (16)
+             14 LOAD_CONST               8 (14)
+             16 BUILD_SET                8
+             18 STORE_FAST               0 (my_set)
 
-  6          30 SETUP_LOOP              35 (to 68)
-             33 LOAD_GLOBAL              0 (range)
-             36 LOAD_CONST               9 (20)
-             39 CALL_FUNCTION            1
-             42 GET_ITER            
-        &gt;&gt;   43 FOR_ITER                21 (to 67)
-             46 STORE_FAST               1 (i)
+  6          20 SETUP_LOOP              24 (to 46)
+             22 LOAD_GLOBAL              0 (range)
+             24 LOAD_CONST               9 (20)
+             26 CALL_FUNCTION            1
+             28 GET_ITER
+        &gt;&gt;   30 FOR_ITER                12 (to 44)
+             32 STORE_FAST               1 (i)
 
-  7          49 LOAD_FAST                1 (i)
-             52 LOAD_FAST                0 (my_set)
-             55 COMPARE_OP               6 (in)
-             58 POP_JUMP_IF_FALSE       43
+  7          34 LOAD_FAST                1 (i)
+             36 LOAD_FAST                0 (my_set)
+             38 COMPARE_OP               6 (in)
+             40 POP_JUMP_IF_FALSE       30
 
-  8          61 JUMP_ABSOLUTE           43
-             64 JUMP_ABSOLUTE           43
-        &gt;&gt;   67 POP_BLOCK           
+  8          42 JUMP_ABSOLUTE           30
+        &gt;&gt;   44 POP_BLOCK
 
-  9     &gt;&gt;   68 LOAD_FAST                0 (my_set)
-             71 RETURN_VALUE        
+  9     &gt;&gt;   46 LOAD_FAST                0 (my_set)
+             48 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span6"><pre class="python">
+        <div class="span6.0"><pre class="python">
 def a():
     my_list = [1, 2, 3, 5, 12, 11, 16, 14]
     for i in range(20):
@@ -3183,39 +3166,38 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.92298197746
+... 2.7189002109953435
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (5)
-             12 LOAD_CONST               5 (12)
-             15 LOAD_CONST               6 (11)
-             18 LOAD_CONST               7 (16)
-             21 LOAD_CONST               8 (14)
-             24 BUILD_LIST               8
-             27 STORE_FAST               0 (my_list)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (5)
+              8 LOAD_CONST               5 (12)
+             10 LOAD_CONST               6 (11)
+             12 LOAD_CONST               7 (16)
+             14 LOAD_CONST               8 (14)
+             16 BUILD_LIST               8
+             18 STORE_FAST               0 (my_list)
 
-  6          30 SETUP_LOOP              35 (to 68)
-             33 LOAD_GLOBAL              0 (range)
-             36 LOAD_CONST               9 (20)
-             39 CALL_FUNCTION            1
-             42 GET_ITER            
-        &gt;&gt;   43 FOR_ITER                21 (to 67)
-             46 STORE_FAST               1 (i)
+  6          20 SETUP_LOOP              24 (to 46)
+             22 LOAD_GLOBAL              0 (range)
+             24 LOAD_CONST               9 (20)
+             26 CALL_FUNCTION            1
+             28 GET_ITER
+        &gt;&gt;   30 FOR_ITER                12 (to 44)
+             32 STORE_FAST               1 (i)
 
-  7          49 LOAD_FAST                1 (i)
-             52 LOAD_FAST                0 (my_list)
-             55 COMPARE_OP               6 (in)
-             58 POP_JUMP_IF_FALSE       43
+  7          34 LOAD_FAST                1 (i)
+             36 LOAD_FAST                0 (my_list)
+             38 COMPARE_OP               6 (in)
+             40 POP_JUMP_IF_FALSE       30
 
-  8          61 JUMP_ABSOLUTE           43
-             64 JUMP_ABSOLUTE           43
-        &gt;&gt;   67 POP_BLOCK           
+  8          42 JUMP_ABSOLUTE           30
+        &gt;&gt;   44 POP_BLOCK
 
-  9     &gt;&gt;   68 LOAD_FAST                0 (my_list)
-             71 RETURN_VALUE        
+  9     &gt;&gt;   46 LOAD_FAST                0 (my_list)
+             48 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -3225,7 +3207,7 @@ def a():
     <a href="#test35"><h4>#Test 35</h4></a>
     <div class="row-fluid" id="test35">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     c = l[:]
@@ -3233,34 +3215,37 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.296617031097
+... 0.3006974579911912
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 LOAD_CONST               6 (6)
-             18 LOAD_CONST               7 (7)
-             21 LOAD_CONST               8 (8)
-             24 LOAD_CONST               9 (9)
-             27 BUILD_LIST               9
-             30 STORE_FAST               0 (l)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 LOAD_CONST               6 (6)
+             12 LOAD_CONST               7 (7)
+             14 LOAD_CONST               8 (8)
+             16 LOAD_CONST               9 (9)
+             18 BUILD_LIST               9
+             20 STORE_FAST               0 (l)
 
-  6          33 LOAD_FAST                0 (l)
-             36 SLICE+0             
-             37 STORE_FAST               1 (c)
+  6          22 LOAD_FAST                0 (l)
+             24 LOAD_CONST               0 (None)
+             26 LOAD_CONST               0 (None)
+             28 BUILD_SLICE              2
+             30 BINARY_SUBSCR
+             32 STORE_FAST               1 (c)
 
-  7          40 LOAD_FAST                0 (l)
-             43 LOAD_FAST                1 (c)
-             46 BUILD_TUPLE              2
-             49 RETURN_VALUE        
+  7          34 LOAD_FAST                0 (l)
+             36 LOAD_FAST                1 (c)
+             38 BUILD_TUPLE              2
+             40 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     c = list(l)
@@ -3268,35 +3253,35 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.373416185379
+... 0.42946776500320993
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 LOAD_CONST               6 (6)
-             18 LOAD_CONST               7 (7)
-             21 LOAD_CONST               8 (8)
-             24 LOAD_CONST               9 (9)
-             27 BUILD_LIST               9
-             30 STORE_FAST               0 (l)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 LOAD_CONST               6 (6)
+             12 LOAD_CONST               7 (7)
+             14 LOAD_CONST               8 (8)
+             16 LOAD_CONST               9 (9)
+             18 BUILD_LIST               9
+             20 STORE_FAST               0 (l)
 
-  6          33 LOAD_GLOBAL              0 (list)
-             36 LOAD_FAST                0 (l)
-             39 CALL_FUNCTION            1
-             42 STORE_FAST               1 (c)
+  6          22 LOAD_GLOBAL              0 (list)
+             24 LOAD_FAST                0 (l)
+             26 CALL_FUNCTION            1
+             28 STORE_FAST               1 (c)
 
-  7          45 LOAD_FAST                0 (l)
-             48 LOAD_FAST                1 (c)
-             51 BUILD_TUPLE              2
-             54 RETURN_VALUE        
+  7          30 LOAD_FAST                0 (l)
+             32 LOAD_FAST                1 (c)
+             34 BUILD_TUPLE              2
+             36 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 import copy
 
 
@@ -3307,31 +3292,31 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.825340986252
+... 0.7272657469875412
 >>> 
 >>> dis(a)
   8           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 LOAD_CONST               6 (6)
-             18 LOAD_CONST               7 (7)
-             21 LOAD_CONST               8 (8)
-             24 LOAD_CONST               9 (9)
-             27 BUILD_LIST               9
-             30 STORE_FAST               0 (l)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 LOAD_CONST               6 (6)
+             12 LOAD_CONST               7 (7)
+             14 LOAD_CONST               8 (8)
+             16 LOAD_CONST               9 (9)
+             18 BUILD_LIST               9
+             20 STORE_FAST               0 (l)
 
-  9          33 LOAD_GLOBAL              0 (copy)
-             36 LOAD_ATTR                0 (copy)
-             39 LOAD_FAST                0 (l)
-             42 CALL_FUNCTION            1
-             45 STORE_FAST               1 (c)
+  9          22 LOAD_GLOBAL              0 (copy)
+             24 LOAD_ATTR                0 (copy)
+             26 LOAD_FAST                0 (l)
+             28 CALL_FUNCTION            1
+             30 STORE_FAST               1 (c)
 
- 10          48 LOAD_FAST                0 (l)
-             51 LOAD_FAST                1 (c)
-             54 BUILD_TUPLE              2
-             57 RETURN_VALUE        
+ 10          32 LOAD_FAST                0 (l)
+             34 LOAD_FAST                1 (c)
+             36 BUILD_TUPLE              2
+             38 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -3341,34 +3326,29 @@ def a():
     <a href="#test36"><h4>#Test 36</h4></a>
     <div class="row-fluid" id="test36">
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     return [[0] * 5 for x in range(5)]
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.1877849102
+... 1.2911607550049666
 >>> 
 >>> dis(a)
-  5           0 BUILD_LIST               0
-              3 LOAD_GLOBAL              0 (range)
-              6 LOAD_CONST               1 (5)
-              9 CALL_FUNCTION            1
-             12 GET_ITER            
-        &gt;&gt;   13 FOR_ITER                19 (to 35)
-             16 STORE_FAST               0 (x)
-             19 LOAD_CONST               2 (0)
-             22 BUILD_LIST               1
-             25 LOAD_CONST               1 (5)
-             28 BINARY_MULTIPLY     
-             29 LIST_APPEND              2
-             32 JUMP_ABSOLUTE           13
-        &gt;&gt;   35 RETURN_VALUE        
+  5           0 LOAD_CONST               1 (&lt;code object &lt;listcomp&gt; at 0x10186b8a0, file &#34;/tmp/__pfw_test36_t1.py&#34;, line 5&gt;)
+              2 LOAD_CONST               2 (&#39;a.&lt;locals&gt;.&lt;listcomp&gt;&#39;)
+              4 MAKE_FUNCTION            0
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               3 (5)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+             14 CALL_FUNCTION            1
+             16 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     r = []
     for x in range(5):
@@ -3377,38 +3357,38 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.49530601501
+... 1.5135626650007907
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (r)
+              2 STORE_FAST               0 (r)
 
-  6           6 SETUP_LOOP              40 (to 49)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               1 (5)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                26 (to 48)
-             22 STORE_FAST               1 (x)
+  6           4 SETUP_LOOP              32 (to 38)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (5)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                20 (to 36)
+             16 STORE_FAST               1 (x)
 
-  7          25 LOAD_FAST                0 (r)
-             28 LOAD_ATTR                1 (append)
-             31 LOAD_CONST               2 (0)
-             34 BUILD_LIST               1
-             37 LOAD_CONST               1 (5)
-             40 BINARY_MULTIPLY     
-             41 CALL_FUNCTION            1
-             44 POP_TOP             
-             45 JUMP_ABSOLUTE           19
-        &gt;&gt;   48 POP_BLOCK           
+  7          18 LOAD_FAST                0 (r)
+             20 LOAD_ATTR                1 (append)
+             22 LOAD_CONST               2 (0)
+             24 BUILD_LIST               1
+             26 LOAD_CONST               1 (5)
+             28 BINARY_MULTIPLY
+             30 CALL_FUNCTION            1
+             32 POP_TOP
+             34 JUMP_ABSOLUTE           14
+        &gt;&gt;   36 POP_BLOCK
 
-  8     &gt;&gt;   49 LOAD_FAST                0 (r)
-             52 RETURN_VALUE        
+  8     &gt;&gt;   38 LOAD_FAST                0 (r)
+             40 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     r = []
     for x in range(5):
@@ -3420,49 +3400,49 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 3.76796412468
+... 4.824415105991648
 >>> 
 >>> dis(a)
   5           0 BUILD_LIST               0
-              3 STORE_FAST               0 (r)
+              2 STORE_FAST               0 (r)
 
-  6           6 SETUP_LOOP              75 (to 84)
-              9 LOAD_GLOBAL              0 (range)
-             12 LOAD_CONST               1 (5)
-             15 CALL_FUNCTION            1
-             18 GET_ITER            
-        &gt;&gt;   19 FOR_ITER                61 (to 83)
-             22 STORE_FAST               1 (x)
+  6           4 SETUP_LOOP              58 (to 64)
+              6 LOAD_GLOBAL              0 (range)
+              8 LOAD_CONST               1 (5)
+             10 CALL_FUNCTION            1
+             12 GET_ITER
+        &gt;&gt;   14 FOR_ITER                46 (to 62)
+             16 STORE_FAST               1 (x)
 
-  7          25 BUILD_LIST               0
-             28 STORE_FAST               2 (_r)
+  7          18 BUILD_LIST               0
+             20 STORE_FAST               2 (_r)
 
-  8          31 SETUP_LOOP              33 (to 67)
-             34 LOAD_GLOBAL              0 (range)
-             37 LOAD_CONST               1 (5)
-             40 CALL_FUNCTION            1
-             43 GET_ITER            
-        &gt;&gt;   44 FOR_ITER                19 (to 66)
-             47 STORE_FAST               3 (y)
+  8          22 SETUP_LOOP              26 (to 50)
+             24 LOAD_GLOBAL              0 (range)
+             26 LOAD_CONST               1 (5)
+             28 CALL_FUNCTION            1
+             30 GET_ITER
+        &gt;&gt;   32 FOR_ITER                14 (to 48)
+             34 STORE_FAST               3 (y)
 
-  9          50 LOAD_FAST                2 (_r)
-             53 LOAD_ATTR                1 (append)
-             56 LOAD_CONST               2 (0)
-             59 CALL_FUNCTION            1
-             62 POP_TOP             
-             63 JUMP_ABSOLUTE           44
-        &gt;&gt;   66 POP_BLOCK           
+  9          36 LOAD_FAST                2 (_r)
+             38 LOAD_ATTR                1 (append)
+             40 LOAD_CONST               2 (0)
+             42 CALL_FUNCTION            1
+             44 POP_TOP
+             46 JUMP_ABSOLUTE           32
+        &gt;&gt;   48 POP_BLOCK
 
- 10     &gt;&gt;   67 LOAD_FAST                0 (r)
-             70 LOAD_ATTR                1 (append)
-             73 LOAD_FAST                2 (_r)
-             76 CALL_FUNCTION            1
-             79 POP_TOP             
-             80 JUMP_ABSOLUTE           19
-        &gt;&gt;   83 POP_BLOCK           
+ 10     &gt;&gt;   50 LOAD_FAST                0 (r)
+             52 LOAD_ATTR                1 (append)
+             54 LOAD_FAST                2 (_r)
+             56 CALL_FUNCTION            1
+             58 POP_TOP
+             60 JUMP_ABSOLUTE           14
+        &gt;&gt;   62 POP_BLOCK
 
- 11     &gt;&gt;   84 LOAD_FAST                0 (r)
-             87 RETURN_VALUE        
+ 11     &gt;&gt;   64 LOAD_FAST                0 (r)
+             66 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -3472,72 +3452,7 @@ def a():
     <a href="#test37"><h4>#Test 37</h4></a>
     <div class="row-fluid" id="test37">
         
-        <div class="span4"><pre class="python">
-def a():
-    l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    del l[:]
-    return l
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.208291053772
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 LOAD_CONST               6 (6)
-             18 LOAD_CONST               7 (7)
-             21 LOAD_CONST               8 (8)
-             24 LOAD_CONST               9 (9)
-             27 BUILD_LIST               9
-             30 STORE_FAST               0 (l)
-
-  6          33 LOAD_FAST                0 (l)
-             36 DELETE_SLICE+0      
-
-  7          37 LOAD_FAST                0 (l)
-             40 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
-def a():
-    l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    l[:] = []
-    return l
-
->>> 
->>> min(timeit.repeat(a, number=1000000))
-... 0.227104187012
->>> 
->>> dis(a)
-  5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 LOAD_CONST               6 (6)
-             18 LOAD_CONST               7 (7)
-             21 LOAD_CONST               8 (8)
-             24 LOAD_CONST               9 (9)
-             27 BUILD_LIST               9
-             30 STORE_FAST               0 (l)
-
-  6          33 BUILD_LIST               0
-             36 LOAD_FAST                0 (l)
-             39 STORE_SLICE+0       
-
-  7          40 LOAD_FAST                0 (l)
-             43 RETURN_VALUE        
-
->>> 
-        </pre></div>
-        
-        <div class="span4"><pre class="python">
+        <div class="span4.0"><pre class="python">
 def a():
     l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     l *= 0
@@ -3545,28 +3460,99 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.268013000488
+... 0.19978711700241547
 >>> 
 >>> dis(a)
   5           0 LOAD_CONST               1 (1)
-              3 LOAD_CONST               2 (2)
-              6 LOAD_CONST               3 (3)
-              9 LOAD_CONST               4 (4)
-             12 LOAD_CONST               5 (5)
-             15 LOAD_CONST               6 (6)
-             18 LOAD_CONST               7 (7)
-             21 LOAD_CONST               8 (8)
-             24 LOAD_CONST               9 (9)
-             27 BUILD_LIST               9
-             30 STORE_FAST               0 (l)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 LOAD_CONST               6 (6)
+             12 LOAD_CONST               7 (7)
+             14 LOAD_CONST               8 (8)
+             16 LOAD_CONST               9 (9)
+             18 BUILD_LIST               9
+             20 STORE_FAST               0 (l)
 
-  6          33 LOAD_FAST                0 (l)
-             36 LOAD_CONST              10 (0)
-             39 INPLACE_MULTIPLY    
-             40 STORE_FAST               0 (l)
+  6          22 LOAD_FAST                0 (l)
+             24 LOAD_CONST              10 (0)
+             26 INPLACE_MULTIPLY
+             28 STORE_FAST               0 (l)
 
-  7          43 LOAD_FAST                0 (l)
-             46 RETURN_VALUE        
+  7          30 LOAD_FAST                0 (l)
+             32 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    del l[:]
+    return l
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.2298538190079853
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 LOAD_CONST               6 (6)
+             12 LOAD_CONST               7 (7)
+             14 LOAD_CONST               8 (8)
+             16 LOAD_CONST               9 (9)
+             18 BUILD_LIST               9
+             20 STORE_FAST               0 (l)
+
+  6          22 LOAD_FAST                0 (l)
+             24 LOAD_CONST               0 (None)
+             26 LOAD_CONST               0 (None)
+             28 BUILD_SLICE              2
+             30 DELETE_SUBSCR
+
+  7          32 LOAD_FAST                0 (l)
+             34 RETURN_VALUE
+
+>>> 
+        </pre></div>
+        
+        <div class="span4.0"><pre class="python">
+def a():
+    l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    l[:] = []
+    return l
+
+>>> 
+>>> min(timeit.repeat(a, number=1000000))
+... 0.26064389100065455
+>>> 
+>>> dis(a)
+  5           0 LOAD_CONST               1 (1)
+              2 LOAD_CONST               2 (2)
+              4 LOAD_CONST               3 (3)
+              6 LOAD_CONST               4 (4)
+              8 LOAD_CONST               5 (5)
+             10 LOAD_CONST               6 (6)
+             12 LOAD_CONST               7 (7)
+             14 LOAD_CONST               8 (8)
+             16 LOAD_CONST               9 (9)
+             18 BUILD_LIST               9
+             20 STORE_FAST               0 (l)
+
+  6          22 BUILD_LIST               0
+             24 LOAD_FAST                0 (l)
+             26 LOAD_CONST               0 (None)
+             28 LOAD_CONST               0 (None)
+             30 BUILD_SLICE              2
+             32 STORE_SUBSCR
+
+  7          34 LOAD_FAST                0 (l)
+             36 RETURN_VALUE
 
 >>> 
         </pre></div>
@@ -3574,9 +3560,9 @@ def a():
     </div>
     
     <a href="#test38"><h4>#Test 38</h4></a>
-    <div class="row-fluid" id="test2">
+    <div class="row-fluid" id="test38">
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 class Spam():
     def __init__(self):
         self.eggs = 'eggs'
@@ -3592,41 +3578,42 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.316148996353
+... 0.45050241600256413
 >>> 
 >>> dis(a)
  10           0 LOAD_GLOBAL              0 (Spam)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (spam)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (spam)
 
- 11           9 SETUP_EXCEPT            13 (to 25)
+ 11           6 SETUP_EXCEPT            10 (to 18)
 
- 12          12 LOAD_FAST                0 (spam)
-             15 LOAD_ATTR                1 (eggs)
-             18 STORE_FAST               1 (eggs)
-             21 POP_BLOCK           
-             22 JUMP_FORWARD            23 (to 48)
+ 12           8 LOAD_FAST                0 (spam)
+             10 LOAD_ATTR                1 (eggs)
+             12 STORE_FAST               1 (eggs)
+             14 POP_BLOCK
+             16 JUMP_FORWARD            24 (to 42)
 
- 13     &gt;&gt;   25 DUP_TOP             
-             26 LOAD_GLOBAL              2 (AttributeError)
-             29 COMPARE_OP              10 (exception match)
-             32 POP_JUMP_IF_FALSE       47
-             35 POP_TOP             
-             36 POP_TOP             
-             37 POP_TOP             
+ 13     &gt;&gt;   18 DUP_TOP
+             20 LOAD_GLOBAL              2 (AttributeError)
+             22 COMPARE_OP              10 (exception match)
+             24 POP_JUMP_IF_FALSE       40
+             26 POP_TOP
+             28 POP_TOP
+             30 POP_TOP
 
- 14          38 LOAD_CONST               0 (None)
-             41 STORE_FAST               1 (eggs)
-             44 JUMP_FORWARD             1 (to 48)
-        &gt;&gt;   47 END_FINALLY         
+ 14          32 LOAD_CONST               0 (None)
+             34 STORE_FAST               1 (eggs)
+             36 POP_EXCEPT
+             38 JUMP_FORWARD             2 (to 42)
+        &gt;&gt;   40 END_FINALLY
 
- 15     &gt;&gt;   48 LOAD_FAST                1 (eggs)
-             51 RETURN_VALUE        
+ 15     &gt;&gt;   42 LOAD_FAST                1 (eggs)
+             44 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 class Spam():
     def __init__(self):
         self.eggs = 'eggs'
@@ -3642,34 +3629,34 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.38082909584
+... 0.5812358090042835
 >>> 
 >>> dis(a)
  10           0 LOAD_GLOBAL              0 (Spam)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (spam)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (spam)
 
- 11           9 LOAD_GLOBAL              1 (hasattr)
-             12 LOAD_FAST                0 (spam)
-             15 LOAD_CONST               1 (&#39;eggs&#39;)
-             18 CALL_FUNCTION            2
-             21 POP_JUMP_IF_FALSE       36
+ 11           6 LOAD_GLOBAL              1 (hasattr)
+              8 LOAD_FAST                0 (spam)
+             10 LOAD_CONST               1 (&#39;eggs&#39;)
+             12 CALL_FUNCTION            2
+             14 POP_JUMP_IF_FALSE       24
 
- 12          24 LOAD_FAST                0 (spam)
-             27 LOAD_ATTR                2 (eggs)
-             30 STORE_FAST               1 (eggs)
-             33 JUMP_FORWARD             6 (to 42)
+ 12          16 LOAD_FAST                0 (spam)
+             18 LOAD_ATTR                2 (eggs)
+             20 STORE_FAST               1 (eggs)
+             22 JUMP_FORWARD             4 (to 28)
 
- 14     &gt;&gt;   36 LOAD_CONST               0 (None)
-             39 STORE_FAST               1 (eggs)
+ 14     &gt;&gt;   24 LOAD_CONST               0 (None)
+             26 STORE_FAST               1 (eggs)
 
- 15     &gt;&gt;   42 LOAD_FAST                1 (eggs)
-             45 RETURN_VALUE        
+ 15     &gt;&gt;   28 LOAD_FAST                1 (eggs)
+             30 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 class Spam():
     def __init__(self):
         self.not_eggs = 'eggs'
@@ -3685,34 +3672,34 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 0.75745010376
+... 0.7935844930034364
 >>> 
 >>> dis(a)
  10           0 LOAD_GLOBAL              0 (Spam)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (spam)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (spam)
 
- 11           9 LOAD_GLOBAL              1 (hasattr)
-             12 LOAD_FAST                0 (spam)
-             15 LOAD_CONST               1 (&#39;eggs&#39;)
-             18 CALL_FUNCTION            2
-             21 POP_JUMP_IF_FALSE       36
+ 11           6 LOAD_GLOBAL              1 (hasattr)
+              8 LOAD_FAST                0 (spam)
+             10 LOAD_CONST               1 (&#39;eggs&#39;)
+             12 CALL_FUNCTION            2
+             14 POP_JUMP_IF_FALSE       24
 
- 12          24 LOAD_FAST                0 (spam)
-             27 LOAD_ATTR                2 (eggs)
-             30 STORE_FAST               1 (eggs)
-             33 JUMP_FORWARD             6 (to 42)
+ 12          16 LOAD_FAST                0 (spam)
+             18 LOAD_ATTR                2 (eggs)
+             20 STORE_FAST               1 (eggs)
+             22 JUMP_FORWARD             4 (to 28)
 
- 14     &gt;&gt;   36 LOAD_CONST               0 (None)
-             39 STORE_FAST               1 (eggs)
+ 14     &gt;&gt;   24 LOAD_CONST               0 (None)
+             26 STORE_FAST               1 (eggs)
 
- 15     &gt;&gt;   42 LOAD_FAST                1 (eggs)
-             45 RETURN_VALUE        
+ 15     &gt;&gt;   28 LOAD_FAST                1 (eggs)
+             30 RETURN_VALUE
 
 >>> 
         </pre></div>
         
-        <div class="span3"><pre class="python">
+        <div class="span3.0"><pre class="python">
 class Spam():
     def __init__(self):
         self.not_eggs = 'eggs'
@@ -3728,42 +3715,44 @@ def a():
 
 >>> 
 >>> min(timeit.repeat(a, number=1000000))
-... 1.55197000504
+... 0.8929188259935472
 >>> 
 >>> dis(a)
  10           0 LOAD_GLOBAL              0 (Spam)
-              3 CALL_FUNCTION            0
-              6 STORE_FAST               0 (spam)
+              2 CALL_FUNCTION            0
+              4 STORE_FAST               0 (spam)
 
- 11           9 SETUP_EXCEPT            13 (to 25)
+ 11           6 SETUP_EXCEPT            10 (to 18)
 
- 12          12 LOAD_FAST                0 (spam)
-             15 LOAD_ATTR                1 (eggs)
-             18 STORE_FAST               1 (eggs)
-             21 POP_BLOCK           
-             22 JUMP_FORWARD            23 (to 48)
+ 12           8 LOAD_FAST                0 (spam)
+             10 LOAD_ATTR                1 (eggs)
+             12 STORE_FAST               1 (eggs)
+             14 POP_BLOCK
+             16 JUMP_FORWARD            24 (to 42)
 
- 13     &gt;&gt;   25 DUP_TOP             
-             26 LOAD_GLOBAL              2 (AttributeError)
-             29 COMPARE_OP              10 (exception match)
-             32 POP_JUMP_IF_FALSE       47
-             35 POP_TOP             
-             36 POP_TOP             
-             37 POP_TOP             
+ 13     &gt;&gt;   18 DUP_TOP
+             20 LOAD_GLOBAL              2 (AttributeError)
+             22 COMPARE_OP              10 (exception match)
+             24 POP_JUMP_IF_FALSE       40
+             26 POP_TOP
+             28 POP_TOP
+             30 POP_TOP
 
- 14          38 LOAD_CONST               0 (None)
-             41 STORE_FAST               1 (eggs)
-             44 JUMP_FORWARD             1 (to 48)
-        &gt;&gt;   47 END_FINALLY         
+ 14          32 LOAD_CONST               0 (None)
+             34 STORE_FAST               1 (eggs)
+             36 POP_EXCEPT
+             38 JUMP_FORWARD             2 (to 42)
+        &gt;&gt;   40 END_FINALLY
 
- 15     &gt;&gt;   48 LOAD_FAST                1 (eggs)
-             51 RETURN_VALUE        
+ 15     &gt;&gt;   42 LOAD_FAST                1 (eggs)
+             44 RETURN_VALUE
 
 >>> 
         </pre></div>
         
     </div>
     
+<p><small>Hosted by <a href="https://github.com/timkofu" target="_none" style="text-decoration: none">@timkofu</a></small></p>
 </div>
 <script src="javascripts/highlight.pack.js"></script>
 <script>
@@ -3773,20 +3762,6 @@ def a():
             hljs.highlightBlock(aCodes[i]);
         }
     };
-</script>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-17236714-3']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
 </script>
 </body>
 </html>

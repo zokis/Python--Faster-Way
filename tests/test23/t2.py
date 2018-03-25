@@ -1,2 +1,2 @@
 def a():
-    return ''.join(map(str, xrange(10)))
+    return ''.join(map(str, range(10)))

@@ -3,10 +3,7 @@ Python--Faster-Way
 
 Python: Faster Way
 
-http://pythonfasterway.cf/
-
-http://zokis.github.io/Python--Faster-Way/
-
+https://pythonfasterway.appspot.com/
 
 Creating a new test: 
 --------------------
@@ -21,4 +18,4 @@ To generate the Page run:
 ```
 python gen_page.py
 ```
-this process can take
+this process can take some time.
