@@ -19,10 +19,10 @@ tmp = Path('/tmp')
 def main():
     def gen_tests():
         for Tx, group_x_dir in enumerate(test_path.walk(filter=DIRS), 1):
-            print "Gen Test: %s" % Tx
+            print("Gen Test: %s" % Tx)
             group = []
             for tx, test_x_file in enumerate(group_x_dir.walk(filter=FILES), 1):
-                print "    Sub Test: %s" % tx
+                print("    Sub Test: %s" % tx)
                 file_content = test_x_file.read_file()
 
                 dis_test_content = dis_template % file_content
@@ -42,10 +42,10 @@ def main():
                 code = compile(file_content, '<string>', 'exec')
 
                 f = {'number': None}
-                exec code in f
+                exec(code, f)
                 number = f['number'] or NUMBER
                 group.append({
-                    'dis': out,
+                    'dis': out.decode('utf8'),
                     'file_content': file_content,
                     'number': number,
                     'timeit_min': min(timeit.repeat(f['a'], number=number)),
